@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- 빈 객체를 자동 등록 처리 -->
+	<context:component-scan base-package="kr.co.mlec" />
+
+	<!-- mvc 관련 객체 등록 작업 진행 : @RequestMapping 어노테이션을 처리 등.. -->	
+    <mvc:annotation-driven />
+    
+	<!-- WEB의 정적 페이지 처리 등을 위해 사용 -->	
+	<mvc:default-servlet-handler />
+	
+	<!-- JSP 페이지로 이동 시 아래의 설정 내용을 참고 -->
+	<mvc:view-resolvers>
+		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
+	</mvc:view-resolvers>
+
+</beans>
