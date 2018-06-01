@@ -4,17 +4,36 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans   
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/context   
-    http://www.springframework.org/schema/context/spring-context.xsd
-    http://www.springframework.org/schema/mvc
-    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    					http://www.springframework.org/schema/beans/spring-beans.xsd
+    					http://www.springframework.org/schema/context   
+    					http://www.springframework.org/schema/context/spring-context.xsd
+    					http://www.springframework.org/schema/mvc
+    					http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
 
 	<!-- 빈 객체를 자동 등록 처리 -->
 	<context:component-scan base-package="kr.co.mlec" />
 
 	<!-- mvc 관련 객체 등록 작업 진행 : @RequestMapping 어노테이션을 처리 등.. -->	
-    <mvc:annotation-driven />
+    <mvc:annotation-driven>
+    	<mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            	<property name="supportedMediaTypes">
+	                <list>
+	                	<value>text/html; charset=UTF-8</value>
+	                </list>
+                </property>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	            <property name="supportedMediaTypes">
+		            <list>
+			            <value>text/html; charset=UTF-8</value>
+			            <value>application/json; charset=UTF-8</value>
+		            </list>
+	            </property>
+            </bean>
+        </mvc:message-converters>
+	</mvc:annotation-driven>
     
 	<!-- WEB의 정적 페이지 처리 등을 위해 사용 -->	
 	<mvc:default-servlet-handler />
@@ -23,5 +42,22 @@
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
 	</mvc:view-resolvers>
-
+	
+	<!-- 파일 업로드 최대 사이즈 지정 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="10485760" />        
+	</bean>
+	
+	<!-- 인터셉터 -->
+	<mvc:interceptors>
+        <mvc:interceptor>
+                <mvc:mapping path="/interceptor/**" />
+                <mvc:exclude-mapping path="/interceptor/login*.do" />
+                <bean class="kr.co.mlec.interceptor.AuthInterceptor" />
+        </mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 컨트롤러없이 페이지 이동 -->
+	<mvc:view-controller path="/file/uploadForm.do" view-name="file/fileUploadForm"/>
+	
 </beans>
