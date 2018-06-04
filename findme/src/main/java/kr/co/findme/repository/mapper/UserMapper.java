@@ -1,5 +1,5 @@
 package kr.co.findme.repository.mapper;
 
-public class UserMapper {
+public interface UserMapper {
 
 }
