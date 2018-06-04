@@ -1,0 +1,67 @@
+#calendarContent {
+	height: 630px;	
+}
+
+#keyword {
+  width:300px;
+}
+
+#areachkbox {
+  float:left;
+}
+
+#areaList {
+  float:left;
+  margin-right:10px;
+}
+
+ol, ul {
+  list-style:none;
+}
+
+#formTitle {
+  color:blue;
+}
+
+#searchRow {
+  border-bottom:1px dashed gray;
+}
+
+#searchTitle {
+  line-height:46px;
+  color:rgb(123,123,222);
+}
+
+#searchWriteArea {
+  line-height:46px;
+}
+
+h4.option_title {
+  width:120px;
+  float:left;
+}
+
+#search-wrapper{
+	height: 40px;
+	line-height: 40px;
+	margin-bottom: 5px;
+	border-bottom: 1px dashed skyblue;
+}
+
+#condition {
+	font-weight: bold;
+	color: blue;
+}
+
+#searchbutton {
+	margin-top: 10px;
+}
+
+#joblist {
+	margin-top: 10px;
+}
+
+#resumetitle {
+	font-size: 20px;
+	color: skyblue;
+}
