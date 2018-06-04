@@ -38,27 +38,58 @@
     </div>
     </nav>
     </div>
-    <div class="container" id="container" style="margin-top:20px;">
-        <div>
-        	<select onchange="window.open(value,'_self');">
-	        	<optgroup label="월별 Graph">
-        		<option value="">월별 Graph</option>
-    	    	<option value="${pageContext.request.contextPath}/mystat/graph.do">2018 상반기</option>
-        		<option value="13">2018 하반기</option>
-        		<option value="14">2019 상반기</option>
-        		</optgroup>
-        	</select>
+    <div class="container">
+        <div class="col-md-9">
+            <h1 id="status">Application Status</h1>
         </div>
-        <div style="line-height:190px;"> 
-            <div class="col-lg-3 col-md-3" style="text-align:center;"><img src="${pageContext.request.contextPath}/resources/images/pie2.png"></div>
-            <div class="col-lg-3 col-md-3" style="text-align:center;"><img src="${pageContext.request.contextPath}/resources/images/pie2.png"></div>
-            <div class="col-lg-3 col-md-3" ><i class="glyphicon glyphicon-arrow-right" style="font-size:50px;margin-left:23px;"></i><i class="glyphicon glyphicon-arrow-right" style="font-size:50px;margin-left:23px;"></i><i class="glyphicon glyphicon-arrow-right" style="font-size:50px;margin-left:23px;"></i></div>
-            <div class="col-lg-3 col-md-3" style="text-align:center;"><img src="${pageContext.request.contextPath}/resources/images/pie1.png"></div>
+    </div>
+    <div id="container">
+        <div class="table-responsive container" id="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>no</th>
+                        <th>Company</th>
+                        <th>지원날짜</th>
+                        <th>지원현황</th>
+                        <th>최종발표</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+<!--                         <td><input type="text" name="no" value=""/></td> 수정 삭제 시--> 
+                        <td>회사1</td>
+                        <td>2018-05-23</td>
+                        <td>서류제출완료</td>
+                        <td>미발표</td>
+                        <td id="statustd" style="width:150px;">
+                            <div class="btn-group" role="group" id="statusbtn"><button class="btn btn-default" type="button">수정</button><button class="btn btn-default" type="button">삭제</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>회사2<br></td>
+                        <td>2018-05-23<br></td>
+                        <td>1차면접완료</td>
+                        <td>미발표</td>
+                        <td id="statustd">
+                            <div class="btn-group" role="group" id="statusbtn"><button class="btn btn-default" type="button">수정</button><button class="btn btn-default" type="button">삭제</button></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>회사3<br></td>
+                        <td>2018-05-23<br></td>
+                        <td>2차면접완료</td>
+                        <td>발표</td>
+                        <td id="statustd">
+                            <div class="btn-group" role="group" id="statusbtn"><button class="btn btn-default" type="button">수정</button><button class="btn btn-default" type="button">삭제</button></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div>
-            <p id="summary">2018년 5월 29일 기준<br>총 10개 기업에 지원, <br>최종 발표 결과 0개,<br>미발표 10개.<br><br><br>CONTROL WHAT YOU CAN, CONFRONT WHAT YOU CAN'T<br><br></p>
-        </div>
-        <div><button class="btn btn-default" type="button" id="detail" onclick="location.href='${pageContext.request.contextPath}/mystat/detail.do'">지원 목록 상세보기</button></div>
     </div>
 </body>
 

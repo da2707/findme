@@ -25,7 +25,7 @@
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/calendar/calendar.do">MyCalendar</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/resume/list.do">MyResume</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/main.do">MyStat</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/chart.do">MyStat</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do">StudyRoom</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/recruit/recuit.do">Recruiting</a></li>
                     </ul>
