@@ -9,6 +9,7 @@
   		<param-name>contextConfigLocation</param-name>
   		<param-value>
   			classpath:config/spring/spring-mvc.xml
+  			classpath:db/spring/context-repository.xml
   		</param-value>
   	</init-param>
   	<load-on-startup>1</load-on-startup>
@@ -17,6 +18,7 @@
   <servlet-mapping>
   	<servlet-name>dispatcher</servlet-name>
 	<url-pattern>*.do</url-pattern>  
+	<url-pattern>*.json</url-pattern>  
   </servlet-mapping>
   
   <filter>

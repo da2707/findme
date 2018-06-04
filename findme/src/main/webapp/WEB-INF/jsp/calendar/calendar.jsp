@@ -252,27 +252,41 @@
     
     <script>
     	$(document).ready(function() {
+    		var arr = [];
+    		$.ajax({
+    			url: "list.json",
+    			datatype: "json"
+    		})
+    		.done(function (result) {
+    			for (var i = 0; i < result.length; i++) {
+    				arr.push(new Object({title : result[i].title, start : result[i].start, end : result[i].end}));
+    			}
+    		});
+    		
     		$('div#cal').fullCalendar({
     			weekends: false,
     			eventSources: [
     				{
-	    			events: [
-	    				    {
-	    				      title  : '2차 웹 프로젝트',
-	    				      start  : '2018-06-04',
-	    				      end	 : '2018-06-11'
-	    				    },
-	    				    {
-	    				      title  : 'PPT 작성',
-	    				      start  : '2018-05-29',
-	    				      end    : '2018-05-29'
-	    				    },
-	    				    {
-	    				      title  : '이사',
-	    				      start  : '2018-06-01T12:30:00',
-	    				      allDay : false // will make the time show
-	    				    }
-	    				  ],
+	    			events: arr,
+	    				
+	    				
+// 	    				  [
+// 	    				    {
+// 	    				      title  : '2차 웹 프로젝트',
+// 	    				      start  : '2018-06-04',
+// 	    				      end	 : '2018-06-11'
+// 	    				    },
+// 	    				    {
+// 	    				      title  : 'PPT 작성',
+// 	    				      start  : '2018-05-29',
+// 	    				      end    : '2018-05-29'
+// 	    				    },
+// 	    				    {
+// 	    				      title  : '이사',
+// 	    				      start  : '2018-06-01T12:30:00',
+// 	    				      allDay : false // will make the time show
+// 	    				    }
+// 	    				  ],
 					color: 'black',
 					textColor: 'yellow'
 	    			}

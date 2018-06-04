@@ -4,5 +4,5 @@ import java.util.Calendar;
 import java.util.List;
 
 public interface CalendarMapper {
-	List<Calendar> selectCalendar();
+	List<Calendar> selectCalendar() throws Exception;
 }

@@ -9,8 +9,8 @@ public class Calendar {
 	private String title;
 	private String name;
 	private Date regDate;
-	private Date startDate;
-	private Date endDate;
+	private Date start;
+	private Date end;
 	private char apply;
 	private String codeNo;
 	private int finalRound;
@@ -53,17 +53,18 @@ public class Calendar {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	public Date getStartDate() {
-		return startDate;
+	
+	public Date getStart() {
+		return start;
 	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStart(Date start) {
+		this.start = start;
 	}
-	public Date getEndDate() {
-		return endDate;
+	public Date getEnd() {
+		return end;
 	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	public void setEnd(Date end) {
+		this.end = end;
 	}
 	public char getApply() {
 		return apply;
