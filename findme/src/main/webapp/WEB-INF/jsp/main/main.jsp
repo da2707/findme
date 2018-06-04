@@ -18,16 +18,16 @@
     <div>
         <nav class="navbar navbar-default navigation-clean-button">
             <div class="container">
-                <div class="navbar-header"><a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp">FindMe</a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
+                <div class="navbar-header"><a class="navbar-brand" href="${pageContext.request.contextPath}/main.do">FindMe</a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                 <div
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/jsp/community/list.jsp">Community</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/jsp/calendar/calendar.jsp">MyCalendar</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/jsp/resume/resumelist.jsp">MyResume</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/jsp/mystat/main.jsp">MyStat</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/jsp/studyroom/video.jsp">StudyRoom</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/jsp/recruiting/hireinfo.jsp">Recruiting</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/calendar/calendar.do">MyCalendar</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/resume/list.do">MyResume</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/main.do">MyStat</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do">StudyRoom</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/recruit/recuit.do">Recruiting</a></li>
                     </ul>
                     <p class="navbar-text navbar-right actions">
 	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
