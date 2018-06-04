@@ -1,5 +1,5 @@
 package kr.co.findme.board.service;
 
-public class BoardService {
+public interface BoardService {
 
 }

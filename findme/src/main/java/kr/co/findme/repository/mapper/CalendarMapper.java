@@ -1,5 +1,8 @@
 package kr.co.findme.repository.mapper;
 
-public interface CalendarMapper {
+import java.util.Calendar;
+import java.util.List;
 
+public interface CalendarMapper {
+	List<Calendar> selectCalendar();
 }

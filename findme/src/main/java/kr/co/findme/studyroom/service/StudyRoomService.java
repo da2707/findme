@@ -1,5 +1,5 @@
 package kr.co.findme.studyroom.service;
 
-public class StudyRoomService {
+public interface StudyRoomService {
 
 }
