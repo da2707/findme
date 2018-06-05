@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/Navigation-with-Button.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- 각자 folder 위치에 맞게 수정하세요 -->
 </head>
