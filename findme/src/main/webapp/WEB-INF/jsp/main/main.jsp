@@ -31,7 +31,7 @@
                     </ul>
                     <p class="navbar-text navbar-right actions">
 	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
-	                    <a href="${pageContext.request.contextPath}/view/user/signup.jsp" 
+	                    <a href="${pageContext.request.contextPath}/user/signup.do" 
 	                       class="navbar-link signup btn btn-default action-button">Sign Up</a>
                     </p>
             </div>
@@ -137,6 +137,7 @@
     </div>
     
    	<!-- Login -->
+   	<form name="mForm" action="${pageContext.request.contextPath}/main.do" onsubmit="return doAction()">
 	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -144,20 +145,36 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel">Log in</h4>
 	      </div>
-	      <div class="modal-body">
-		    <input class="form-control" type="text" placeholder="ID">
-		    <input class="form-control" type="password" placeholder="Password"><br>
-		    <button class="btn btn-primary btn-block" type="submit">Log In</button>
+	      <div class="modal-body" onsubmit="return doAction()">
+		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><br>
+		    <input class="form-control" id="pw" name="pw" type="password" placeholder="Password"><br>
+		    <button class="btn btn-primary btn-block" id="loginBtn" type="submit" >Log In</button>
 		  </div>
 		  	<div class="naverimg">
 			    <a href="#" class="forgot">Forgot your email or password?</a><br>
 				<a id="naverIdLogin_loginButton" href="#" role="button">
 					<img id="naverimg" src="https://static.nid.naver.com/oauth/big_g.PNG" width=200>
-				</a>
+				</a><br>
 		  	</div>
 	    </div>
 	  </div>
 	</div>
+   	</form>
+
+<script>
+function doAction(){
+	var id = $('#id').val();
+	var pw = $('#pw').val();
+	if(id=='') {
+		alert("아이디 입력");
+		return false;
+}  	
+	if(pw=='') {
+		alert("비번 입력");
+		return false;
+	}
+}	
+</script>
 	
 </body>
 
