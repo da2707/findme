@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -58,49 +59,18 @@
                                 <th style="width:90px;">마감일</th>
                             </tr>
                         </thead>
+                        <c:forEach items="${moditimes}" var="modi" varStatus="status">
                         <tbody>
                             <tr style="padding-top:0px;">
                                 <td style="padding-top:35px;">80%</td>
-                                <td style="padding-top:35px;">2018-05-18</td>
-                                <td style="padding-top:35px;">(주)씨퍼스트코리아</td>
-                                <td><br><a href="">엠스테이호텔 기흥 - 마케팅 신입, 경력(남,여)...</a>&nbsp;<a data-toggle="modal" data-target="#myModal">[요약보기]</a>[경기
-                                    &gt; 용인시 기흥구] [호텔·여행·항공] [학력무관] [경력무관]<br><br></td>
-                                <td style="padding-top:35px;">2018-06-17</td>
+                                <td style="padding-top:35px;">${modi}</td>
+                                <td style="padding-top:35px;">${companies[status.index]}</td>
+                                <td><br><a href="">${positions[status.index]}</a>&nbsp;<a data-toggle="modal" data-target="#myModal"></a>
+                                    &gt; <br><br></td>
+                                <td style="padding-top:35px;">${expitimes[status.index]}</td>
                             </tr>
-                            <tr style="padding-top:0px;">
-                                <td style="padding-top:35px;">30%</td>
-                                <td style="padding-top:35px;">2018-05-18</td>
-                                <td style="padding-top:35px;">포디믹스</td>
-                                <td><br><a href="http://www.saramin.co.kr/zf_user/recruit/recruit-view/idx/33924758#utm_source=job-search-api&amp;utm_medium=api&amp;utm_campaign=saramin-job-search-api">주식회사 포디믹스에서 조형제작팀원을 구합니다. </a>&nbsp;<a href="https://cms1.ks.ac.kr/job/WorkSuburb/list.do?mCode=MN0050#n">[요약보기]</a>[경기
-                                    &gt; [대전 > 중구] [디자인·설계] [대학교졸업(4년)이상] [경력1년↑]<br><br></td>
-                                <td style="padding-top:35px;">2018-06-17</td>
-                            </tr>
-                            <tr style="padding-top:0px;">
-                                <td style="padding-top:35px;">20%</td>
-                                <td style="padding-top:35px;">2018-05-18</td>
-                                <td style="padding-top:35px;">극단해오름</td>
-                                <td><br><a href="http://www.saramin.co.kr/zf_user/recruit/recruit-view/idx/33924758#utm_source=job-search-api&amp;utm_medium=api&amp;utm_campaign=saramin-job-search-api">극단업무 및 공연스텝 모집</a>&nbsp;<a href="https://cms1.ks.ac.kr/job/WorkSuburb/list.do?mCode=MN0050#n">[요약보기]</a>[경기
-                                    &gt; [인천 > 남구] [공연·예술·문화] [대학졸업(2,3년)이상] [경력무관]<br><br></td>
-                                <td style="padding-top:35px;">2018-06-17</td>
-                            </tr>
-                            <tr style="padding-top:0px;">
-                                <td style="padding-top:35px;">50%</td>
-                                <td style="padding-top:35px;">2018-05-18</td>
-                                <td style="padding-top:35px;">에이스파트너스</td>
-                                <td><br><a href="http://www.saramin.co.kr/zf_user/recruit/recruit-view/idx/33924758#utm_source=job-search-api&amp;utm_medium=api&amp;utm_campaign=saramin-job-search-api">1553[중국,8-25년]자동차 전기장치 부품품질... </a>&nbsp;<a href="https://cms1.ks.ac.kr/job/WorkSuburb/list.do?mCode=MN0050#n">[요약보기]</a>[경기
-                                    &gt; [서울 > 강남구] [네트워크·통신·모바일] [대학교졸업(4년)이상] [경력 8~16년]<br><br></td>
-                                <td style="padding-top:35px;">2018-06-17</td>
-                            </tr>
-                            <tr style="padding-top:0px;">
-                                <td style="padding-top:35px;">50%</td>
-                                <td style="padding-top:35px;">2018-05-18</td>
-                                <td style="padding-top:35px;">나주곰탕</td>
-                                <td><br><a href="http://www.saramin.co.kr/zf_user/recruit/recruit-view/idx/33924758#utm_source=job-search-api&amp;utm_medium=api&amp;utm_campaign=saramin-job-search-api">송파 나주곰탕 본점에서 주방직원을 모집합니다</a>&nbsp;<a href="https://cms1.kr/job/WorkSuburb/list.do?mCode=MN0050#n">[요약보기]</a>[경기
-                                    &gt; [서울 > 송파구] [외식업·식음료] [학력무관] [경력무관]<br><br></td>
-                                <td style="padding-top:35px;">2018-06-17</td>
-                            </tr>
-                            <tr></tr>
                         </tbody>
+                        </c:forEach>
                     </table>
                 </div>
             </div>
