@@ -18,5 +18,9 @@ public class ScheduleServiceExec implements ScheduleService {
 	public List<Schedule> retrieveList() throws Exception {
 		return mapper.selectSchedule();
 	}
-	
+
+	@Override
+	public void updateDate(Schedule schedule) throws Exception {
+		mapper.updateDate(schedule);
+	}
 }

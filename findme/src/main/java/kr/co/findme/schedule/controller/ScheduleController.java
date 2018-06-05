@@ -32,7 +32,6 @@ public class ScheduleController {
 	@RequestMapping("/updateDate.json") 
 	@ResponseBody
 	public void update(Schedule schedule) throws Exception {
-		System.out.println(schedule.getUniqueNo());
-		System.out.println(schedule.getDays());
+		scheduleService.updateDate(schedule);
 	}
 }
