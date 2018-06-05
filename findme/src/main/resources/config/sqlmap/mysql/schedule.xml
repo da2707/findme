@@ -25,33 +25,11 @@
 	
 	<update id="updateDate" parameterType="schedule">
 		update tb_calendar
-		   set start_date = case when #{days} > 0 then start_date + #{days}
-		   					else start_date - #{days} end,
-		   	   end_date = case when #{days} > 0 then start_date + #{days}
-		   					else start_date - #{days} end,
+		   set start_date = case when days > 0 then start_date + days
+		   					else start_date - days end,
+		   	   end_date = case when days > 0 then start_date + days
+		   					else start_date - days end,
 		 where recruit_no = #{recruitNo}
 	</update>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
