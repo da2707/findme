@@ -2,8 +2,8 @@ package kr.co.findme.repository.domain;
 
 import java.util.Date;
 
-public class Calendar {
-	private String id;
+public class Schedule {
+	private String userId;
 	private int uniqueNo;
 	private int recruitNo;
 	private String title;
@@ -16,12 +16,20 @@ public class Calendar {
 	private int finalRound;
 	private char result;
 	private String link;
+	private int days;
+
 	
-	public String getId() {
-		return id;
+	public int getDays() {
+		return days;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setDays(int days) {
+		this.days = days;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public int getUniqueNo() {
 		return uniqueNo;

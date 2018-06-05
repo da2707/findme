@@ -7,15 +7,18 @@
     <title>secondWeb_calendar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/Navigation-with-Button.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fullcalendar/fullcalendar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
 	
 	<script src='${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js'></script>
-	<script src='${pageContext.request.contextPath}/resources/js/fullcalendar/fullcalendar.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/js/fullcalendar/locale-all.js'></script>
+	<script src='${pageContext.request.contextPath}/resources/js/fullcalendar/jquery-ui.min.js'></script>
+	
 	
 </head>
 
@@ -237,7 +240,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+	        <h4 class="modal-title" id="myModalLabel">구직 일정 관리</h4>
 	      </div>
 	      <div id="schedulebody" class="modal-body">
 	        ...
@@ -251,63 +254,62 @@
 	</div>
     
     <script>
+    	
+    	
     	$(document).ready(function() {
-    		var arr = [];
-    		$.ajax({
-    			url: "list.json",
-    			datatype: "json"
-    		})
-    		.done(function (result) {
-    			for (var i = 0; i < result.length; i++) {
-    				arr.push(new Object({title : result[i].title, start : result[i].start, end : result[i].end}));
-    			}
-    		});
-    		
     		$('div#cal').fullCalendar({
-    			weekends: false,
-    			eventSources: [
-    				{
-	    			events: arr,
-	    				
-	    				
-// 	    				  [
-// 	    				    {
-// 	    				      title  : '2차 웹 프로젝트',
-// 	    				      start  : '2018-06-04',
-// 	    				      end	 : '2018-06-11'
-// 	    				    },
-// 	    				    {
-// 	    				      title  : 'PPT 작성',
-// 	    				      start  : '2018-05-29',
-// 	    				      end    : '2018-05-29'
-// 	    				    },
-// 	    				    {
-// 	    				      title  : '이사',
-// 	    				      start  : '2018-06-01T12:30:00',
-// 	    				      allDay : false // will make the time show
-// 	    				    }
-// 	    				  ],
-					color: 'black',
-					textColor: 'yellow'
-	    			}
-    			],
+	            header: {
+	                left: 'prev,next today',
+	                center: 'title',
+	                right: 'month,agendaWeek,agendaDay'
+	            },
+	            monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+	            monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+	            dayNames: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
+	            dayNamesShort: ["일","월","화","수","목","금","토"],
+	            editable: true, // 수정 가능 여부
+    			allDay: true,
+				events: "list.json",
+    			lang: 'ko',
+    			timeFormat: '(YYYY-MM-DD)', // 날짜 정보 설정
+
+	            eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) {
+	            	console.log(event);
+	            	console.log(delta);
+	            	
+	            	if (delta._days != null && delta._days > 0) {
+	            		$.ajax({
+	            			url: "updateDate.json",
+	            			data: {uniqueNo : event.uniqueNo, days : delta._days},
+	            			success: function() {
+	            				alert("정상 수정");
+	            			}
+	            		})
+	            	}
+	            	
+// 	            	if (delta._days != null && delta._days < 0)
+	            	
+	            },
+	            
+	            eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
+	            	console.log(event);
+	            },
+	            
+	            
     			eventClick: function(calEvent, jsEvent, view) {
     				var html = "";
-    					html += "Event: " + calEvent.title;
+    					html += "Event: " + calEvent.title + "<br>";
+    					html += "start: " + calEvent.start + "<br>";
+    					html += "end: " + calEvent.end + "<br>";
     				$("#schedulebody").html(html);
     				
     				// 캘린더 일정 클릭 시 자동 버튼 클릭 이벤트 발생
     				$("#schedule").trigger("click", function() {
     				});
-    				
-//     			    alert('Event: ' + calEvent.title);
-//     			    alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-//     			    alert('View: ' + view.name);
 
     			    // change the border color just for fun
-//     			    $(this).css('border-color', 'red');
-
-    			  }
+    			    $(this).css('border-color', 'red');
+	   			  }
     		});
     	});
     </script>
