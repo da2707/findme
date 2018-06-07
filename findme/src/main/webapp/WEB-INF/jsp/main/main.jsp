@@ -137,7 +137,7 @@
     </div>
     
    	<!-- Login -->
-   	<form name="mForm" action="${pageContext.request.contextPath}/main.do" onsubmit="return doAction()">
+   	<form name="mForm">
 	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -145,10 +145,10 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel">Log in</h4>
 	      </div>
-	      <div class="modal-body" onsubmit="return doAction()">
+	      <div class="modal-body">
 		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><br>
 		    <input class="form-control" id="pw" name="pw" type="password" placeholder="Password"><br>
-		    <button class="btn btn-primary btn-block" id="loginBtn" type="submit" >Log In</button>
+		    <button class="btn btn-primary btn-block" id="loginBtn" type="button">Log In</button>
 		  </div>
 		  	<div class="naverimg">
 			    <a href="#" class="forgot">Forgot your email or password?</a><br>
@@ -162,18 +162,52 @@
    	</form>
 
 <script>
-function doAction(){
-	var id = $('#id').val();
-	var pw = $('#pw').val();
-	if(id=='') {
-		alert("아이디 입력");
-		return false;
-}  	
-	if(pw=='') {
-		alert("비번 입력");
-		return false;
-	}
-}	
+
+	var sessionId = '${id}';
+	console.log(sessionId);
+	
+	$("#loginBtn").click(function () {
+		var id = $(this).siblings("input[name='id']").val();
+		var pw = $(this).siblings("input[name='pw']").val();
+		
+		if(id=='') {
+	 		alert(sessionId);
+	 		
+	 		return false;
+	 	}  	
+	 	if(pw=='') {
+	 		alert("비밀번호를 입력하세요");
+	 		return false;
+	 	}
+		
+	 	$.ajax({
+	 		url: `${pageContext.request.contextPath}/user/loginPost.json`,
+	 		data: {id : id, pw: pw},
+	 		type: "POST",
+	 		success: function(result){
+	 			if (result.startsWith("/")){
+	 				location.href = `${pageContext.request.contextPath}` + result;
+	 				return;
+	 			}
+	 			alert(result);
+	 		}
+	 		
+	 	});
+	});
+
+
+// function doAction(){
+// 	var id = $('#id').val();
+// 	var pw = $('#pw').val();
+// 	if(id=='') {
+// 		alert("아이디 입력");
+// 		return false;
+// 	}  	
+// 	if(pw=='') {
+// 		alert("비번 입력");
+// 		return false;
+// 	}
+// }	
 </script>
 	
 </body>

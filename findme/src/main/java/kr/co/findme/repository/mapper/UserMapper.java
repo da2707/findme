@@ -1,5 +1,9 @@
 package kr.co.findme.repository.mapper;
 
-public interface UserMapper {
+import kr.co.findme.repository.domain.User;
 
+public interface UserMapper {
+	
+	User loginSuccess(String id);
+	
 }
