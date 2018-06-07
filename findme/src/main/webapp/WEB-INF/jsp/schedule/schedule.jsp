@@ -243,7 +243,6 @@
 	        <h4 class="modal-title" id="myModalLabel">구직 일정 관리</h4>
 	      </div>
 	      <div id="schedulebody" class="modal-body">
-	        ...
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -254,9 +253,10 @@
 	</div>
     
     <script>
-    	
-    	
+
+    
     	$(document).ready(function() {
+    		
     		$('div#cal').fullCalendar({
 	            header: {
 	                left: 'prev,next today',
@@ -268,27 +268,13 @@
 	            dayNames: ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"],
 	            dayNamesShort: ["일","월","화","수","목","금","토"],
 	            editable: true, // 수정 가능 여부
-    			allDay: true,
 				events: "list.json",
-    			lang: 'ko',
     			timeFormat: '(YYYY-MM-DD)', // 날짜 정보 설정
 
 	            eventDrop: function( event, delta, revertFunc, jsEvent, ui, view ) {
-	            	console.log(event);
-	            	console.log(delta);
-	            	
-	            	if (delta._days != null && delta._days > 0) {
-	            		$.ajax({
-	            			url: "updateDate.json",
-	            			data: {uniqueNo : event.uniqueNo, days : delta._days},
-	            			success: function() {
-	            				alert("정상 수정");
-	            			}
-	            		})
+	            	if (delta._days != 0) {
+						batchModifyDate(event.recruitNo, delta._days);
 	            	}
-	            	
-// 	            	if (delta._days != null && delta._days < 0)
-	            	
 	            },
 	            
 	            eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
@@ -297,11 +283,7 @@
 	            
 	            
     			eventClick: function(calEvent, jsEvent, view) {
-    				var html = "";
-    					html += "Event: " + calEvent.title + "<br>";
-    					html += "start: " + calEvent.start + "<br>";
-    					html += "end: " + calEvent.end + "<br>";
-    				$("#schedulebody").html(html);
+    				eventDetail(calEvent);
     				
     				// 캘린더 일정 클릭 시 자동 버튼 클릭 이벤트 발생
     				$("#schedule").trigger("click", function() {
@@ -312,8 +294,56 @@
 	   			  }
     		});
     	});
-    </script>
-    
-</body>
+    	
+    	// 캘린더 이벤트 클릭 시 상세 데이터 출력
+    	function eventDetail(calEvent) {  
+    		var title = calEvent.title + " : " + calEvent.name;
+   		
+    		$("#myModalLabel").text(title);
 
+    		var html = "";
+    		html += "<form id='scheduleForm'>";
+   			html += "	<div class='container-fluid'>";
+			html += "		<div class='row'>";
+			html += "			<div class='col-md-2'>";
+			html += "				<strong>접수 시작 / 마감일</strong>";
+			html += "			</div>";
+			html += "			<div class='col-md-4'>";
+			html += "				<span>";
+			html += 					moment(calEvent.start).format('YYYY-MM-DD');
+			html += "				</span>";
+			html += "				<span> ~ </span>";
+			html += "				<span>";
+			html += 					moment(calEvent.end).format('YYYY-MM-DD');
+			html += "				</span>";
+			html += "			</div>";
+			html += "		</div>";
+			html += "	</div>";
+			html += "</form>";
+			
+    		
+// 			html += "서류 접수    : " + calEvent.apply + "<br>";
+// 			html += "지원 일자    : " + calEvent.regDate + "<br>";
+// 			html += "현재 상태    : " + calEvent.codeNo + "<br>";
+// 			html += "최종 단계    : " + calEvent.finalRound + "<br>";
+// 			html += "합격 여부    : " + calEvent.result + "<br>";
+// 			html += "공고 링크    : " + calEvent.link + "<br>";
+			
+			$("#schedulebody").html(html);
+    	}
+    	
+    	
+    	// 드래그로 날짜 일괄 업데이트 함수
+    	function batchModifyDate(recruit, day) {
+    		$.ajax({
+    			url: "updateBatchDate.json",
+    			type: "POST",
+    			data: {recruitNo : recruit, days : day},
+    			success: function() {
+    				alert("정상 수정");
+    			}
+    		});
+    	}
+    </script>
+</body>
 </html>

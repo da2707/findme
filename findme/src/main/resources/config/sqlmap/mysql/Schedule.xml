@@ -2,4 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.findme.repository.mapper.ScheduleMapper">
+	<resultMap type="schedule" id="scheduleMap">
+		<result column="id" property="userId" />
+		<result column="unique_no" property="uniqueNo" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="title" property="title" />
+		<result column="name" property="name" />
+		<result column="reg_date" property="regDate" />
+		<result column="start_date" property="start" />
+		<result column="end_date" property="end" />
+		<result column="apply" property="apply" />
+		<result column="code_no" property="codeNo" />
+		<result column="final_round" property="finalRound" />
+		<result column="result" property="result" />
+		<result column="link" property="link" />
+	</resultMap>
+	
+	<select id="selectSchedule" resultMap="scheduleMap">
+		select *
+		  from tb_calendar
+	</select>
+	
+	<update id="updateBatchDate" parameterType="schedule">
+		update tb_calendar
+		   set start_date = if (#{days} > 0, 
+		   						date_add(start_date, interval + #{days} day),
+		   						date_add(start_date, interval - #{days} day)),
+		   	   end_date = if (#{days} > 0,
+		   	   					date_add(end_date, interval + #{days} day),
+		   	   					date_add(end_date, interval - #{days} day))
+		 where recruit_no = #{recruitNo}
+	</update>
 </mapper>

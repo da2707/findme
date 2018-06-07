@@ -6,5 +6,5 @@ import kr.co.findme.repository.domain.Schedule;
 
 public interface ScheduleService {
 	public List<Schedule> retrieveList() throws Exception;
-	public void updateDate(Schedule schedule) throws Exception;
+	public void updateBatchDate(Schedule schedule) throws Exception;
 }

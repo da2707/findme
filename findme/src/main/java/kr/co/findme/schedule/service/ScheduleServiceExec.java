@@ -20,7 +20,8 @@ public class ScheduleServiceExec implements ScheduleService {
 	}
 
 	@Override
-	public void updateDate(Schedule schedule) throws Exception {
-		mapper.updateDate(schedule);
+	public void updateBatchDate(Schedule schedule) throws Exception {
+		mapper.updateBatchDate(schedule);
 	}
+	
 }

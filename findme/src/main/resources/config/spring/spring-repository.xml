@@ -60,21 +60,21 @@
 	</bean>
 	
 	<!-- 트랜잭션 처리를 위한 schema 형식 태그 -->
-<!-- 	<tx:advice id="txAdvice" transaction-manager="transactionManager"> -->
-<!-- 	    <tx:attributes> -->
-<!-- 		    <tx:method name="retrieve*" read-only="true" /> -->
-<!-- 		    <tx:method name="*" rollback-for="Exception" /> -->
-<!-- 		</tx:attributes> -->
-<!-- 	</tx:advice> -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	    <tx:attributes>
+		    <tx:method name="retrieve*" read-only="true" />
+		    <tx:method name="*" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
 	
-<!-- 	<aop:config> -->
-<!-- 		<aop:pointcut id="tranMethod" -->
-<!-- 		              expression="execution(public * kr.co.findme.*.service.*Exec.*(..)) "/> -->
-<!-- 		<aop:advisor advice-ref="txAdvice" pointcut-ref="tranMethod" /> -->
-<!-- 	</aop:config> -->
+	<aop:config>
+		<aop:pointcut id="tranMethod"
+		              expression="execution(public * kr.co.findme.*.service.*Exec.*(..)) "/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="tranMethod" />
+	</aop:config>
 	
 	<!-- 트랜잭션 처리를 위한 annotation 사용 태그 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager" /> -->
 
 	
 </beans>

@@ -27,11 +27,17 @@ public class ScheduleController {
 	public List<Schedule> list() throws Exception {
 		List<Schedule> list = scheduleService.retrieveList();
 		return list;
+	}	
+	
+	// 캘린더에서 드래그로 날짜 이동 시 업데이트
+	@RequestMapping("/updateBatchDate.json")
+	@ResponseBody
+	public void updateDate(Schedule schedule) throws Exception {
+		System.out.println(schedule.getRecruitNo());
+		System.out.println(schedule.getDays());
+		scheduleService.updateBatchDate(schedule);
 	}
 	
-	@RequestMapping("/updateDate.json") 
-	@ResponseBody
-	public void update(Schedule schedule) throws Exception {
-		scheduleService.updateDate(schedule);
-	}
+	
+	
 }
