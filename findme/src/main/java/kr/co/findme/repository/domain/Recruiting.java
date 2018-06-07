@@ -1,11 +1,17 @@
 package kr.co.findme.repository.domain;
 
 public class Recruiting {
-    // 직종 
-    private String jobType;
+    // 직종 1
+    private String jobType1;
+    
+    // 직종 2
+    private String jobType2;
 
-    // 지역 
-    private String location;
+	// 지역 1
+    private String location1;
+
+    // 지역 2
+    private String location2;
 
     // 학력 
     private String education;
@@ -25,22 +31,39 @@ public class Recruiting {
     // 회원 id 
     private String id;
 
-    public String getJobType() {
-        return jobType;
+    public String getJobType1() {
+        return jobType1;
+    }
+    
+    public void setJobType1(String jobType1) {
+    	this.jobType1 = jobType1;
+    }
+    
+    public String getJobType2() {
+    	return jobType2;
+    }
+    
+    public void setJobType2(String jobType2) {
+    	this.jobType2 = jobType2;
+    }
+    
+
+    public String getLocation1() {
+        return location1;
     }
 
-    public void setJobType(String jobType) {
-        this.jobType = jobType;
+    public void setLocation1(String location1) {
+        this.location1 = location1;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLocation2() {
+    	return location2;
     }
-
-    public void setLocation(String location) {
-        this.location = location;
+    
+    public void setLocation2(String location2) {
+    	this.location2 = location2;
     }
-
+    
     public String getEducation() {
         return education;
     }

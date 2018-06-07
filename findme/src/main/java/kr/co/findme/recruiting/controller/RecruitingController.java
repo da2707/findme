@@ -1,30 +1,35 @@
 package kr.co.findme.recruiting.controller;
 
-import java.io.DataOutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import kr.co.findme.recruiting.service.RecruitingService;
 import kr.co.findme.recruiting.util.RecruitingUtil;
+import kr.co.findme.repository.domain.Recruiting;
 
 @Controller
 @RequestMapping("/recruiting")
 public class RecruitingController {
+	
+	@Autowired
+	private RecruitingService service;
+	
 	@RequestMapping("/hireInfo.do")
 	public String hireInfo(Model model) {
 		try {
@@ -236,12 +241,17 @@ public class RecruitingController {
 	}
 	
 	@RequestMapping("/manageKey.do")
-	public String manageKey() {
+	public String manageKey(HttpSession session, Model model) throws Exception {
+		String id = (String)session.getAttribute("id");
+		System.out.println("세션 ID 값 : " + id);
+		List<Recruiting> recruitingList = service.retrieveKey(id);
+		model.addAttribute("recruitingList",recruitingList);
+		System.out.println("리스트 사이즈" + recruitingList.size());
 		return "/recruiting/managekey";
 	}
 	
 	@RequestMapping("/insertKey.do")
-	public String insertKey() {
+	public String insertKey(Model model) throws Exception {
 		return "/recruiting/insertkey";
 	}
 	

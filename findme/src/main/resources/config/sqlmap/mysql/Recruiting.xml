@@ -2,4 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.findme.repository.mapper.RecruitingMapper">
+	<resultMap id="recruitingMap" type="recruiting">
+		<result column="job_type_1" property="jobType1" />
+		<result column="job_type_2" property="jobType2" />
+		<result column="location_1" property="location1" />
+		<result column="location_2" property="location2" />
+		<result column="education" property="education" />
+		<result column="career" property="career" />
+		<result column="salary" property="salary" />
+		<result column="position" property="position" />
+		<result column="company_name" property="companyName" />
+		<result column="id" property="id" />
+	</resultMap>
+	<resultMap id="userMap" type="user" >
+		<result column="id" property="id" />	
+	</resultMap>
+	
+	<select id="retrieveKey" parameterType="String" resultMap="recruitingMap">
+		select k.job_type_1,
+			   k.job_type_2,
+			   k.location_1, 
+			   k.location_2, 
+			   k.education, 
+			   k.career,
+			   k.salary,
+			   k.position,
+			   k.company_name,
+			   k.id
+		  from tb_keyword k
+		 inner join tb_user u
+		    on u.id = k.id
+		 where k.id = #{id}		  
+	</select>
 </mapper>
+	
+	
