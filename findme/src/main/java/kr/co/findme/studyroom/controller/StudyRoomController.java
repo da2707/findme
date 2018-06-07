@@ -36,10 +36,17 @@ public class StudyRoomController {
 	
 	@RequestMapping("/vInsert.json")
 	@ResponseBody
-	public List<Video> registVideo(HttpSession session, Video video) {
-		String loginId = (String) session.getAttribute("id");
+	public List<Video> registVideo(Video video) {
 		studyRoomService.registVideo(video);
-		List<Video> vList = studyRoomService.retrieveVideo(loginId);
+		System.out.println(video.getTitle());
+		System.out.println(video.getUrl());
+		
+		List<Video> vList = studyRoomService.retrieveVideo(video.getId());
+		for (Video v : vList) {
+			System.out.println("제목 : " + v.getTitle());
+			System.out.println("링크 : " + v.getUrl());
+		}
+		
 		return vList;
 	}
 	

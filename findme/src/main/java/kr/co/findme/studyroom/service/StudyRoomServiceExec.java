@@ -21,17 +21,17 @@ public class StudyRoomServiceExec implements StudyRoomService {
 		return vmapper.selectVideo(id);
 	}
 	
-	@Transactional(rollbackFor=Exception.class)
+	@Override
 	public void registVideo(Video video){
 		vmapper.insertVideo(video);
 	}
 
-	@Transactional(rollbackFor=Exception.class)
+	@Override
 	public void updateVideo(Video video) {
 		vmapper.updateVideo(video);
 	}
 
-	@Transactional(rollbackFor=Exception.class)
+	@Override
 	public void deleteVideo(Video video) {
 		vmapper.deleteVideo(video);
 	}

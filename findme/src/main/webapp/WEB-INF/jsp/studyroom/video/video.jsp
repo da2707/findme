@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/video/video.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/resources/js/video/video.js"></script>
@@ -119,7 +118,7 @@
 											<h4 class="modal-title" id="myModalLabel">Youtube Shelf</h4>
 										</div>
 										<div class="modal-body">
-											<form action="" method="post" id="vidForm">
+											<form id="vidForm">
 <!-- 													<input type='hidden' name='id' value='id2' /> -->
 													<input type='hidden' name='id' value='${sessionScope.id}' />
 													Youtube Title : <input type="text" name="title" size="70" /> <br> 
@@ -163,10 +162,13 @@
 	videoList();
 	
 	$("#save").click(function () {
+		var serial = $("#vidForm").serialize();
+		serial = decodeURIComponent((serial + '').replace(/\+/g, '%20'));
+		console.log(serial);
 			$.ajax({
 				url: `${pageContext.request.contextPath}/studyroom/vInsert.json`,
-				type: "post",
-				data: $("#vidForm").serialize(),
+				type: "POST",
+				data: serial,
 				dataType: "json",
 				success: function (result) {
 					console.dir(result);

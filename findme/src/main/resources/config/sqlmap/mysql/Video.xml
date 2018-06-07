@@ -10,7 +10,7 @@
 		<result column="reg_date" property="regDate" />	
 	</resultMap>
 	
-	<select id="selectVideo" resultMap="videoMap">
+	<select id="selectVideo" parameterType="string" resultMap="videoMap">
 		select * from tb_video
 		where id = #{id}
 		order by no asc
