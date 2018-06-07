@@ -18,21 +18,35 @@
     <div>
         <nav class="navbar navbar-default navigation-clean-button">
             <div class="container">
-                <div class="navbar-header"><a class="navbar-brand" href="${pageContext.request.contextPath}/main.do">FindMe</a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
-                <div
-                    class="collapse navbar-collapse" id="navcol-1">
+                <div class="navbar-header">
+                	<a class="navbar-brand" href="${pageContext.request.contextPath}/main.do">FindMe</a>
+                	<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1">
+               			<span class="sr-only">Toggle navigation</span>
+               			<span class="icon-bar"></span>
+               			<span class="icon-bar"></span>
+               			<span class="icon-bar"></span>
+                	</button>
+                </div>
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/schedule/schedule.do">MyCalendar</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/resume/list.do">MyResume</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/chart.do">MyStat</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do">StudyRoom</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/hireInfo.do">Recruiting</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/schedule/schedule.do" >MyCalendar</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/resume/list.do" >MyResume</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/mystat/chart.do" >MyStat</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do" >StudyRoom</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/hireInfo.do" >Recruiting</a></li>
                     </ul>
-                    <p class="navbar-text navbar-right actions">
+                    <p class="navbar-text navbar-right actions" id="guest">
 	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
 	                    <a href="${pageContext.request.contextPath}/user/signup.do" 
 	                       class="navbar-link signup btn btn-default action-button">Sign Up</a>
+                    </p>
+                    <p class="navbar-text navbar-right actions" id="member">
+                    	${id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
+                    	<a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
+                    	   class="navbar-link login">Log out</a>
+                    	<a href="${pageContext.request.contextPath}/user/mypage.do"
+                    	   class="navbar-link signup btn btn-default action-button">My Page</a>
                     </p>
             </div>
     </div>
@@ -166,6 +180,27 @@
 	var sessionId = '${id}';
 	console.log(sessionId);
 	
+	$(document).ready(function() {
+		hideNav();
+		guestAndMember();
+	});
+	
+	function hideNav() {
+		if(sessionId == ''){
+			$('.mynavbar').hide();
+		} else {
+			$('.mynavbar').show();
+		}
+	};
+	
+	function guestAndMember() {
+		if(sessionId == ''){
+			$("#member").hide();
+		} else {
+			$("#guest").hide();
+		}
+	};
+	
 	$("#loginBtn").click(function () {
 		var id = $(this).siblings("input[name='id']").val();
 		var pw = $(this).siblings("input[name='pw']").val();
@@ -194,20 +229,7 @@
 	 		
 	 	});
 	});
-
-
-// function doAction(){
-// 	var id = $('#id').val();
-// 	var pw = $('#pw').val();
-// 	if(id=='') {
-// 		alert("아이디 입력");
-// 		return false;
-// 	}  	
-// 	if(pw=='') {
-// 		alert("비번 입력");
-// 		return false;
-// 	}
-// }	
+	
 </script>
 	
 </body>
