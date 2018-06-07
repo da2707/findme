@@ -120,8 +120,8 @@
 										</div>
 										<div class="modal-body">
 											<form action="" method="post" id="vidForm">
-													<input type='hidden' name='id' value='id2' />
-<%-- 													<input type='hidden' name='id' value='${sessionScope.id}' /> --%>
+<!-- 													<input type='hidden' name='id' value='id2' /> -->
+													<input type='hidden' name='id' value='${sessionScope.id}' />
 													Youtube Title : <input type="text" name="title" size="70" /> <br> 
 													<br> 
 													Youtube URL : <textarea name='url' rows='5' cols='70'></textarea><br>
