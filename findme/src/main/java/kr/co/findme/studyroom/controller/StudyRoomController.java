@@ -2,6 +2,8 @@ package kr.co.findme.studyroom.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,20 +22,25 @@ public class StudyRoomController {
 	
 	@RequestMapping("/video.do")
 	public String video(Model model) {
-		List<Video> vList = studyRoomService.retrieveVideo("id1");
-		model.addAttribute("vList",vList);
-		System.out.println(vList.size());
 		return "studyroom/video/video";
 	}
 	
-//	@RequestMapping("/vList.do")
-//	public List<Video> retrieveVideo() throws Exception {
-//	}
+	@RequestMapping("/vList.json")
+	@ResponseBody
+	public List<Video> retrieveVideo(HttpSession session, String id){
+		String loginId = (String) session.getAttribute("id");
+		List<Video> vList = studyRoomService.retrieveVideo(loginId);
+		System.out.println("list 개수 : " + vList.size());
+		return vList;
+	}
 	
 	@RequestMapping("/vInsert.json")
 	@ResponseBody
-	public void registVideo(Video video) {
-		studyRoomService.registVideo(video);  
+	public List<Video> registVideo(HttpSession session, Video video) {
+		String loginId = (String) session.getAttribute("id");
+		studyRoomService.registVideo(video);
+		List<Video> vList = studyRoomService.retrieveVideo(loginId);
+		return vList;
 	}
 	
 	@RequestMapping("/vUpdate.json")

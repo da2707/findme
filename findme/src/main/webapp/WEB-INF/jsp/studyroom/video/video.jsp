@@ -5,31 +5,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!--             <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <meta name="description" content="Awesome videos!" />
 
 <title>취업 정보 및 관리는 이제 여기에서. FindMe!</title>
-<style>
-.modal-backdrop.fade.in {
-    filter: alpha(opacity=0);
-    opacity: 0;
-    height: 0px;
-    width: 0px;
-}
-</style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/video/video.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/resources/js/video/video.js"></script>
-<script src="https://apis.google.com/js/client.js?onload=init"></script>
+<!-- <script src="https://apis.google.com/js/client.js?onload=init"></script> -->
 </head>
 
 <body>
@@ -87,56 +76,12 @@
 						<div class="col-md-4"> 
 							<h1 class="text-center" id="playlist">My PlayList</h1>
 							<div id="videoList">
-							
-								<c:forEach var="video" items="${vList}">
-								<table class="tg">
-									<tr>
-										<th class="tg-3mv2">${video.no}</th>
-										<th class="tg-qvqz" colspan="2">${video.title}</th>
-									</tr>
-									<tr>
-										<td class="tg-us36" colspan="3">${video.url}</td>
-									</tr>
-								</table>
-								</c:forEach>
-								
 							</div>
 							<div class="btn-group" role="group" id="statusbtn" style="margin-top: 100px;">
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">등록</button>
 							</div>
 
-							<!-- Modal -->
-						<div class="modal-backdrop fade in"> </div>
-							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<!-- 												<span aria-hidden="true">&times;</span> -->
-											</button>
-											<h4 class="modal-title" id="myModalLabel">Youtube Shelf</h4>
-										</div>
-										<div class="modal-body">
-											<form action="${pageContext.request.contextPath}/vInsert.json" method="post">
-													<input type='hidden' name='no' value='${video.no}' />
-													<input type='hidden' name='id' value='${video.id}' />
-<%-- 												<input type='hidden' name='id' value='${sessionScope.id}' /> --%>
-													Youtube Title : <input type="text" name="title" size="70" /> <br> 
-													<br> 
-													Youtube URL : <textarea name='url' rows='5' cols='70'></textarea><br>
-													<br>
-											</form>
-											<a href='videoList'>PlayList</a>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-											<button type="button" id="save" class="btn btn-primary">Save changes</button>
-<!-- 											<button type='submit'>등록</button> -->
-										</div>
-									</div>
-								</div>
-							</div>
 					</div>
 
 						<div class="col-md-8">
@@ -163,11 +108,74 @@
 		</div>
 	</div>
 
+							<!-- Modal -->
+							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<!-- 												<span aria-hidden="true">&times;</span> -->
+											</button>
+											<h4 class="modal-title" id="myModalLabel">Youtube Shelf</h4>
+										</div>
+										<div class="modal-body">
+											<form action="" method="post" id="vidForm">
+													<input type='hidden' name='id' value='id2' />
+<%-- 													<input type='hidden' name='id' value='${sessionScope.id}' /> --%>
+													Youtube Title : <input type="text" name="title" size="70" /> <br> 
+													<br> 
+													Youtube URL : <textarea name='url' rows='5' cols='70'></textarea><br>
+													<br>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal">Close</button>
+											<input type="submit" value="Save changes" id="save" class="btn btn-primary">
+										</div>
+									</div>
+								</div>
+							</div>
 <script>
-	// Save Changes click ==>  입력 data 값 넘겨주기
-	$("#save").click(function () {
+
+	function makeVideoList(result) {
+		var html = '';
+		html = '<br>';
+		html += '<strong>등록된 리스트는 ' + result.length + '개입니다.</strong>';
+		html += '<table class="tg">';
+		for (var i = 0; i<result.length; i++) {
+		html += '	<tr>';
+		html += '		<th class="tg-3mv2" style="font-size:15px;">' + result[i].no + '</th>';
+		html += '		<th class="tg-qvqz" colspan="2" style="font-size:15px;">' + result[i].title + '</th>';
+		html += '		<th id="videoLink" style="background:white; width:70px;font-size:15px;"><a href="'+result[i].url+'"> 링크 </a></th> <br>';
+		html += '	</tr>';
+		}
+		html += '</table>';
+		$("#videoList").html(html);
 		
+	}
+	
+	function videoList() {
+		$.ajax({
+			url: `${pageContext.request.contextPath}/studyroom/vList.json`,
+			success: makeVideoList
+		});
+	}	
+	videoList();
+	
+	$("#save").click(function () {
+			$.ajax({
+				url: `${pageContext.request.contextPath}/studyroom/vInsert.json`,
+				type: "post",
+				data: $("#vidForm").serialize(),
+				dataType: "json",
+				success: function (result) {
+					console.dir(result);
+					$("#closeModal").trigger("click");
+					makeVideoList(result);
+				}
+			});
 	});
+
 </script>
 </body>
 
