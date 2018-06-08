@@ -19,8 +19,8 @@ public class RecruitingServiceExec implements RecruitingService{
 		return mapper.retrieveKey(id);
 	}
 
-	public void insertKey(Recruiting recruting) throws Exception {
-		mapper.insertKey(recruting);
+	public void insertKey(Recruiting recruiting) throws Exception {
+		mapper.insertKey(recruiting);
 	}
 
 	@Override

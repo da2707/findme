@@ -34,6 +34,30 @@
 		    on u.id = k.id
 		 where k.id = #{id}		  
 	</select>
+	
+	<insert id="insertKey" parameterType="recruiting">
+		insert into tb_keyword (
+			   job_type_1,
+			   job_type_2,
+			   location_1,
+			   location_2,
+			   education, 
+			   career,
+			   salary,
+			   position,
+			   id
+		) values (
+			   #{jobType1},
+			   #{jobType2},
+			   #{location1},
+			   #{location2},
+			   #{education},
+			   #{career},
+			   #{salary},
+			   #{position},
+			   #{id}
+		)
+	</insert>
 </mapper>
 	
 	

@@ -246,18 +246,25 @@ public class RecruitingController {
 		System.out.println("세션 ID 값 : " + id);
 		List<Recruiting> recruitingList = service.retrieveKey(id);
 		model.addAttribute("recruitingList",recruitingList);
+		int listSize = recruitingList.size();
+		model.addAttribute("listSize",listSize);
 		System.out.println("리스트 사이즈" + recruitingList.size());
 		return "/recruiting/managekey";
 	}
 	
 	@RequestMapping("/insertKey.do")
-	public String insertKey(Model model) throws Exception {
-		return "/recruiting/insertkey";
+	public String insertKey(Recruiting recruiting) throws Exception {
+		service.insertKey(recruiting);
+		System.out.println(recruiting.getId());
+		return "/recruiting/managekey";
 	}
 	
 	@RequestMapping("/updateKey.do")
-	public String updateKey() {
+	public String updateKey(Recruiting recruiting) throws Exception {
 		return "/recruiting/updatekey";
 	}
 	
 }
+
+
+
