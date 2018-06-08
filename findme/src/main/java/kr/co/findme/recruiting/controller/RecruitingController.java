@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -244,24 +245,27 @@ public class RecruitingController {
 	public String manageKey(HttpSession session, Model model) throws Exception {
 		String id = (String)session.getAttribute("id");
 		System.out.println("세션 ID 값 : " + id);
-		List<Recruiting> recruitingList = service.retrieveKey(id);
-		model.addAttribute("recruitingList",recruitingList);
-		int listSize = recruitingList.size();
-		model.addAttribute("listSize",listSize);
-		System.out.println("리스트 사이즈" + recruitingList.size());
+		Recruiting recruitingList = service.retrieveKey(id);
+		System.out.println(recruitingList);
+		model.addAttribute("recruiting",recruitingList);
 		return "/recruiting/managekey";
 	}
 	
-	@RequestMapping("/insertKey.do")
-	public String insertKey(Recruiting recruiting) throws Exception {
-		service.insertKey(recruiting);
+	@RequestMapping("/insertKey.json")
+	@ResponseBody
+	public Recruiting insertKey(Recruiting recruiting) throws Exception {
 		System.out.println(recruiting.getId());
-		return "/recruiting/managekey";
+		service.insertKey(recruiting);
+		Recruiting recruitingList = service.retrieveKey(recruiting.getId());
+		return recruitingList;
 	}
 	
-	@RequestMapping("/updateKey.do")
-	public String updateKey(Recruiting recruiting) throws Exception {
-		return "/recruiting/updatekey";
+	@RequestMapping("/updateKey.json")
+	@ResponseBody
+	public Recruiting updateKey(Recruiting recruiting) throws Exception {
+		service.updateKey(recruiting);
+		Recruiting recruitingList = service.retrieveKey(recruiting.getId());
+		return recruitingList;
 	}
 	
 }

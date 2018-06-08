@@ -58,6 +58,19 @@
 			   #{id}
 		)
 	</insert>
+	
+	<update id="updateKey" parameterType="recruiting">
+		update tb_keyword
+		   set job_type_1 = #{jobType1},
+			   job_type_2 = #{jobType2},
+			   location_1 = #{location1},
+			   location_2 = #{location2},
+			   education = #{education},
+			   career = #{career},
+			   salary = #{salary},
+			   position = #{position}
+	     where id = #{id}
+	</update>
 </mapper>
 	
 	

@@ -15,7 +15,7 @@ public class RecruitingServiceExec implements RecruitingService{
 	@Autowired
 	private RecruitingMapper mapper;
 	
-	public List<Recruiting> retrieveKey(String id) throws Exception{
+	public Recruiting retrieveKey(String id) throws Exception{
 		return mapper.retrieveKey(id);
 	}
 
@@ -23,9 +23,8 @@ public class RecruitingServiceExec implements RecruitingService{
 		mapper.insertKey(recruiting);
 	}
 
-	@Override
-	public void updateKey(Recruiting recruting) throws Exception {
-		mapper.updateKey(recruting);	
+	public void updateKey(Recruiting recruiting) throws Exception {
+		mapper.updateKey(recruiting);	
 	}
 
 	
