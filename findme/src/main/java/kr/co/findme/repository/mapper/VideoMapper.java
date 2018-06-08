@@ -12,6 +12,8 @@ public interface VideoMapper {
 
 	public void updateVideo(Video video);
 
+	public List<Video> selectVideoByNo(Video video); // updateForm 용도
+
 	public void deleteVideo(Video video);
 
 }

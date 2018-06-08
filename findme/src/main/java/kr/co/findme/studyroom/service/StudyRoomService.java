@@ -12,5 +12,7 @@ public interface StudyRoomService {
 	
 	public void updateVideo(Video video);
 
+	public List<Video> updateFormVideo(Video video);
+
 	public void deleteVideo(Video video);
 }

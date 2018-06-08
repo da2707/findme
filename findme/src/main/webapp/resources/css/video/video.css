@@ -8,8 +8,8 @@ form, #results { padding: 0 20px; }
 .item { margin-bottom: 25px; }
 .w100 { width: 100%; }
 
-.btn-primary { background: #f5c9c5; border-color: #f5c9c5; }
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus { background: #f5c9c5;  border-color: #f5c9c5; }
+.btn-primary { background: #f5c9c5; border-color: #f5c9c5; margin:5px;}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus { background: #f5c9c5;  border-color: #f5c9c5; margin:5px;}
 
 .form-control {
 	width: 400px;
@@ -24,4 +24,4 @@ form, #results { padding: 0 20px; }
 .tg th{font-family:Arial, sans-serif;font-size:15px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;text-align:center;}
 .tg .tg-us36{border-color:inherit;vertical-align:top;height:80px;}
 .tg .tg-3mv2{background-color:#96fffb;border-color:inherit;vertical-align:top;width:50px;}
-.tg .tg-qvqz{background-color:#26ade4;border-color:inherit;vertical-align:top}
+.tg .tg-qvqz{background-color:#26ade4;border-color:inherit;vertical-align:top;color:white;}

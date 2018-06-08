@@ -49,12 +49,18 @@
 						<li class="" role="presentation"><a
 							href="${pageContext.request.contextPath}/recruiting/hireInfo.do">Recruiting</a></li>
 					</ul>
-					<p class="navbar-text navbar-right actions">
-						<a data-toggle="modal" href="#login" class="navbar-link login"
-							data-target="#login">Log In</a> <a
-							href="${pageContext.request.contextPath}/view/user/signup.jsp"
-							class="navbar-link signup btn btn-default action-button">Sign Up</a>
-					</p>
+                    <p class="navbar-text navbar-right actions" id="guest">
+	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
+	                    <a href="${pageContext.request.contextPath}/user/signup.do" 
+	                       class="navbar-link signup btn btn-default action-button">Sign Up</a>
+                    </p>
+                    <p class="navbar-text navbar-right actions" id="member">
+                    	${id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
+                    	<a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
+                    	   class="navbar-link login">Log out</a>
+                    	<a href="${pageContext.request.contextPath}/user/mypage.do"
+                    	   class="navbar-link signup btn btn-default action-button">My Page</a>
+                    </p>
 				</div>
 			</div>
 		</nav>
@@ -119,7 +125,6 @@
 										</div>
 										<div class="modal-body">
 											<form id="vidForm">
-<!-- 													<input type='hidden' name='id' value='id2' /> -->
 													<input type='hidden' name='id' value='${sessionScope.id}' />
 													Youtube Title : <input type="text" name="title" size="70" /> <br> 
 													<br> 
@@ -127,7 +132,7 @@
 													<br>
 											</form>
 										</div>
-										<div class="modal-footer">
+										<div id="modalFooter" class="modal-footer">
 											<button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal">Close</button>
 											<input type="submit" value="Save changes" id="save" class="btn btn-primary">
 										</div>
@@ -136,22 +141,28 @@
 							</div>
 <script>
 
-	function makeVideoList(result) {
-		var html = '';
-		html = '<br>';
-		html += '<strong>등록된 리스트는 ' + result.length + '개입니다.</strong>';
-		html += '<table class="tg">';
-		for (var i = 0; i<result.length; i++) {
-		html += '	<tr>';
-		html += '		<th class="tg-3mv2" style="font-size:15px;">' + result[i].no + '</th>';
-		html += '		<th class="tg-qvqz" colspan="2" style="font-size:15px;">' + result[i].title + '</th>';
-		html += '		<th id="videoLink" style="background:white; width:70px;font-size:15px;"><a href="'+result[i].url+'"> 링크 </a></th> <br>';
-		html += '	</tr>';
+	var sessionId = '${id}';
+	console.log(sessionId);
+	
+	$(document).ready(function() {
+		guestAndMember();
+	});
+	
+	function hideNav() {
+		if(sessionId == ''){
+			$('.mynavbar').hide();
+		} else {
+			$('.mynavbar').show();
 		}
-		html += '</table>';
-		$("#videoList").html(html);
-		
-	}
+	};
+	
+	function guestAndMember() {
+		if(sessionId == ''){
+			$("#member").hide();
+		} else {
+			$("#guest").hide();
+		}
+	};
 	
 	function videoList() {
 		$.ajax({
@@ -161,21 +172,90 @@
 	}	
 	videoList();
 	
+	function makeVideoList(result) {
+		var html = '';
+		html = '<br>';
+		html += '<strong>등록된 리스트는 ' + result.length + '개입니다.</strong>';
+		html += '<table class="tg">';
+		for (var i = 0; i<result.length; i++) {
+		html += '	<tr>';
+		html += '		<th class="tg-qvqz" colspan="2" style="font-size:15px;"><a href="'+result[i].url+'">' +  result[i].title +  '</a></th>';
+		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="update" class="btn1 btn-primaryu btn-lgu" type="button" data-toggle="modal" data-target="#myModal" onclick="updateForm(' + result[i].id + ',' + result[i].no + ')">수정</button></th>';
+		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="delete" type="button" data-toggle="modal" data-target="#myModal">삭제</button></th>';
+		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;display:none;"><button id="delete" type="button" data-toggle="modal" data-target="#myModal">'+result[i].no+'</button></th>';
+		html += '	</tr>';
+		}
+		html += '</table>';
+		$("#videoList").html(html);
+	}
+	
 	$("#save").click(function () {
 		var serial = $("#vidForm").serialize();
 		serial = decodeURIComponent((serial + '').replace(/\+/g, '%20'));
-		console.log(serial);
 			$.ajax({
 				url: `${pageContext.request.contextPath}/studyroom/vInsert.json`,
 				type: "POST",
 				data: serial,
 				dataType: "json",
 				success: function (result) {
-					console.dir(result);
 					$("#closeModal").trigger("click");
 					makeVideoList(result);
 				}
 			});
+	});
+	
+	
+	function updateForm(id, no) {
+		
+		$.ajax({
+			url: `${pageContext.request.contextPath}/studyroom/vUpdateForm.json`,
+			data: {id : id, no : no},
+			dataType: "json",
+			success: function(result) {
+				makeUpdate(result);
+			}
+		});
+	}
+	
+	function makeUpdate(result) {
+		
+		var html ='';
+		html += '<input type="hidden" name="id" value="' + result[0].id + '" />';
+		html += '<input type="hidden" name="no" value="' + result[0].no + '" />';
+		html += 'Youtube Title : <input type="text" name="title" size="70" value="' + result[0].title + '"/> <br>';
+		html += '<br>';
+		html += 'Youtube URL : <textarea name="url" rows="5" cols="70">' + result[0].url + '</textarea><br>';
+		html += '<br>';
+		
+		var htmlpart = '';
+		htmlpart += '<div id="modalFooter" class="modal-footer">';
+		htmlpart += '	<button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal">Close</button>';
+		htmlpart += '	<input type="submit" value="Save changes" id="updateVideo" class="btn btn-primary">';
+		htmlpart += '</div>';
+		
+		$("#vidForm").html(html);
+		$("#modalFooter").html(htmlpart);
+		
+		$("#updateVideo").click(function () { 
+				console.dir("1 : " + $("#vidForm").serialize());
+
+				var serial = $("#vidForm").serialize();
+				serial = decodeURIComponent((serial + '').replace(/\+/g, '%20'));
+					$.ajax({
+						url: `${pageContext.request.contextPath}/studyroom/vUpdate.json`,
+						type: "POST",
+						data: serial,
+						dataType: "json",
+						success: function (result) {
+							$("#closeModal").trigger("click");
+							makeVideoList(result);
+						}
+					});
+		});
+	}
+	
+	$("#delete").click(function () {
+		//ajax
 	});
 
 </script>

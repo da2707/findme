@@ -30,7 +30,6 @@ public class StudyRoomController {
 	public List<Video> retrieveVideo(HttpSession session, String id){
 		String loginId = (String) session.getAttribute("id");
 		List<Video> vList = studyRoomService.retrieveVideo(loginId);
-		System.out.println("list 개수 : " + vList.size());
 		return vList;
 	}
 	
@@ -38,22 +37,25 @@ public class StudyRoomController {
 	@ResponseBody
 	public List<Video> registVideo(Video video) {
 		studyRoomService.registVideo(video);
-		System.out.println(video.getTitle());
-		System.out.println(video.getUrl());
-		
 		List<Video> vList = studyRoomService.retrieveVideo(video.getId());
-		for (Video v : vList) {
-			System.out.println("제목 : " + v.getTitle());
-			System.out.println("링크 : " + v.getUrl());
-		}
-		
 		return vList;
 	}
 	
+	@RequestMapping("/vUpdateForm.json")
+	@ResponseBody
+	public List<Video> updateFormVideo(Video video) {
+		System.out.println("no : " + video.getNo());
+		System.out.println("id : " + video.getId());
+		List<Video> vFormList = studyRoomService.updateFormVideo(video);
+		return vFormList;
+	}
+
 	@RequestMapping("/vUpdate.json")
 	@ResponseBody
-	public void updateVideo(Video video) throws Exception {
-		studyRoomService.updateVideo(video);  
+	public List<Video> updateVideo(Video video) {
+		studyRoomService.updateVideo(video); 
+		List<Video> vList = studyRoomService.retrieveVideo(video.getId());
+		return vList;
 	}
 	
 	@RequestMapping("/vDelete.json")

@@ -32,6 +32,11 @@ public class StudyRoomServiceExec implements StudyRoomService {
 	}
 
 	@Override
+	public List<Video> updateFormVideo(Video video) {
+		return vmapper.selectVideoByNo(video);
+	}
+
+	@Override
 	public void deleteVideo(Video video) {
 		vmapper.deleteVideo(video);
 	}

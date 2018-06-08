@@ -27,10 +27,16 @@
  	<update id="updateVideo" parameterType="video">
  		update tb_video
  			set title = #{title}
- 				content = #{content}
+ 				,url = #{url}
  			where id = #{id}
  			and no = #{no}
  	</update>
+ 	
+ 	<select id="selectVideoByNo" parameterType="video" resultMap="videoMap">
+		select * from tb_video
+		where id = #{id}
+		and no = #{no}
+	</select>
  	
  	<delete id="deleteVideo" parameterType="video">
  		delete from tb_video
