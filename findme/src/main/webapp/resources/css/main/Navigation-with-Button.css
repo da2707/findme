@@ -9,6 +9,7 @@
   margin-bottom:0;
 }
 
+/* 767px */
 @media (max-width:767px) {
   .navigation-clean-button {
     padding-top:0;
