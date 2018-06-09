@@ -18,19 +18,144 @@
 		<result column="link" property="link" />
 	</resultMap>
 	
-	<select id="selectSchedule" resultMap="scheduleMap">
+	<resultMap type="codeFinalRound" id="codeFRMap">
+		<result column="code_no" property="codeNo" />
+		<result column="code_name" property="codeName" />
+		<result column="code_type" property="codeType" />
+		<result column="code_check" property="codeCheck" />
+	</resultMap>
+	
+	<resultMap type="searchCodeArea" id="codeAreaMap">
+		<result column="code_no" property="codeNo" />
+		<result column="code_name" property="codeName" />
+		<result column="code_type" property="codeType" />
+		<result column="code_check" property="codeCheck" />
+	</resultMap>
+	
+	<resultMap type="searchCodeCareer" id="codeCareerMap">
+		<result column="code_no" property="codeNo" />
+		<result column="code_name" property="codeName" />
+		<result column="code_type" property="codeType" />
+		<result column="code_check" property="codeCheck" />
+	</resultMap>
+	
+	<resultMap type="searchCodeGraduate" id="codeGraduateMap">
+		<result column="code_no" property="codeNo" />
+		<result column="code_name" property="codeName" />
+		<result column="code_type" property="codeType" />
+		<result column="code_check" property="codeCheck" />
+	</resultMap>
+	
+	<resultMap type="searchCodeSalary" id="codeSalaryMap">
+		<result column="code_no" property="codeNo" />
+		<result column="code_name" property="codeName" />
+		<result column="code_type" property="codeType" />
+		<result column="code_check" property="codeCheck" />
+	</resultMap>
+	
+	<resultMap type="searchCodeJobType" id="codeJobTypeMap">
+		<result column="code_no" property="codeNo" />
+		<result column="code_name" property="codeName" />
+		<result column="code_type" property="codeType" />
+		<result column="code_check" property="codeCheck" />
+	</resultMap>
+	
+	<select id="selectSchedule" parameterType="string" resultMap="scheduleMap">
 		select *
 		  from tb_calendar
+		 where id = #{userId}
+	</select>
+	
+	<select id="selectScheduleOne" parameterType="schedule" resultMap="scheduleMap">
+		select *
+		  from tb_calendar
+		 where id = #{userId} and recruit_no = #{recruitNo}
+	</select>
+	
+	<select id="selectCodeFinalRound" resultMap="codeFRMap">
+		select *
+		  from tb_code
+		 where code_type = '2'
+	</select>
+	
+	<select id="selectCodeFinalRoundByNo" parameterType="string" resultMap="codeFRMap">
+		select *
+		  from tb_code
+		 where code_no = #{codeNo}
 	</select>
 	
 	<update id="updateBatchDate" parameterType="schedule">
 		update tb_calendar
 		   set start_date = if (#{days} > 0, 
-		   						date_add(start_date, interval + #{days} day),
-		   						date_add(start_date, interval - #{days} day)),
+		   						date_add(start_date, interval #{days} day),
+		   						date_add(start_date, interval #{days} day)),
 		   	   end_date = if (#{days} > 0,
-		   	   					date_add(end_date, interval + #{days} day),
-		   	   					date_add(end_date, interval - #{days} day))
-		 where recruit_no = #{recruitNo}
+		   	   					date_add(end_date, interval #{days} day),
+		   	   					date_add(end_date, interval #{days} day))
+		 where id = #{userId} and recruit_no = #{recruitNo}
 	</update>
+	
+	<update id="updateApply" parameterType="schedule">
+		update tb_calendar
+		   set apply = if (#{apply} = 'Y', 'Y', 'N'),
+		   	   reg_date = if (#{apply} = 'Y', CURRENT_TIMESTAMP, STR_TO_DATE('1970-01-01T00:00:00+0000', '%Y-%m-%dT%H:%i:%s+0000'))
+		 where id = #{userId} and recruit_no = #{recruitNo} 
+	</update>
+	
+	<update id="registFR" parameterType="schedule">
+		update tb_calendar
+		   set final_round = #{finalRound}
+		 where id = #{userId} and recruit_no = #{recruitNo}
+	</update>
+	
+	<update id="registCondition" parameterType="schedule">
+		update tb_calendar
+		   set code_no = #{codeNo}
+		 where id = #{userId} and recruit_no = #{recruitNo}
+	</update>
+	
+	<update id="resultSelect" parameterType="schedule">
+		update tb_calendar
+		   set result = #{result}
+		 where id = #{userId} and recruit_no = #{recruitNo}
+	</update>
+	
+	<delete id="deleteSchedule" parameterType="schedule">
+		delete
+		  from tb_calendar 
+		 where id = #{userId} and recruit_no = #{recruitNo}
+	</delete>
+	
+	<!-- 검색 영역 태그 생성을 위한 select 전용 쿼리 -->
+	<!-- 
+		code_type 정리
+		1 : 좋아요 관련
+		2 : 캘린더 면접 단계
+		3 : 학력
+		4 : 근무형태
+		5 : 연봉
+		10 : 지역
+	 -->
+	<select id="selectCodeArea" resultMap="codeAreaMap">
+		select *
+		  from tb_code
+		 where code_type = '10'
+		 order by code_no asc
+	</select>
+	
+	<select id="selectCodeGraduate" resultMap="codeGraduateMap">
+		select *
+		  from tb_code
+		 where code_type = '3'
+		 order by code_no asc
+	</select>
+	
+	<select id="selectCodeJobType" resultMap="codeJobTypeMap">
+		select *
+		  from tb_code
+		 where code_type = '4'
+		 order by code_no asc
+	</select>
+	
+	
 </mapper>
