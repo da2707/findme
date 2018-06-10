@@ -69,6 +69,11 @@ public class ScheduleServiceExec implements ScheduleService {
 	public void deleteSchedule(Schedule schedule) throws Exception {
 		mapper.deleteSchedule(schedule);
 	}
+	
+	@Override
+	public void insertSchedule(Schedule schedule) throws Exception {
+		mapper.insertSchedule(schedule);
+	}
 
 	// 검색 영역 생성용 메서드
 	@Override

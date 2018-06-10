@@ -228,8 +228,10 @@
     		var date = moment(result.regDate).format("YYYY-MM-DD");
     		if (date.startsWith('1970')) {
     			$('#applyDay').text("지원 안 함");
+    			$('span#conditionText').text(result.codeNo);
     		} else {
     			$('#applyDay').text(date);
+    			$('span#conditionText').text(result.codeNo);
     		}
     	};
     	
@@ -522,13 +524,11 @@
     		var sKey = $("#spForm").serialize();
     		$.ajax({
     			url: "jobSearch.json",
-//     			url: "http://api.saramin.co.kr/job-search",
     			data: sKey
     		}).done(function (result) {
     			makeJobList(result);
     		});
     	});
-    	
     	
     	function makeJobList(result) {
     		var html = '';
@@ -538,26 +538,65 @@
 			html += '	<th>제목</th>';	
 			html += '	<th>지원자격</th>';
 			html += '	<th>근무조건</th>';
-			html += '	<th>마감일/등록일</th>';
+			html += '	<th>등록일/마감일</th>';
 			html += '	<th>캘린더 등록</th>';
 			html += '</tr>';
 						
 			for (var i = 0; i < result.length; i++) {
-			html += '<tr>';
-			html += '<td>'+ result[i].company +'</td>';
+				var start = result[i].startDate;
+				var end = result[i].endDate;
+			html += '<tr class="trBody">';
+			html += '<td><span style="display:none">'+ result[i].recruitNo +'</span><span>'+ result[i].company +'</span></td>';
 			html += '<td><a href="'+ result[i].link +'">'+ result[i].title +'</a></td>';
-			html += '<td>'+ result[i].expLv + '/' + result[i].eduLv +'</td>';
+			html += '<td><span>'+ result[i].expLv + '</span><br><span>' + result[i].eduLv +'</span></td>';
 			html += '<td>'+ result[i].jobType +'</td>';
-			html += '<td><span>'+ moment(result[i].startDate).format("YYYY-MM-DD") + ' / </span>';
-			html += '<span>'+ moment(result[i].endDate).format("YYYY-MM-DD") +'</span></td>';
-			html += '<td><a role="button" id="insertSchedule">캘린더 등록</a></td>';
+			html += '<td><span style="display:none">'+ start + '</span><span style="display:none">' + end + '</span>'; 
+			html += '<span>' + moment(start).format("YYYY-MM-DD") + '</span><br>';
+			html += '</span>'+ moment(end).format("YYYY-MM-DD") +'</span></td>';
+			html += '<td><a role="button" id="insertCal">캘린더 등록</a></td>';
 			html += '</tr>';				
 			}
-			html += '</table';
+			html += '</table>';
 			$("#resultList").html(html);
+			
+			// 새로 생성되는 태그에 클릭 이벤트 자동 적용
+			$("#resultList").on("click", "#insertCal", function() {
+// 				console.log($(this).parent().parent());
+				insertCalendar($(this).parent().parent());
+			});
+    	};
+
+    	// DB에 테이블에 있는 채용 정보 데이터 일부를 꺼내어 저장
+    	function insertCalendar(data) {
+    		var td = data.children();
+    		
+    		var recruitNo = td.eq(0).children("span").eq(0).text();
+    		var name = td.eq(0).children("span").eq(1).text();
+    		var link = td.eq(1).children("a").attr("href");
+    		var title = td.eq(1).children("a").text();
+    		var start = new Date((Number)(td.eq(4).children("span").eq(0).text()));
+    		var end = new Date((Number)(td.eq(4).children("span").eq(1).text()));
+			
+    		
+    		console.log(sessionId);
+    		console.log(recruitNo);
+    		console.log(name);
+    		console.log(link);
+    		console.log(title);
+    		console.log(start);
+    		console.log(end);
+    		
+    		$.ajax({
+    			url: "insertCalendar.json",
+    			type: "POST",
+    			data: {userId : sessionId, recruitNo : recruitNo, name : name, link : link,
+    					title : title, start : start, end : end},
+    			success: function () {
+    				alert("캘린더에 일정이 등록되었습니다.");
+    				remakeCalendar();
+    			}
+    		});
     	}
-    	
-    	
     	
     	// 지역 검색 영역 생성
     	function loadArea() {

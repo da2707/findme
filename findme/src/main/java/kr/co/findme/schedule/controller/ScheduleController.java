@@ -100,28 +100,42 @@ public class ScheduleController {
 	}
 	
 	// 검색 영역 생성을 위한 컨트롤러
-	@RequestMapping("loadCodeArea.json")
+	@RequestMapping("/loadCodeArea.json")
 	@ResponseBody
 	public List<SearchCodeArea> loadCodeArea() throws Exception {
 		List<SearchCodeArea> list = scheduleService.loadCodeArea();
 		return list;
 	}
 	
-	@RequestMapping("loadCodeGraduate.json")
+	@RequestMapping("/loadCodeGraduate.json")
 	@ResponseBody
 	public List<SearchCodeGraduate> loadCodeGraduate() throws Exception {
 		List<SearchCodeGraduate> list = scheduleService.loadCodeGraduate();
 		return list;
 	}
 	
-	@RequestMapping("loadCodeJobType.json")
+	@RequestMapping("/loadCodeJobType.json")
 	@ResponseBody
 	public List<SearchCodeJobType> loadCodeJobType() throws Exception {
 		List<SearchCodeJobType> list = scheduleService.loadCodeJobType();
 		return list;
 	}
 	
-	@RequestMapping("jobSearch.json")
+	// 검색 결과 테이블에 있는 정보를 캘린더 DB에 삽입
+	@RequestMapping("/insertCalendar.json")
+	@ResponseBody
+	public void insertCalendar(Schedule schedule) throws Exception {
+		System.out.println(schedule.getUserId());
+		System.out.println(schedule.getTitle());
+		System.out.println(schedule.getName());
+		System.out.println(schedule.getStart());
+		System.out.println(schedule.getEnd());
+		System.out.println(schedule.getLink());
+		System.out.println(schedule.getRecruitNo());
+		scheduleService.insertSchedule(schedule);
+	}
+	
+	@RequestMapping("/jobSearch.json")
 	@ResponseBody
 	public List<SearchResult> jobSearch(SearchParameter param) throws Exception {
 		List<SearchResult> searchList = new ArrayList<>();
@@ -208,7 +222,7 @@ public class ScheduleController {
 							if (pTagName.equals("title")) {
 								sr.setTitle(pNode.getTextContent().trim());
 							}
-							if (pTagName.equals("job_type")) {
+							if (pTagName.equals("job-type")) {
 								sr.setJobType(pNode.getTextContent());
 							}
 							if (pTagName.equals("required-education-level")) {

@@ -13,7 +13,7 @@ public class Schedule {
 	private Date end;
 	private char apply;
 	private String codeNo;
-	private int finalRound;
+	private String finalRound;
 	private char result;
 	private String link;
 	private int days;
@@ -86,10 +86,10 @@ public class Schedule {
 	public void setCodeNo(String codeNo) {
 		this.codeNo = codeNo;
 	}
-	public int getFinalRound() {
+	public String getFinalRound() {
 		return finalRound;
 	}
-	public void setFinalRound(int finalRound) {
+	public void setFinalRound(String finalRound) {
 		this.finalRound = finalRound;
 	}
 	public char getResult() {

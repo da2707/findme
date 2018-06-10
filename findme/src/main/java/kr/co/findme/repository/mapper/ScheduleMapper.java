@@ -20,6 +20,7 @@ public interface ScheduleMapper {
 	void registCondition(Schedule schedule);
 	void resultSelect(Schedule schedule);
 	void deleteSchedule(Schedule schedule);
+	void insertSchedule(Schedule schedule);
 	// 검색 영역 생성용 매퍼
 	List<SearchCodeArea> selectCodeArea();
 	List<SearchCodeGraduate> selectCodeGraduate();

@@ -20,6 +20,7 @@ public interface ScheduleService {
 	public void registCondition(Schedule schedule) throws Exception;
 	public void resultSelect(Schedule schedule) throws Exception;
 	public void deleteSchedule(Schedule schedule) throws Exception;
+	public void insertSchedule(Schedule schedule) throws Exception;
 	// 검색 영역 관리용 메서드
 	public List<SearchCodeArea> loadCodeArea() throws Exception;
 	public List<SearchCodeGraduate> loadCodeGraduate() throws Exception;
