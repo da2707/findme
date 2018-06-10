@@ -55,7 +55,7 @@
     </div>
     <div class="container" id="container">
         <div class="row" id="mCarousel">
-            <div class="col-md-9">
+            <div class="col-md-5">
                 <div class="carousel slide" data-ride="carousel" id="carousel-1">
                     <div class="carousel-inner" role="listbox">
                         <div class="item active"><img class="slide" src="${pageContext.request.contextPath}/resources/images/leg1.jpg" alt="Slide Image"></div>
@@ -71,20 +71,17 @@
                     </ol>
                 </div>
             </div>
-            <div class="col-md-3">
-            	<ul class="list-unstyled" id="rankingList">
-            		<li><strong>▶ 업체별 순위 ◀</strong></li>
-                    <li>1위 - 삼성전자</li>
-                    <li>2위 - LG전자</li>
-                    <li>3위 - 대우전자</li>
-                    <li>4위 - 현대자동차</li>
-                    <li>5위 - 기아자동차</li>
-                    <li>6위 - 구글</li>
-                    <li>7위 - 네이버</li>
-                    <li>8위 - 다음</li>
-                    <li>9위 - 페이스북</li>
-                    <li>10위 - 트위터</li>
-                </ul>
+            <div class="col-md-5">
+				<div id="blogSearchList">
+                    <div id="blogTitle"><span>&nbsp;&nbsp;■ 블로그 정보 - </span><span id="newsFlash"></span></div>
+                    <div id="blogContent"></div>
+                </div>
+            </div>
+            <div class="col-md-2"> 
+            	<div id="list_realtime_ranking">
+	            	<div class="tit"><span>실시간 인기 공채 속보</span></div>
+	            	<ol class="list"></ol>
+            	</div>
             </div>
         </div>
         <div class="row">
@@ -184,6 +181,8 @@
 	$(document).ready(function() {
 		hideNav();
 		guestAndMember();
+		
+		realTimeRanking();
 	});
 	
 	function hideNav() {
@@ -231,8 +230,45 @@
 	 	});
 	});
 	
-</script>
 	
+	function realTimeRanking() {
+		$.ajax({
+			url: "loadRanking.json"
+		}).done(function(result) {
+			alert("크로울링 완료");
+			$(".list").html(result);
+			// 실시간 공채 속보 로딩 후 바로 네이버 검색 API 호출 처리
+			loadBlogSearch();
+		});
+	}
+	
+	function loadBlogSearch() {
+		var query = $(".n1").children("a").text();
+		console.log(query);
+		$.ajax({
+			url: "loadBlogSearch.json",
+			data: {query : query}
+		}).done(function (result) {
+			console.log(result);
+			$("#newsFlash").text(query);
+			makeBlogList(result);
+		});
+	}
+	
+	function makeBlogList(result) {
+		var html = '';
+		html += '<table class="table table-hover">';
+		for (var i = 0; i < result.length; i++ ){
+		html += '	<tr>';
+		html += '		<td>';
+		html += '			<a href="'+ result[i].link +'">' + result[i].title + '</a>';
+		html += '		</td>';
+		html += '	</tr>';
+		}
+		html += '</table>';
+		$("#blogContent").html(html);
+	}
+	
+</script>
 </body>
-
 </html>

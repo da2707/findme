@@ -1,9 +1,61 @@
+#list_realtime_ranking {
+	float: left;
+	width: 180px;
+	height: 290px;
+	margin-left: 0px;
+	background: #fafafa;
+	border: 1px solid #e6e6e6;
+	box-sizing: border-box;
+	font-size: 12px;
+
+}
+
+#list_realtime_ranking .tit {
+	overflow: hidden;
+	height: 13px;
+	margin: 10px 0 9px 12px;
+	background:
+		url(//www.saraminimage.co.kr/ui/main/list_realtime_ranking_160728.png)
+		no-repeat 0 0;
+	text-indent: 100%;
+	white-space: nowrap;
+	box-sizing: border-box;
+}
+
+#list_realtime_ranking .list {
+	overflow: hidden;
+	height: 280px;
+	padding: 16px 5px 0 12px;
+	border-top: 1px solid #e6e6e6;
+}
+
+#list_realtime_ranking .list li {position:relative;margin-bottom:8px;padding:0 24px 0 21px;height:16px;background:url(//www.saraminimage.co.kr/ui/main/list_realtime_ranking_160728.png) no-repeat;}
+#list_realtime_ranking .list li:first-child {margin-top:0;}
+#list_realtime_ranking .list li.n1 { background-position:0 -16px;}
+#list_realtime_ranking .list li.n2 { background-position:0 -39px;}
+#list_realtime_ranking .list li.n3 { background-position:0 -63px;}
+#list_realtime_ranking .list li.n4 { background-position:0 -88px;}
+#list_realtime_ranking .list li.n5 { background-position:0 -112px;}
+#list_realtime_ranking .list li.n6 { background-position:0 -136px;}
+#list_realtime_ranking .list li.n7 { background-position:0 -160px;}
+#list_realtime_ranking .list li.n8 { background-position:0 -184px;}
+#list_realtime_ranking .list li.n9 { background-position:0 -208px;}
+#list_realtime_ranking .list li.n10 { background-position:0 -231px;}
+#list_realtime_ranking .list a {display:block;overflow:hidden;width:100%;height:16px;line-height:14px;color:#444;letter-spacing:-1px;font-family:Malgun Gothic, "���� ���",dotum,'����', sans-serif;white-space:nowrap;text-overflow:ellipsis;}
+#list_realtime_ranking .list span {position:absolute;top:6px;right:2px;width:22px;height:5px;background:url(//www.saraminimage.co.kr/ui/main/list_realtime_ranking_160728.png) no-repeat;text-indent:100%;white-space:nowrap;}
+#list_realtime_ranking .list span.new {background-position:0 -317px;}
+#list_realtime_ranking .list span.up {background-position: 0 -257px;}
+#list_realtime_ranking .list span.down {background-position:0 -305px;}
+#list_realtime_ranking .list span.equal {background-position:0 -282px;}
+
+
 .container{
 	width: 1200px;
 }
 
 .slide {
-	width: 90%;
+	width: 480px;
+	heigth: 300px;
 }
 
 .naverimg {
@@ -262,6 +314,20 @@ div#container {
 	border-top: 1px solid #ddd;
 	padding-top: 20px
 }
+
+
+#blogSearchList{
+	border: 0.5px solid gray; 
+	height: 290px;
+}
+
+#blogTitle {
+	font-size: 14px;
+	font-weight: 700;
+	margin-bottom: 15px;
+	line-height: 20px;
+}
+
 
 #recruitListTitle {
 	text-align: left
