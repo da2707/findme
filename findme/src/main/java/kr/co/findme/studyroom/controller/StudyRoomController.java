@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.findme.repository.domain.Link;
 import kr.co.findme.repository.domain.Video;
 import kr.co.findme.studyroom.service.StudyRoomService;
 
@@ -60,12 +61,55 @@ public class StudyRoomController {
 	
 	@RequestMapping("/vDelete.json")
 	@ResponseBody
-	public void deleteVideo(Video video) throws Exception {
-		studyRoomService.deleteVideo(video);  
+	public List<Video> deleteVideo(Video video) {
+		studyRoomService.deleteVideo(video);
+		List<Video> vList = studyRoomService.retrieveVideo(video.getId());
+		return vList;
 	}
 
 	@RequestMapping("/link.do")
 	public String link() {
 		return "studyroom/link/link";
+	}
+	
+	@RequestMapping("/linkList.json")
+	@ResponseBody
+	public List<Link> retrieveLink(HttpSession session, String id){
+		String loginId = (String) session.getAttribute("id");
+		List<Link> linkList = studyRoomService.retrieveLink(loginId);
+		return linkList;
+	}
+	
+	@RequestMapping("/linkInsert.json")
+	@ResponseBody
+	public List<Link> registLink(Link link) {
+		studyRoomService.registLink(link);
+		List<Link> linkList = studyRoomService.retrieveLink(link.getId());
+		return linkList;
+	}
+	
+	@RequestMapping("/linkUpdateForm.json")
+	@ResponseBody
+	public List<Link> updateFormLink(Link link) {
+		System.out.println("no : " + link.getNo());
+		System.out.println("id : " + link.getId());
+		List<Link> linkFormList = studyRoomService.updateFormLink(link);
+		return linkFormList;
+	}
+	
+	@RequestMapping("/linkUpdate.json")
+	@ResponseBody
+	public List<Link> updateLink(Link link) {
+		studyRoomService.updateLink(link); 
+		List<Link> linkList = studyRoomService.retrieveLink(link.getId());
+		return linkList;
+	}
+	
+	@RequestMapping("/linkDelete.json")
+	@ResponseBody
+	public List<Link> deleteLink(Link link) {
+		studyRoomService.deleteLink(link);
+		List<Link> linkList = studyRoomService.retrieveLink(link.getId());
+		return linkList;
 	}
 }
