@@ -4,17 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.findme.repository.domain.Link;
 import kr.co.findme.repository.domain.Video;
+import kr.co.findme.repository.mapper.LinkMapper;
 import kr.co.findme.repository.mapper.VideoMapper;
 
 @Service("studyRoomService")
 public class StudyRoomServiceExec implements StudyRoomService {
 	@Autowired
 	private VideoMapper vmapper;
-//	@Autowired
-//	private LinkMapper lmapper;
+	@Autowired
+	private LinkMapper lmapper;
 	
 	@Override
 	public List<Video> retrieveVideo(String id) {
@@ -39,6 +40,32 @@ public class StudyRoomServiceExec implements StudyRoomService {
 	@Override
 	public void deleteVideo(Video video) {
 		vmapper.deleteVideo(video);
+	}
+
+	@Override
+	public List<Link> retrieveLink(String id) {
+		return lmapper.selectAllLink(id);
+	}
+
+	@Override
+	public void registLink(Link link) {
+		lmapper.insertLink(link);
+		
+	}
+
+	@Override
+	public void updateLink(Link link) {
+		lmapper.updateLink(link);
+	}
+
+	@Override
+	public List<Link> updateFormLink(Link link) {
+		return lmapper.selectLinkByNo(link);
+	}
+
+	@Override
+	public void deleteLink(Link link) {
+		lmapper.deleteLink(link);
 	}
 }
 	

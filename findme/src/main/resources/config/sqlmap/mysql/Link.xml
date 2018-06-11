@@ -2,4 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.findme.repository.mapper.LinkMapper">
+	<resultMap type="link" id="linkMap">
+		<result column="no" property="no" />
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="url" property="url" />
+		<result column="category" property="category" />
+		<result column="memo" property="memo" />
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+	
+	<select id="selectAllLink" parameterType="string" resultMap="linkMap">
+		select * from tb_link
+		where id = #{id}
+		order by no asc
+	</select>
+	
+	<insert id="insertLink" parameterType="link">
+		insert into tb_link (
+			id, title, url, category, memo	
+		) values (
+			#{id}, #{title}, #{url}, #{category}, #{memo}
+		)
+	</insert>
+	
+	<update id="updateLink" parameterType="link">
+		update tb_link
+			set title = #{title}
+				, url = #{url}
+				, category = #{category}
+				, memo = #{memo}
+			where id = #{id}
+			and no = #{no}
+	</update>
+	
+	<select id="selectLinkByNo" parameterType="link" resultMap="linkMap">
+		select * from tb_link
+			where id = #{id}
+			and no = #{no}
+	</select>
+	
+	<delete id="deleteLink" parameterType="link">
+		delete from tb_link
+			where id = #{id}
+			and no = #{no}
+	</delete>
 </mapper>
