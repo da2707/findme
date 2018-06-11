@@ -73,7 +73,7 @@
             </div>
             <div class="col-md-5">
 				<div id="blogSearchList">
-                    <div id="blogTitle"><span>&nbsp;&nbsp;■ 블로그 정보 - </span><span id="newsFlash"></span></div>
+                    <div id="blogTitle"><span>&nbsp;&nbsp;■ 취업 관련 블로그 정보 - </span><span id="newsFlash"></span></div>
                     <div id="blogContent"></div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
             	</div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="boardList">
             <div class="col-md-6" id="shareList">
                 <div id="shareListTitle">
                     <div id="leftTitle"><span>취업 정보 나눔 게시판</span></div>
@@ -235,7 +235,7 @@
 		$.ajax({
 			url: "loadRanking.json"
 		}).done(function(result) {
-			alert("크로울링 완료");
+// 			alert("크로울링 완료");
 			$(".list").html(result);
 			// 실시간 공채 속보 로딩 후 바로 네이버 검색 API 호출 처리
 			loadBlogSearch();

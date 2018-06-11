@@ -307,7 +307,12 @@
 }
 
 #mCarousel {
+	margin-top : 15px;
 	margin-bottom: 15px
+}
+
+#boardList {
+	margin-top : 30px;
 }
 
 div#container {
