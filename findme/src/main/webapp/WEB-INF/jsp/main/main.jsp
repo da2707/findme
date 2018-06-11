@@ -32,19 +32,25 @@
                     <ul class="nav navbar-nav">
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
                         <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/schedule/schedule.do" >MyCalendar</a></li>
-                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/resume/list.do" >MyResume</a></li>
                         <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/mystat/chart.do" >MyStat</a></li>
                         <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do" >StudyRoom</a></li>
                         <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/hireInfo.do" >Recruiting</a></li>
                     </ul>
+					<form class="navbar-form navbar-left" role="search">
+						<div class="form-group">
+							<input type="text" id="search" class="form-control" placeholder="Search" >
+						</div>
+						<button type="submit" value="Search" class="btn btn-default">Submit</button>
+					</form>
+                    
                     <p class="navbar-text navbar-right actions" id="guest">
 	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
 	                    <a href="${pageContext.request.contextPath}/user/signup.do" 
 	                       class="navbar-link signup btn btn-default action-button">Sign Up</a>
                     </p>
                     <p class="navbar-text navbar-right actions" id="member">
-                    	${id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
-                    	<a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
+                    ${sessionScope.id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
                     	   class="navbar-link login">Log out</a>
                     	<a href="${pageContext.request.contextPath}/user/mypage.do"
                     	   class="navbar-link signup btn btn-default action-button">My Page</a>
@@ -56,14 +62,14 @@
     <div class="container" id="container">
         <div class="row" id="mCarousel">
             <div class="col-md-5">
-                <div class="carousel slide" data-ride="carousel" id="carousel-1">
-                    <div class="carousel-inner" role="listbox">
+                <div class="carousel slide" data-ride="carousel" id="carousel-1" data-interval="false">
+                    <div class="carousel-inner" role="listbox" id="results">
                         <div class="item active"><img class="slide" src="${pageContext.request.contextPath}/resources/images/leg1.jpg" alt="Slide Image"></div>
                         <div class="item"><img class="slide" src="${pageContext.request.contextPath}/resources/images/leg2.jpg" alt="Slide Image"></div>
                         <div class="item"><img class="slide" src="${pageContext.request.contextPath}/resources/images/leg3.jpg" alt="Slide Image"></div>
                     </div>
-                    <div><a class="left carousel-control" href="#carousel-1" role="button" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i><span class="sr-only">Previous</span></a><a class="right carousel-control" href="#carousel-1" role="button"
-                            data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i><span class="sr-only">Next</span></a></div>
+                    <div><a class="left carousel-control" href="#carousel-1" role="button" data-slide="prev" style="width:5px;"><i class="glyphicon glyphicon-chevron-left"></i><span class="sr-only">Previous</span></a><a class="right carousel-control" href="#carousel-1" role="button"
+                            data-slide="next" style="width:5px;"><i class="glyphicon glyphicon-chevron-right"></i><span class="sr-only">Next</span></a></div>
                     <ol class="carousel-indicators">
                         <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
                         <li data-target="#carousel-1" data-slide-to="1"></li>
@@ -275,5 +281,7 @@
 	}
 	
 </script>
+<script src="${pageContext.request.contextPath}/resources/js/youtube.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
 </body>
 </html>

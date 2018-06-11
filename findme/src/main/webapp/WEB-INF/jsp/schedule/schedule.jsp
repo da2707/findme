@@ -26,8 +26,7 @@
         <nav class="navbar navbar-default navigation-clean-button">
             <div class="container">
                 <div class="navbar-header"><a class="navbar-brand" href="${pageContext.request.contextPath}/main.do">FindMe</a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
-                <div
-                    class="collapse navbar-collapse" id="navcol-1">
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/community/list.jsp">Community</a></li>
                         <li class="active" role="presentation"><a href="${pageContext.request.contextPath}/view/calendar/calendar.jsp">MyCalendar</a></li>
@@ -36,7 +35,12 @@
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/studyroom/video.jsp">StudyRoom</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/recruiting/hireinfo.jsp">Recruiting</a></li>
                     </ul>
-                    <p class="navbar-text navbar-right actions"><a class="navbar-link login" href="#">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
+                    <p class="navbar-text navbar-right actions" id="member">
+                    ${sessionScope.id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/user/logout.do" id="logout" 
+                    class="navbar-link login">Log out</a>
+                    <a href="${pageContext.request.contextPath}/user/mypage.do"
+                    class="navbar-link signup btn btn-default action-button">My Page</a></p>
             </div>
     </div>
     </nav>
@@ -130,7 +134,17 @@
     	var sessionId = '${sessionScope.id}';
     	console.log(sessionId);
     	
+    	// 로그인 시 로그 아웃 및 내 정보 영역 노출 처리
+    	function guestAndMember() {
+    		if(sessionId == ''){
+    			$("#member").hide();
+    		} else {
+    			$("#guest").hide();
+    		}
+    	};
+    	
 		$(document).ready(function() {
+			guestAndMember();
 			makeCalendar();
 			loadArea();
 			loadGraduate();

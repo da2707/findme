@@ -57,11 +57,6 @@ a.top {
 #list_realtime_ranking .list span.down {background-position:0 -305px;}
 #list_realtime_ranking .list span.equal {background-position:0 -282px;}
 
-
-.container{
-	width: 1200px;
-}
-
 .slide {
 	width: 480px;
 	heigth: 300px;
@@ -92,7 +87,7 @@ a.top {
 	border-radius: 0;
 	box-shadow: none;
 	border: none;
-	margin-bottom: 0
+	margin-bottom: 0;
 }
 
 .navigation-clean-button .navbar-brand {
