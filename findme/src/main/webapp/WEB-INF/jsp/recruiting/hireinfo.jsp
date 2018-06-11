@@ -43,7 +43,8 @@
         <div>
             <div class="col-md-2">
                 <h1 class="text-center" style="width:190px;margin-left:-16px;">채용 정보</h1>
-                <div id="keyword" style="margin-top:32px;padding-top:10px;"><a href="${pageContext.request.contextPath}/recruiting/manageKey.do" id="keywordmng" style="margin:8px;font-size:20px;margin-left:27px;">키워드 관리</a>
+                <div id="keyword" style="margin-top:32px;padding-top:10px;">
+                	<a href="${pageContext.request.contextPath}/recruiting/manageKey.do" id="keywordmng" style="margin:8px;font-size:20px;margin-left:27px;">키워드 관리</a>
                     <div id="keyword" style="margin-top:7px;padding-top:10px;"></div>
                 </div>
             </div>
@@ -59,18 +60,9 @@
                                 <th style="width:90px;">마감일</th>
                             </tr>
                         </thead>
-                        <c:forEach items="${moditimes}" var="modi" varStatus="status">
                         <tbody>
-                            <tr style="padding-top:0px;">
-                                <td style="padding-top:35px;">80%</td>
-                                <td style="padding-top:35px;">${modi}</td>
-                                <td style="padding-top:35px;">${companies[status.index]}</td>
-                                <td><br><a href="">${positions[status.index]}</a>&nbsp;<a data-toggle="modal" data-target="#myModal"></a>
-                                    &gt; <br><br></td>
-                                <td style="padding-top:35px;">${expitimes[status.index]}</td>
-                            </tr>
+                           
                         </tbody>
-                        </c:forEach>
                     </table>
                 </div>
             </div>
@@ -104,6 +96,67 @@
         </div>
     </div>
 
+<script>
+var sessionId = '${sessionScope.id}';
+
+	$(document).ready(function(){
+		$.ajax({
+			url: "makeHireInfo.json",
+			data: {id:sessionId}
+		}).done(function(result){
+			console.log(result);
+			makeHireList(result);
+		});
+	});
+
+	function makeHireList(result){
+		var html="";
+		for(var i=0; i<result.length; i++){
+			html += '<tr style="padding-top:0px;">';
+			html += '<td style="padding-top:35px;">'+result[i].matchs+'%</td>';
+			html += '<td style="padding-top:35px;">'+result[i].moditimes+'</td>';
+			html += '<td style="padding-top:35px;">'+result[i].companies+'</td>';
+			html += '<td><br><a href="">'+result[i].positions+'</a>&nbsp;<a data-toggle="modal" data-target="#myModal"></a>';
+			html += '   &gt; <br><br></td>';
+			html += '<td style="padding-top:35px;">'+result[i].expitimes+'</td>';
+			html += '</tr>';
+		}
+		$("table > tbody:last").append(html);
+		
+		$(window).scroll(function () {
+			var sTop = $(window).scrollTop();
+			var min = $(document).height() - $(window).height();
+			
+			console.log(sTop, min);
+			
+    		if ($(window).scrollTop() > $(document).height() - $(window).height() - 0.21) {
+    			$.ajax({
+    				url: "makeHireInfo.json",
+    				data: {id:sessionId}
+    			}).done(function(data){
+    				console.log(data);
+    				remakeHireList(data);
+    			});
+    		}
+		});
+	}
+	
+	function remakeHireList(data) {
+		var html="";
+		for(var i=0; i<data.length; i++){
+			html += '<tr style="padding-top:0px;">';
+			html += '<td style="padding-top:35px;">'+data[i].matchs+'%</td>';
+			html += '<td style="padding-top:35px;">'+data[i].moditimes+'</td>';
+			html += '<td style="padding-top:35px;">'+data[i].companies+'</td>';
+			html += '<td><br><a href="">'+data[i].positions+'</a>&nbsp;<a data-toggle="modal" data-target="#myModal"></a>';
+			html += '   &gt; <br><br></td>';
+			html += '<td style="padding-top:35px;">'+data[i].expitimes+'</td>';
+			html += '</tr>';
+		}
+		$("table > tbody:last").append(html);
+	}
+
+</script>
 
 </body>
 

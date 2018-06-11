@@ -291,32 +291,44 @@
                  <br>               
                                 직종1 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="jobType1">
                                 						<option>${recruiting.jobType1}</option>
-                                						<option>경영·사무</option>
-                                						<option>영업·고객상담</option>
-                                						<option>생산·제조</option>
-                                						<option>IT·인터넷</option>
+                                						<option>경영</option>
+                                						<option>사무</option>
+                                						<option>영업</option>
+                                						<option>고객상담</option>
+                                						<option>생산</option>
+                                						<option>제조</option>
+                                						<option>IT</option>
+                                						<option>인터넷</option>
                                 						<option>전문직</option>
                                 						<option>교육</option>
                                 						<option>미디어</option>
-                                						<option>특수계층·공공</option>
+                                						<option>특수계층</option>
+                                						<option>공공</option>
                                 						<option>건설</option>
-                                						<option>유통·무역</option>
+                                						<option>유통</option>
+                                						<option>무역</option>
                                 						<option>서비스</option>
                                 						<option>디자인</option>
                                 						<option>의료</option>
                                 					   </select> <br>
                                 직종2 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="jobType2">
                                 						<option>${recruiting.jobType2}</option>
-                                						<option>경영·사무</option>
-                                						<option>영업·고객상담</option>
-                                						<option>생산·제조</option>
-                                						<option>IT·인터넷</option>
+                                						<option>경영</option>
+                                						<option>사무</option>
+                                						<option>영업</option>
+                                						<option>고객상담</option>
+                                						<option>생산</option>
+                                						<option>제조</option>
+                                						<option>IT</option>
+                                						<option>인터넷</option>
                                 						<option>전문직</option>
                                 						<option>교육</option>
                                 						<option>미디어</option>
-                                						<option>특수계층·공공</option>
+                                						<option>특수계층</option>
+                                						<option>공공</option>
                                 						<option>건설</option>
-                                						<option>유통·무역</option>
+                                						<option>유통</option>
+                                						<option>무역</option>
                                 						<option>서비스</option>
                                 						<option>디자인</option>
                                 						<option>의료</option>
@@ -372,11 +384,17 @@
                                 								  </select> <br>
                                 경력 :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="career">
                                 								  	<option>${recruiting.career}</option>
-                                								  	<option>1년이하</option>
-                                								  	<option>1~3년</option>
-                                								  	<option>3~6년</option>
-                                								  	<option>6~9년</option>
-                                								  	<option>10년이상</option>
+                                								  	<option>신입</option>
+                                								  	<option>1년</option>
+                                								  	<option>2년</option>
+                                								  	<option>3년</option>
+                                								  	<option>4년</option>
+                                								  	<option>5년</option>
+                                								  	<option>6년</option>
+                                								  	<option>7년</option>
+                                								  	<option>8년</option>
+                                								  	<option>9년</option>
+                                								  	<option>10년</option>
                                 								  </select> <br>
                                 급여 :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="salary">
                                 								   <option>${recruiting.salary}</option>
