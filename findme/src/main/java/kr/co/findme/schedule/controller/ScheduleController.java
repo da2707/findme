@@ -31,11 +31,14 @@ import kr.co.findme.schedule.service.ScheduleService;
 @RequestMapping("/schedule")
 public class ScheduleController {
 	
+	private int start = 0;
+	
 	@Autowired
 	private ScheduleService scheduleService;
 	
 	@RequestMapping("/schedule.do")
 	public String calendar() {
+		start = 0;
 		return "schedule/schedule"; 
 	}
 	
@@ -124,7 +127,7 @@ public class ScheduleController {
 	// 검색 결과 테이블에 있는 정보를 캘린더 DB에 삽입
 	@RequestMapping("/insertCalendar.json")
 	@ResponseBody
-	public void insertCalendar(Schedule schedule) throws Exception {
+	public String insertCalendar(Schedule schedule) throws Exception {
 		System.out.println(schedule.getUserId());
 		System.out.println(schedule.getTitle());
 		System.out.println(schedule.getName());
@@ -132,12 +135,24 @@ public class ScheduleController {
 		System.out.println(schedule.getEnd());
 		System.out.println(schedule.getLink());
 		System.out.println(schedule.getRecruitNo());
-		scheduleService.insertSchedule(schedule);
+		
+		Schedule s1 = scheduleService.retrieveOne(schedule);
+
+		String msg = "";
+		
+		if (s1 == null) {
+			scheduleService.insertSchedule(schedule);
+			msg = "채용 일정이 정상 등록되었습니다.";
+		} else {
+			msg = "이미 등록된 채용 일정입니다.";
+		}
+		return msg;
 	}
 	
 	@RequestMapping("/jobSearch.json")
 	@ResponseBody
 	public List<SearchResult> jobSearch(SearchParameter param) throws Exception {
+		System.out.println(start);
 		List<SearchResult> searchList = new ArrayList<>();
 		String loc_cd = param.getLoc_cd();
 		String edu_lv = param.getEdu_lv();
@@ -172,7 +187,7 @@ public class ScheduleController {
 		con.setRequestMethod("POST");
 		con.setDoOutput(true);
 		DataOutputStream ws = new DataOutputStream(con.getOutputStream());
-		ws.writeUTF(sb.toString());
+		ws.writeUTF(sb.toString() + "&start=" + start);
 		ws.flush();
 		ws.close();
 		
@@ -243,6 +258,7 @@ public class ScheduleController {
 				searchList.add(sr);
 			}
 		}
+		start += 10;
 		return searchList;
 	}
 	

@@ -73,7 +73,7 @@
             </div>
             <div class="col-md-5">
 				<div id="blogSearchList">
-                    <div id="blogTitle"><span>&nbsp;&nbsp;■ 취업 관련 블로그 정보 - </span><span id="newsFlash"></span></div>
+                    <div id="blogTitle"><span class="btitle">&nbsp;&nbsp;■ 취업 관련 블로그 정보 - </span><span class="btitle" id="newsFlash"></span></div>
                     <div id="blogContent"></div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
             </div>
             <div class="col-md-6" id="recruitList">
                 <div id="recruitListTitle">
-                    <div id="rightTitle"><span>최근 취업 정보</span></div>
+                    <div id="rightTitle"><span>최근 채용 정보</span></div>
                     <div id="rightLink"><span><a role="button" href="#">전체 보기</a></span></div>
                 </div>
                 <div class="table-responsive">
@@ -185,6 +185,7 @@
 		realTimeRanking();
 	});
 	
+	// 네비게이션 바 로그인 여부에 따른 노출 처리
 	function hideNav() {
 		if(sessionId == ''){
 			$('.mynavbar').hide();
@@ -193,6 +194,7 @@
 		}
 	};
 	
+	// 로그인 시 로그 아웃 및 내 정보 영역 노출 처리
 	function guestAndMember() {
 		if(sessionId == ''){
 			$("#member").hide();
@@ -201,6 +203,7 @@
 		}
 	};
 	
+	// 로그인 버튼 클릭 시 처리
 	$("#loginBtn").click(function () {
 		var id = $(this).siblings("input[name='id']").val();
 		var pw = $(this).siblings("input[name='pw']").val();
@@ -231,17 +234,18 @@
 	});
 	
 	
+	// 실시간 공채 속보 노출 처리
 	function realTimeRanking() {
 		$.ajax({
 			url: "loadRanking.json"
 		}).done(function(result) {
-// 			alert("크로울링 완료");
 			$(".list").html(result);
 			// 실시간 공채 속보 로딩 후 바로 네이버 검색 API 호출 처리
 			loadBlogSearch();
 		});
 	}
 	
+	// 실시간 공채 속보 1위 기준 네이버 블로그 검색 처리
 	function loadBlogSearch() {
 		var query = $(".n1").children("a").text();
 		console.log(query);
@@ -254,7 +258,8 @@
 			makeBlogList(result);
 		});
 	}
-	
+
+	// 블로그 검색 결과 테이블 생성 
 	function makeBlogList(result) {
 		var html = '';
 		html += '<table class="table table-hover">';
@@ -268,6 +273,9 @@
 		html += '</table>';
 		$("#blogContent").html(html);
 	}
+	
+	
+	
 	
 </script>
 </body>

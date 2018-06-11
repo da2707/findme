@@ -96,56 +96,6 @@
 		<form id="jobForm">
 			<div class="row">
 				<div class="col-md-12" id="resultList">
-<!-- 					<table class="table table-hover" id="resultList"> -->
-<!-- 						<tr class="info"> -->
-<!-- 							<th>기업명</th> -->
-<!-- 							<th>제목</th> -->
-<!-- 							<th>지원자격</th> -->
-<!-- 							<th>근무조건</th> -->
-<!-- 							<th>마감일/등록일</th> -->
-<!-- 							<th>캘린더 등록</th> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>(주)라인플러스</td> -->
-<!-- 							<td>2018 LINE 각 부문별 상시채용</td> -->
-<!-- 							<td>신입/경력 학력 무관</td> -->
-<!-- 							<td>정규직/인턴직</td> -->
-<!-- 							<td>~05/31(목)</td> -->
-<!-- 							<td><a role="button" href="#">캘린더 등록</a></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>(주)비자파크</td> -->
-<!-- 							<td>[ 여행사 ] 여행사, 번역外 정규직 채용</td> -->
-<!-- 							<td>신입  대학 졸업(2,3년)이상</td> -->
-<!-- 							<td>정규직(수습기간)-3개월</td> -->
-<!-- 							<td>~08/13(월)</td> -->
-<!-- 							<td><a role="button" href="#">캘린더 등록</a></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>(주)드림시드</td> -->
-<!-- 							<td>건축 과장, 차장급 모집</td> -->
-<!-- 							<td>경력 7년 이상, 대학 졸업(2,3년)이상</td> -->
-<!-- 							<td>정규직</td> -->
-<!-- 							<td>~06/27(수)</td> -->
-<!-- 							<td><a role="button" href="#">캘린더 등록</a></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>아덴</td> -->
-<!-- 							<td>호텔 스파 테라피스트 신입, 경력직 모집</td> -->
-<!-- 							<td>신입/경력 학력 무관</td> -->
-<!-- 							<td>정규직</td> -->
-<!-- 							<td>~06/12(화)</td> -->
-<!-- 							<td><a role="button" href="#">캘린더 등록</a></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td>(주)제이더블유씨네트웍스</td> -->
-<!-- 							<td>[생산팀] 조립 경력무관 채용</td> -->
-<!-- 							<td>경력 무관 고졸 이상</td> -->
-<!-- 							<td>정규직</td> -->
-<!-- 							<td>~08/26(일)</td> -->
-<!-- 							<td><a role="button" href="#">캘린더 등록</a></td> -->
-<!-- 						</tr> -->
-					</table>
 				</div>
 			</div>
 		</form>
@@ -430,7 +380,7 @@
 	    			url: "registCondition.json",
 	    			data: {userId : calEvent.userId, codeNo : val, recruitNo: calEvent.recruitNo}
 	    		}).done(function(value) {
-	    			console.log(value.codeNo);
+// 	    			console.log(value.codeNo);
 					$("span#conditionText").text(value.codeNo);
 	    		});
 	    	});
@@ -456,7 +406,7 @@
     			type: "POST",
     			data: {userId : calEvent.userId, recruitNo : calEvent.recruitNo}
        		}).done(function () {
-       			console.log("삭제 완료");
+       			console.log("삭제가 완료되었습니다.");
 	    		$("#modalClose").trigger("click", function() {
 	   	    		remakeCalendar();
 	   	    	});
@@ -471,7 +421,7 @@
     			type: "POST",
     			data: { userId : event.userId, recruitNo : event.recruitNo, days : day},
     			success: function() {
-    				alert("정상 수정");
+    				alert("일정이 정상 수정되었습니다.");
     			}
     		});
     	};
@@ -482,7 +432,8 @@
 	            header: {
 	                left: 'prev,next today',
 	                center: 'title',
-	                right: 'month,agendaWeek,agendaDay'
+// 	                right: 'month,agendaWeek,agendaDay'
+	                right: 'month'
 	            },
 	            monthNames: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 	            monthNamesShort: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
@@ -509,9 +460,6 @@
     				$("#schedule").trigger("click", function() {
     					console.log($("#myModal").attr("class"));
     				});
-    				
-    			    // change the border color just for fun
-    			    $(this).css('border-color', 'red');
 	   			}
 	            
     		});
@@ -532,12 +480,12 @@
     	
     	function makeJobList(result) {
     		var html = '';
-    		html += '<table class="table table-hover">';
+    		html += '<table class="table table-hover" id="calTable">';
 			html += '<tr class="info">';
 			html += '	<th>기업명</th>';
 			html += '	<th>제목</th>';	
 			html += '	<th>지원자격</th>';
-			html += '	<th>근무조건</th>';
+			html += '	<th style="width: 120px;">근무조건</th>';
 			html += '	<th>등록일/마감일</th>';
 			html += '	<th>캘린더 등록</th>';
 			html += '</tr>';
@@ -561,10 +509,45 @@
 			
 			// 새로 생성되는 태그에 클릭 이벤트 자동 적용
 			$("#resultList").on("click", "#insertCal", function() {
-// 				console.log($(this).parent().parent());
 				insertCalendar($(this).parent().parent());
 			});
+			
+	    	// 스크롤 페이징 처리
+			$(window).scroll(function () {
+	    		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+					var sKey = $("#spForm").serialize();
+		    		$.ajax({
+		    			url: "jobSearch.json",
+		    			data: sKey
+		    		}).done(function (data) {
+		    			scrollJobList(data);
+		    			$("#resultList").append("</table>");
+		    		});
+	    		}
+			});
+	   	};
+
+    	
+    	function scrollJobList(data) {
+    		var html = '';
+    		
+    		for (var i = 0; i < data.length; i++) {
+				var start = data[i].startDate;
+				var end = data[i].endDate;
+			html += '<tr class="trBody">';
+			html += '<td><span style="display:none">'+ data[i].recruitNo +'</span><span>'+ data[i].company +'</span></td>';
+			html += '<td><a href="'+ data[i].link +'">'+ data[i].title +'</a></td>';
+			html += '<td><span>'+ data[i].expLv + '</span><br><span>' + data[i].eduLv +'</span></td>';
+			html += '<td>'+ data[i].jobType +'</td>';
+			html += '<td><span style="display:none">'+ start + '</span><span style="display:none">' + end + '</span>'; 
+			html += '<span>' + moment(start).format("YYYY-MM-DD") + '</span><br>';
+			html += '</span>'+ moment(end).format("YYYY-MM-DD") +'</span></td>';
+			html += '<td><a role="button" id="insertCal">캘린더 등록</a></td>';
+			html += '</tr>';				
+			}
+    		$("#calTable > tbody:last").append(html);
     	};
+    	
 
     	// DB에 테이블에 있는 채용 정보 데이터 일부를 꺼내어 저장
     	function insertCalendar(data) {
@@ -577,22 +560,21 @@
     		var start = new Date((Number)(td.eq(4).children("span").eq(0).text()));
     		var end = new Date((Number)(td.eq(4).children("span").eq(1).text()));
 			
-    		
-    		console.log(sessionId);
-    		console.log(recruitNo);
-    		console.log(name);
-    		console.log(link);
-    		console.log(title);
-    		console.log(start);
-    		console.log(end);
+//     		console.log(sessionId);
+//     		console.log(recruitNo);
+//     		console.log(name);
+//     		console.log(link);
+//     		console.log(title);
+//     		console.log(start);
+//     		console.log(end);
     		
     		$.ajax({
     			url: "insertCalendar.json",
     			type: "POST",
     			data: {userId : sessionId, recruitNo : recruitNo, name : name, link : link,
     					title : title, start : start, end : end},
-    			success: function () {
-    				alert("캘린더에 일정이 등록되었습니다.");
+    			success: function (msg) {
+    				alert(msg);
     				remakeCalendar();
     			}
     		});
