@@ -20,6 +20,8 @@
 	<script src='${pageContext.request.contextPath}/resources/js/fullcalendar/jquery-ui.min.js'></script>
 </head>
 <body>
+<!-- 최상단 이용을 위한 a 태그 -->
+<a role="button" href="#" class="btn btn-primary top">맨위로 가기</a>
     <div>
         <nav class="navbar navbar-default navigation-clean-button">
             <div class="container">
@@ -524,9 +526,20 @@
 		    			$("#resultList").append("</table>");
 		    		});
 	    		}
+	    		
+	    		if ($(this).scrollTop() > 200) {
+	    		    $('.top').fadeIn();
+	    		} else {
+	    			$('.top').fadeOut();
+	    		}
+	    		
 			});
 	   	};
 
+   		$('.top').click(function() {
+   			$('html, body').animate({scrollTop : 0}, 400);
+   			return;
+   		});
     	
     	function scrollJobList(data) {
     		var html = '';

@@ -74,7 +74,7 @@
             <div class="col-md-5">
 				<div id="blogSearchList">
                     <div id="blogTitle"><span class="btitle">&nbsp;&nbsp;■ 취업 관련 블로그 정보 - </span><span class="btitle" id="newsFlash"></span></div>
-                    <div id="blogContent"></div>
+                    <div id="	"></div>
                 </div>
             </div>
             <div class="col-md-2"> 
