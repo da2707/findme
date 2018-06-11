@@ -16,8 +16,6 @@
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/resources/js/video/video.js"></script>
-<!-- <script src="https://apis.google.com/js/client.js?onload=init"></script> -->
 </head>
 
 <body>
@@ -94,17 +92,7 @@
 								<h1 class="w100 text-center">YouTube Search</h1>
 							</header>
 							<div class="row">
-								<div class="col-md-6 col-md-offset-3">
-									<form action="#">
-										<p>
-											<input type="text" id="search" placeholder="Type something..." autocomplete="off" class="form-control" />
-										</p>
-										<p>
-											<input type="submit" value="Search" id="searchBtn" class="form-control btn btn-primary w100">
-										</p>
-									</form>
-									<div id="results"></div>
-								</div>
+<%-- 								<c:import url = "https://www.youtube.com"/> --%>
 							</div>
 						</div>
 					</div>
@@ -113,32 +101,30 @@
 		</div>
 	</div>
 
-							<!-- Modal -->
-							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<!-- 												<span aria-hidden="true">&times;</span> -->
-											</button>
-											<h4 class="modal-title" id="myModalLabel">Youtube Shelf</h4>
-										</div>
-										<div class="modal-body">
-											<form id="vidForm">
-													<input type='hidden' name='id' value='${sessionScope.id}' />
-													Youtube Title : <input type="text" name="title" size="70" /> <br> 
-													<br> 
-													Youtube URL : <textarea name='url' rows='5' cols='70'></textarea><br>
-													<br>
-											</form>
-										</div>
-										<div id="modalFooter" class="modal-footer">
-											<button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal">Close</button>
-											<input type="submit" value="Save changes" id="save" class="btn btn-primary">
-										</div>
-									</div>
-								</div>
-							</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+					<h4 class="modal-title" id="myModalLabel">Youtube Shelf</h4>
+				</div>
+				<div class="modal-body">
+					<form id="vidForm">
+							<input type='hidden' name='id' value='${sessionScope.id}' />
+							Youtube Title : <input type="text" name="title" size="70" /> <br> 
+							<br> 
+							Youtube URL : <textarea name='url' rows='5' cols='70'></textarea><br>
+							<br>
+					</form>
+				</div>
+				<div id="modalFooter" class="modal-footer">
+					<button type="button" id="closeModal" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" value="Save changes" id="save" class="btn btn-primary">
+				</div>
+			</div>
+		</div>
+	</div>
 <script>
 
 	var sessionId = '${id}';
@@ -174,15 +160,15 @@
 	
 	function makeVideoList(result) {
 		var html = '';
-		html = '<br>';
+		html += '<br>';
 		html += '<strong>등록된 리스트는 ' + result.length + '개입니다.</strong>';
 		html += '<table class="tg">';
 		for (var i = 0; i<result.length; i++) {
 		html += '	<tr>';
-		html += '		<th class="tg-qvqz" colspan="2" style="font-size:15px;"><a href="'+result[i].url+'">' +  result[i].title +  '</a></th>';
-		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="update" class="btn1 btn-primaryu btn-lgu" type="button" data-toggle="modal" data-target="#myModal" onclick="updateForm(' + result[i].id + ',' + result[i].no + ')">수정</button></th>';
-		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="delete" type="button" data-toggle="modal" data-target="#myModal">삭제</button></th>';
-		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;display:none;"><button id="delete" type="button" data-toggle="modal" data-target="#myModal">'+result[i].no+'</button></th>';
+		html += '		<th class="tg-qvqz" colspan="2" style="font-size:15px;"><a href="'+result[i].url+'" target="_blank">' +  result[i].title +  '</a></th>';
+		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="update" type="button" data-toggle="modal" data-target="#myModal" onclick="updateForm(' + result[i].id + ',' + result[i].no + ')">수정</button></th>';
+		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="delete" type="button" onclick="deleteVideo(' + result[i].id + ',' + result[i].no + ')">삭제</button></th>';
+// 		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;display:none;"><button id="delete" type="button" data-toggle="modal" data-target="#myModal">'+result[i].no+'</button></th>';
 		html += '	</tr>';
 		}
 		html += '</table>';
@@ -254,9 +240,16 @@
 		});
 	}
 	
-	$("#delete").click(function () {
-		//ajax
-	});
+	function deleteVideo(id, no) {
+		$.ajax({
+			url: `${pageContext.request.contextPath}/studyroom/vDelete.json`,
+			data: {id : id, no : no},
+			dataType: "json",
+			success: function(result) {
+				makeVideoList(result);
+			}
+		});
+	};
 
 </script>
 </body>
