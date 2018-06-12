@@ -50,12 +50,13 @@
 		where s.id = #{id}
 	</select>
 	
+	<!-- 
 	<insert id="insertChart" parameterType="string">
 		insert into tb_stat (
 			id, app_cnt, first_cnt, second_cnt, third_cnt, fourth_cnt, fifth_cnt, result		
 		) values (
 			#{id},
-			(select count(*) from tb_calendar <![CDATA[where id = #{id} and cast(code_no as unsigned) > 2000]]>),
+			(select count(*) from tb_calendar where id = #{id} and apply = 'Y',
 			(select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2001' and result = 'Y' 
               or id = #{id} and code_no = '2001' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>),
 			(select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2002' and result = 'Y'
@@ -66,6 +67,21 @@
 			  or id = #{id} and code_no = '2004' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>),
             (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2005' and result = 'Y']]>),
             (select count(*) from tb_calendar where id = #{id} and result = 'Y')
+		)
+	</insert>
+	 -->
+	<insert id="insertChart" parameterType="string">
+		insert into tb_stat (
+			id, app_cnt, first_cnt, second_cnt, third_cnt, fourth_cnt, fifth_cnt, result		
+		) values (
+			#{id},
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			0
 		)
 	</insert>
 </mapper>

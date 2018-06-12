@@ -18,7 +18,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import kr.co.findme.mystat.service.MyStatService;
 import kr.co.findme.repository.domain.CodeFinalRound;
+import kr.co.findme.repository.domain.MyStat;
 import kr.co.findme.repository.domain.Schedule;
 import kr.co.findme.repository.domain.SearchCodeArea;
 import kr.co.findme.repository.domain.SearchCodeGraduate;
@@ -35,6 +37,9 @@ public class ScheduleController {
 	
 	@Autowired
 	private ScheduleService scheduleService;
+	
+	@Autowired
+	private MyStatService myStatService;
 	
 	@RequestMapping("/schedule.do")
 	public String calendar() {
@@ -142,6 +147,12 @@ public class ScheduleController {
 		
 		if (s1 == null) {
 			scheduleService.insertSchedule(schedule);
+			
+			List<MyStat> stat = myStatService.retrieveChart(schedule.getUserId());
+			System.out.println(stat);
+			if (stat.size() == 0) {
+				myStatService.registChart(schedule.getUserId());
+			}			
 			msg = "채용 일정이 정상 등록되었습니다.";
 		} else {
 			msg = "이미 등록된 채용 일정입니다.";
