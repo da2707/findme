@@ -28,6 +28,9 @@ import kr.co.findme.repository.domain.Recruiting;
 @Controller
 @RequestMapping("/recruiting")
 public class RecruitingController {
+	
+	
+	
 	private int start = 0;
 	@Autowired
 	private RecruitingService service;
@@ -53,12 +56,15 @@ public class RecruitingController {
 			String company="";
 			String position="";
 			
+			String apiTitle;
 			String apiJob1= null;
 			String apiJob2= null;
 			String apiLoc = null;
 			String apiPos = null;
 			String apiExpLev= null;
 			String apiEduLev= null;
+			String apiUrl1 = null;
+			String apiUrl2 = null;
 			
 			RecruitingUtil ru = new RecruitingUtil();
 			List<HireInfo> hireList = new ArrayList<>();
@@ -72,66 +78,7 @@ public class RecruitingController {
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder parser = factory.newDocumentBuilder();
 				Document doc = parser.parse(apiUrl.openStream());
-				
-				// position 태그내의 속성 꺼내기
-//				NodeList pList = doc.getElementsByTagName("position");
-//				for(int i = 0; i< pList.getLength(); i++) {
-//					Node node = pList.item(i);
-//					String name = node.getNodeName();
-//					if(name.equals("#text"))continue;
-//					
-//					NodeList cList = node.getChildNodes();
-//					for (int j = 0; j < cList.getLength(); j++) {
-//						Node cNode = cList.item(j);
-//						String cName = cNode.getNodeName();
-//						
-//						if (cName.equals("#text")) continue;
-//						
-//						if(cName.equals("location")) {
-//							apiLoc = cNode.getTextContent();
-//							if(apiLoc.contains(loc1) || apiLoc.contains(loc2)) {
-//								match+=20;
-//							}
-//						}
-//						if(cName.equals("job-type")) {
-//							apiPos = cNode.getTextContent();
-//							if(apiPos.contains(pos)){
-//								match+=15;
-//							}
-//						} 
-//						if(cName.equals("industry")) {
-//							apiJob1 = cNode.getTextContent();
-//							if(apiJob1.contains(job1) || apiJob1.contains(job2)) {
-//								match+=15;
-//							}
-//						}
-//						if(cName.equals("job-category")) {
-//							apiJob2 = cNode.getTextContent();
-//							if(apiJob2.contains(job1) || apiJob2.contains(job2)) {
-//								match+=15;
-//							}
-//						}
-//						if(cName.equals("experience-level")) {
-//							apiExpLev = cNode.getTextContent();
-//							if(apiExpLev.contains(career)) {
-//								match+=20;
-//							}
-//						}
-//						if(cName.equals("required-education-level")) {
-//							apiEduLev = cNode.getTextContent();
-//							if(apiEduLev.contains(edu)) {
-//								match+=20;
-//							}
-//						}
-//						System.out.println("태그명 : " + cName + ", 값 : " + cNode.getTextContent());
-//					}
-//				}
-				
-				
-				
-				
-				
-				
+					
 				// jobs 태그내의 속성 꺼내기 
 //				NodeList jobs = doc.getElementsByTagName("jobs");
 //				for(int i=0; i<jobs.getLength(); i++) {
@@ -159,6 +106,12 @@ public class RecruitingController {
 						String cName = cNode.getNodeName();
 						String cTime = "";
 						
+						if(cName.equals("url")) {
+							apiUrl1=cNode.getTextContent();
+							System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+apiUrl1);
+						}
+						
+						
 						// 만약 자식 노드의 이름이 timestamp로 끝나면 long 타입으로 적용시켜
 						// 날짜 형태로 출력
 						if (cName.endsWith("timestamp")) {
@@ -184,6 +137,21 @@ public class RecruitingController {
 						if(cName.equals("company")) {
 							company = cNode.getTextContent();
 							System.out.println("회사 : " + cNode.getTextContent());
+							
+							NodeList cpList = cNode.getChildNodes();
+							for(int p = 0; p<cpList.getLength(); p++) {
+								Node cpNode = cpList.item(p);
+								String cpName = cpNode.getNodeName();
+								
+								if (cpName.equals("#text")) continue;
+								if (cpName.equals("name")) {
+									Element cpElement = (Element)cpNode;
+									String cpEl = cpElement.getAttribute("href");
+									apiUrl2 = cpEl;
+									System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2"+apiUrl2);
+								}
+							}
+							
 						}
 						if(cName.equals("position")) {
 							NodeList pList = cNode.getChildNodes();
@@ -194,6 +162,10 @@ public class RecruitingController {
 										
 								if (pName.equals("#text")) continue;
 								
+								if(pName.equals("title")) {
+									apiTitle = pNode.getTextContent();
+								}
+								
 								if(pName.equals("location")) {
 									apiLoc = pNode.getTextContent();
 									if(apiLoc.contains(loc1) || apiLoc.contains(loc2)) {
@@ -203,31 +175,31 @@ public class RecruitingController {
 								if(pName.equals("job-type")) {
 									apiPos = pNode.getTextContent();
 									if(apiPos.contains(pos)){
-										match1+=15;
+										match1+=10;
 									}
 								} 
 								if(pName.equals("industry")) {
 									apiJob1 = pNode.getTextContent();
 									if(apiJob1.contains(job1) || apiJob1.contains(job2)) {
-										match1+=15;
+										match1+=20;
 									}
 								}
 								if(pName.equals("job-category")) {
 									apiJob2 = pNode.getTextContent();
 									if(apiJob2.contains(job1) || apiJob2.contains(job2)) {
-										match1+=15;
+										match1+=20;
 									}
 								}
 								if(pName.equals("experience-level")) {
 									apiExpLev = pNode.getTextContent();
 									if(apiExpLev.contains(career)) {
-										match1+=20;
+										match1+=15;
 									}
 								}
 								if(pName.equals("required-education-level")) {
 									apiEduLev = pNode.getTextContent();
 									if(apiEduLev.contains(edu)) {
-										match1+=20;
+										match1+=15;
 									}
 								}
 								System.out.println("태그명 : " + pName + ", 값 : " + pNode.getTextContent());
@@ -243,15 +215,16 @@ public class RecruitingController {
 						info.setExpitimes(expi_time);
 						info.setCompanies(company);
 						info.setPositions(position);
+						info.setApiEduLev(apiEduLev);
+						info.setApiExpLev(apiExpLev);
+						info.setApiJob1(apiJob1);
+						info.setApiLoc(apiLoc);
+						info.setApiPos(apiPos);
+						info.setApiUrl1(apiUrl1);
+						info.setApiUrl2(apiUrl2);
 						hireList.add(info);
 					}
 				
-		
-//			model.addAttribute("moditimes",moditimes);
-//			model.addAttribute("expitimes",expitimes);
-//			model.addAttribute("companies",companies);
-//			model.addAttribute("positions",positions);
-//			model.addAttribute("matchs",matchs);
 			start+=10;
 			return hireList;
 		} catch (Exception e)
@@ -260,6 +233,7 @@ public class RecruitingController {
 		}
 		return null;
 	}
+
 	
 	@RequestMapping("/hireInfo.do")
 	public String hireInfo(HttpSession session,Recruiting recruiting, Model model) {
