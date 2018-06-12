@@ -5,6 +5,6 @@
 <head>
 </head>
 <body>
-	<c:redirect url="<c:url value='/main.do' />"></c:redirect>
+	<c:redirect url="/main.do"></c:redirect>
 </body>
 </html>
