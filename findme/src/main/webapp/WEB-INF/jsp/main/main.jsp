@@ -170,7 +170,7 @@
 		    <button class="btn btn-primary btn-block" id="loginBtn" type="button">Log In</button>
 		  </div>
 		  	<div class="naverimg">
-			    <a href="#" class="forgot">Forgot your email or password?</a><br>
+			    <a href="${pageContext.request.contextPath}/user/findPwForm.do" class="forgot">Forgot your email or password?</a><br>
 				<a id="naverIdLogin_loginButton" href="#" role="button">
 					<img id="naverimg" src="https://static.nid.naver.com/oauth/big_g.PNG" width=200>
 				</a><br>
