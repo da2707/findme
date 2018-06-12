@@ -45,7 +45,7 @@
                     
                     <p class="navbar-text navbar-right actions" id="guest">
 	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
-	                    <a href="${pageContext.request.contextPath}/user/signup.do" 
+	                    <a href="${pageContext.request.contextPath}/user/signupForm.do" 
 	                       class="navbar-link signup btn btn-default action-button">Sign Up</a>
                     </p>
                     <p class="navbar-text navbar-right actions" id="member">
@@ -95,7 +95,7 @@
             <div class="col-md-6" id="shareList">
                 <div id="shareListTitle">
                     <div id="leftTitle"><span>취업 정보 나눔 게시판</span></div>
-                    <div id="leftLink"><span><a role="button" href="#">전체 보기</a></span></div>
+                    <div id="leftLink"><span><a role="button" href="${pageContext.request.contextPath}/board/list.do">전체 보기</a></span></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table">

@@ -41,7 +41,7 @@ public class MainController {
 		List<Board> listAll = service.retrieveBoard();
 		model.addAttribute("list", listAll);
 		
-		return "/main";
+		return "redirect:/board/list.do";
 	}
 	
 	// 실시간 공채 속보 랭킹

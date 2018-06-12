@@ -9,32 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/userpage.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-
-	<style>
-		.modal-body {
-			text-align:center;
-			border-collapse: collapse;
-			margin: 0 auto;
-		}
-		.small {
-			width:50%;
-		}
-		#modal-body {
-			overflow:auto;
-			height: 500px;
-			background-color: #E0F8F7;
-			padding:10px;
-			text-align:left;
-		}
-		#modal-submit {
-			border-collapse: collapse;
-			width:50%;
-			margin: 0 auto;
-		}
-	</style>
 
 </head>
 
@@ -55,7 +33,7 @@
                     </ul>
                     <p class="navbar-text navbar-right actions">
 	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
-	                    <a href="${pageContext.request.contextPath}/user/signup.do" 
+	                    <a href="${pageContext.request.contextPath}/user/signupForm.do" 
 	                       class="navbar-link signup btn btn-default action-button">Sign Up</a>
                     </p>
             	</div>
@@ -70,23 +48,40 @@
     <div class="container" id="container" style="width: 70%" >
     <div class="container small">
     	<br><br><br><br><br><br>
-	    <h1 class="modal-title" id="myModalLabel">Sign up</h1><br>
-	    <div class="modal-body">
-		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><br>
+	    <h1>Sign up</h1><br>
+	    <div>
+		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><span style="color:red" id="result"></span><br><br>
 		    <input class="form-control" id="pw" name="pw" type="password" placeholder="Password"><br>
 		    <input class="form-control" id="pw-check" type="password" placeholder="Re-type Password"><br>
 		    <input class="form-control" id="name" name="name" type="text" placeholder="Name"><br>
 		    <input class="form-control" id="email" name="email" type="email" placeholder="Email"><br>
-			    <div class="form-group">
+			    <div align="center" style='margin-bottom: 10px;'>
 			    	<input type="checkbox" id="terms" name="terms" value="1" />
-					<a data-toggle="modal" href="#login" class="navbar-link login" data-target="#terms">이용약관</a>에 동의합니다.<br>
+					<a data-toggle="modal" data-target="#termModal" href="#">이용약관</a>에 동의합니다.<br>
 		    	</div>
-			<button id="signupBtn" class="btn btn-primary btn-block" type="button">Sign up</button>
+			<button id="signupBtn" class="btn btn-primary btn-block" type="submit">Sign up</button>
 		</div>
     </div>
 	</div>
-	
+</form>    
+
 <script>
+	$("#id").keyup(function () {
+		$.ajax({
+			url : "${pageContext.request.contextPath}/user/idCheck.json",
+			data : "id=" + this.value,
+			dataType : "json",
+			success : function(no) {
+				console.log(no);
+				var result = "사용 가능한 아이디 입니다.";
+				if(no == 1) {
+					result = "중복된 아이디 입니다.";
+				}
+				$("#result").text(result);
+			}
+		})
+	});
+
 	$("#signupBtn").click(function doAction() {
 		if($("#id").val()==''){
 			alert("아이디를 입력하세요.")
@@ -97,49 +92,27 @@
 		} else if ($("#pw-check").val()==''){
 			alert("비밀번호를 다시 입력하세요.")
 			return false;
-		} else if ($("#email").val()==''){
-			alert("이메일을 입력하세요.")
-			return false;
 		} else if ($("#name").val()==''){
 			alert("이름을 입력하세요.")
+			return false;
+		} else if ($("#email").val()==''){
+			alert("이메일을 입력하세요.")
 			return false;
 		} else if ($("#pw").val() != $("#pw-check").val()){
 			alert("비밀번호 재입력을 확인해주세요.")
 			return false;
-		} else if (!$("#terms").is(":checked"))
+		} else if (!$("#terms").is(":checked")){			
 			alert("약관 동의에 체크해주세요.")
 			return false;
+		} else {
+			alert("회원가입이 완료되었습니다.")
+			return true;
+		}
 	});
-
-
 </script>
-	
-	<!-- Login -->
-	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Log in</h4>
-	      </div>
-	      <div class="modal-body">
-		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><br>
-		    <input class="form-control" id="pw" name="pw" type="password" placeholder="Password"><br>
-		    <button class="btn btn-primary btn-block" id="loginBtn" type="button">Log In</button>
-		  </div>
-		  	<div class="naverimg">
-			    <a href="#" class="forgot">Forgot your email or password?</a><br>
-				<a id="naverIdLogin_loginButton" href="#" role="button">
-					<img id="naverimg" src="https://static.nid.naver.com/oauth/big_g.PNG" width=200>
-				</a><br>
-		  	</div>
-	    </div>
-	  </div>
-	</div>
-
 
 	<!-- 이용약관 -->
-	<div class="modal fade" id="terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="termModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -259,11 +232,8 @@
 	    </div>
 	  </div>
 	</div>
-</form>    
-	
 	
 </body>
-
 <script>
 
 $("#loginBtn").click(function () {

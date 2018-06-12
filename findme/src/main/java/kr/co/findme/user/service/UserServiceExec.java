@@ -22,4 +22,10 @@ public class UserServiceExec implements UserService{
 		mapper.insertUser(user);
 	}
 
+	@Override
+	public int countId(String id) throws Exception {
+		return mapper.countId(id);
+	}
+	
+
 }

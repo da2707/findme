@@ -36,24 +36,27 @@ public class UserController {
 			model.addAttribute("user", loginUser);
 			model.addAttribute("id", loginUser.getId());
 			// id 는 위에서 설정했기때문에 session에 올라간다.
-			
 			return "/main.do";
 		}
 		return msg;
 	}
 	
-	@RequestMapping("/signup.do")
-	public String signup(User user, Model model) throws Exception {
-		User insertUser = new User();
-		insertUser.setId(user.getId());
-		insertUser.setPw(user.getPw());
-		insertUser.setName(user.getName());
-		insertUser.setEmail(user.getEmail());
-		userService.insertUser(insertUser);
-		
-		
-		return "/user/signup";
-		
+	@RequestMapping("/signupForm.do")
+	public String signupForm(User user) throws Exception {
+		return "/user/signupForm";
+	}
+	
+	@RequestMapping("signup.do")
+	public String signup(User user) throws Exception {
+		userService.insertUser(user);
+		return "redirect:/main.do";
+	}
+	
+	@RequestMapping("/idCheck.json")
+	@ResponseBody
+	public int countid(String id) throws Exception {
+		int no = userService.countId(id);
+		return no;
 	}
 	
 	@RequestMapping("/mypage.do")
@@ -68,13 +71,4 @@ public class UserController {
 	}
 }
 
-/*
-
-@RequestMapping(value = "/user/edit", method = RequestMethod.POST)
-public String submit(@ModelAttribute User user, SessionStatus sessionStatus) {
-    userService.updateUser(user);
-    sessionStatus.setComplete();
-    return "user/editsuccess";
-
- */
 

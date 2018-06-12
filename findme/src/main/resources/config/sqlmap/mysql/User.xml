@@ -16,7 +16,7 @@
 		 where id=#{id}
 	</select>
 	
-	<insert id="signup" parameterType="user">
+	<insert id="insertUser" parameterType="user">
 		insert into tb_user(
 			id,
 			pw,
@@ -37,5 +37,11 @@
 		       email=#{email}
 		 where id=#{id}
 	</update>
+	
+	<select id="countId" parameterType="String" resultType="int">
+		select count(*)
+		  from tb_user
+		 where id = #{id}
+	</select>
 	
 </mapper>
