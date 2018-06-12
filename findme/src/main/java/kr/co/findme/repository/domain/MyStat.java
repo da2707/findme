@@ -13,6 +13,8 @@ public class MyStat {
 	private int thirdCnt;
 	private int fourthCnt;
 	private int fifthCnt;
+	private String codeNo;
+	private int result;
 	public String getId() {
 		return id;
 	}
@@ -73,10 +75,23 @@ public class MyStat {
 	public void setFifthCnt(int fifthCnt) {
 		this.fifthCnt = fifthCnt;
 	}
+	public String getCodeNo() {
+		return codeNo;
+	}
+	public void setCodeNo(String codeNo) {
+		this.codeNo = codeNo;
+	}
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
 	@Override
 	public String toString() {
 		return "MyStat [id=" + id + ", recruitNo=" + recruitNo + ", regDate=" + regDate + ", name=" + name + ", appCnt="
 				+ appCnt + ", firstCnt=" + firstCnt + ", secondCnt=" + secondCnt + ", thirdCnt=" + thirdCnt
-				+ ", fourthCnt=" + fourthCnt + ", fifthCnt=" + fifthCnt + "]";
+				+ ", fourthCnt=" + fourthCnt + ", fifthCnt=" + fifthCnt + ", codeNo=" + codeNo + ", result=" + result
+				+ "]";
 	}
 }

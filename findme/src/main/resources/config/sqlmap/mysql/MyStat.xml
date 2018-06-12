@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.findme.repository.mapper.MyStatMapper">
+	<resultMap id="myStatMap" type="mystat">
+		<result column="id" property="id" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="reg_date" property="regDate" />
+		<result column="name" property="name" />
+		<result column="app_cnt" property="appCnt" />
+		<result column="first_cnt" property="firstCnt" />
+		<result column="second_cnt" property="secondCnt" />
+		<result column="third_cnt" property="thirdCnt" />
+		<result column="fourth_cnt" property="fourthCnt" />
+		<result column="fifth_cnt" property="fifthCnt" />
+		<result column="code_no" property="codeNo" />
+		<result column="result" property="result" />
+	</resultMap>
+	
+	<resultMap type="schedule" id="scheduleMap">
+		<result column="id" property="userId" />
+		<result column="unique_no" property="uniqueNo" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="title" property="title" />
+		<result column="name" property="name" />
+		<result column="reg_date" property="regDate" />
+		<result column="start_date" property="start" />
+		<result column="end_date" property="end" />
+		<result column="apply" property="apply" />
+		<result column="code_no" property="codeNo" />
+		<result column="final_round" property="finalRound" />
+		<result column="result" property="result" />
+		<result column="link" property="link" />
+	</resultMap>
+	
+	<select id="selectDetailList" parameterType="string" resultMap="myStatMap">
+		select c.reg_date, c.recruit_no, c.name, c.code_no, c.result  
+		from tb_stat s
+		join tb_calendar c
+		on s.id=c.id
+        where c.id = #{id}
+        and apply = 'Y'
+		order by reg_date desc
+	</select>
+	
+	<select id="selectChart" parameterType="string" resultMap="myStatMap">
+		select c.reg_date, s.app_cnt, s.first_cnt, s.second_cnt, s.third_cnt, s.fourth_cnt, s.fifth_cnt, s.result 
+		from tb_stat s
+		join tb_calendar c
+		where s.id = #{id}
+	</select>
+	
+	<insert id="insertChart" parameterType="string">
+		insert into tb_stat (
+			id, app_cnt, first_cnt, second_cnt, third_cnt, fourth_cnt, fifth_cnt, result		
+		) values (
+			#{id},
+			(select count(*) from tb_calendar <![CDATA[where id = #{id} and cast(code_no as unsigned) > 2000]]>),
+			(select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2001' and result = 'Y' 
+              or id = #{id} and code_no = '2001' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>),
+			(select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2002' and result = 'Y'
+			  or id = #{id} and code_no = '2002' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>),
+            (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2003' and result = 'Y' 
+			  or id = #{id} and code_no = '2003' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>),
+            (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2004' and result = 'Y'
+			  or id = #{id} and code_no = '2004' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>),
+            (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2005' and result = 'Y']]>),
+            (select count(*) from tb_calendar where id = #{id} and result = 'Y')
+		)
+	</insert>
+</mapper>
+
