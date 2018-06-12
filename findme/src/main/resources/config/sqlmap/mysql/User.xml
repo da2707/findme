@@ -43,5 +43,12 @@
 		  from tb_user
 		 where id = #{id}
 	</select>
+		
+	<select id = "selectAcc" resultMap="usermap" parameterType="string">
+		select *
+		  from tb_user
+		 where email = #{email}
+	</select>
+	
 	
 </mapper>

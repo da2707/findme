@@ -1,5 +1,15 @@
 package kr.co.findme.user.controller;
 
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,10 +75,29 @@ public class UserController {
 	}
 	
 	@RequestMapping("/logout.do")
-	public String logout(SessionStatus status) throws Exception{
+	public String logout(SessionStatus status) throws Exception {
 		status.setComplete();
 		return "redirect:/main.do";
 	}
+	
+	@RequestMapping("/findPwForm.do")
+	public String findPwForm() throws Exception {
+		return "/user/findPw";
+	}
+	
+	@RequestMapping("/findPw.do")
+	public String selectAcc(User user, Model model) throws Exception {
+
+		
+		return "redirect:/main.do";
+	}
+	
+	@RequestMapping("/sendEmail.json")
+	public void sendEmail(User user, Model model) throws Exception {
+		
+	}
+	
+
 }
 
 
