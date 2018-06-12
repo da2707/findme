@@ -13,6 +13,13 @@ public class HireInfo {
 	private String apiLoc;
 	private String apiPos;
 	private String apiJob1;
+	private String apiTitle;
+	public String getApiTitle() {
+		return apiTitle;
+	}
+	public void setApiTitle(String apiTitle) {
+		this.apiTitle = apiTitle;
+	}
 	public String getApiUrl1() {
 		return apiUrl1;
 	}

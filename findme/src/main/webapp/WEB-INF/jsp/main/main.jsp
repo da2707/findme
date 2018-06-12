@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head>';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>취업 정보 및 관리는 이제 여기에서. FindMe!</title>
@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-</head>
+</head>';
 
 <body>
     <div>
@@ -125,29 +125,15 @@
             <div class="col-md-6" id="recruitList">
                 <div id="recruitListTitle">
                     <div id="rightTitle"><span>최근 채용 정보</span></div>
-                    <div id="rightLink"><span><a role="button" href="#">전체 보기</a></span></div>
+                    <div id="rightLink"><span><a role="button">전체 보기</a></span></div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="hirelist">
                         <thead>
                             <tr></tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>(주)라인플러스 2018 LINE 각 부문별 상시채용</td>
-                            </tr>
-                            <tr>
-                                <td>(주)비자파크 [ 여행사 ] 여행사, 번역外 정규직 채용</td>
-                            </tr>
-                            <tr>
-                                <td>(주)드림시드 건축 과장, 차장급 모집</td>
-                            </tr>
-                            <tr>
-                                <td>아덴 호텔 스파 테라피스트 신입, 경력직 모집</td>
-                            </tr>
-                            <tr>
-                                <td>(주)제이더블유씨네트웍스  [생산팀] 조립 경력무관 채용</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -190,6 +176,7 @@
 		guestAndMember();
 		
 		realTimeRanking();
+		callApi();
 	});
 	
 	// 네비게이션 바 로그인 여부에 따른 노출 처리
@@ -279,6 +266,41 @@
 		html += '</table>';
 		$("#blogContent").html(html);
 	}
+	
+	function callApi(){
+		$.ajax({
+			url: `${pageContext.request.contextPath}/recruiting/makeHireInfo.json`,
+		}).done(function(result){
+			console.log(result[0].apiUrl1);
+			console.log(result[0].apiTitle);
+			makeHireInfo(result);
+		});
+	}
+	
+	
+	function makeHireInfo(result){
+		var html = "";
+		for(var i=0; i<5; i++){
+		    html+='<tr>';
+		    html+='<td><a href="'+result[i].apiUrl1+'" target="_blank">'+result[i].apiTitle+'</a></td>';
+		    html+='</tr>';			
+		}
+
+    $("#hirelist > tbody:last").append(html);
+	}
+	
+	$("#rightLink").click(function(){
+		console.log(typeof(sessionId));
+		if(sessionId == ''){
+			alert("로그인 후 이용하세요");
+			return;
+		}
+		else{
+			
+			location.href=`${pageContext.request.contextPath}/recruiting/hireInfo.do`;
+			return;
+		}
+	});
 	
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/youtube.js"></script>
