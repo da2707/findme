@@ -10,7 +10,7 @@ a.top {
 #list_realtime_ranking {
 	float: left;
 	width: 180px;
-	height: 290px;
+	height: 330px;
 	margin-left: 0px;
 	background: #fafafa;
 	border: 1px solid #e6e6e6;
@@ -58,8 +58,8 @@ a.top {
 #list_realtime_ranking .list span.equal {background-position:0 -282px;}
 
 .slide {
-	width: 480px;
-	heigth: 300px;
+	width: 550px;
+	heigth: 330px;
 }
 
 .naverimg {
@@ -311,6 +311,7 @@ a.top {
 }
 
 #mCarousel {
+	height : 330px;
 	margin-top : 15px;
 	margin-bottom: 15px
 }
@@ -335,7 +336,12 @@ div#container {
 
 #blogSearchList{
 	border: 0.5px solid gray; 
-	height: 290px;
+	height: 330px;
+}
+
+#blogSearchList td {
+	padding-top: 11px;
+	padding-bottom: 11px;
 }
 
 #blogTitle {

@@ -518,17 +518,21 @@
     	//----------------------------------------------------------------------
     	
     	// 검색 버튼 클릭 시 ajax 처리
+    	var firstClick = "on";
+    	
     	$("#jobsearch").click(function() {
     		var sKey = $("#spForm").serialize();
     		$.ajax({
     			url: "jobSearch.json",
-    			data: sKey
+    			data: { param : sKey, click : firstClick}
     		}).done(function (result) {
+    			$(window).off("scroll");
     			makeJobList(result);
     		});
     	});
     	
     	function makeJobList(result) {
+    		$("#resultList").html('');
     		var html = '';
     		html += '<table class="table table-hover" id="calTable">';
 			html += '<tr class="info">';
@@ -564,14 +568,13 @@
 			
 	    	// 스크롤 페이징 처리
 			$(window).scroll(function () {
-	    		if ($(window).scrollTop() > $(document).height() - $(window).height() - 0.2) {
+	    		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 					var sKey = $("#spForm").serialize();
 		    		$.ajax({
 		    			url: "jobSearch.json",
 		    			data: sKey
 		    		}).done(function (data) {
 		    			scrollJobList(data);
-		    			$("#resultList").append("</table>");
 		    		});
 	    		}
 	    		

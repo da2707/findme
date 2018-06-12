@@ -151,8 +151,10 @@ public class ScheduleController {
 	
 	@RequestMapping("/jobSearch.json")
 	@ResponseBody
-	public List<SearchResult> jobSearch(SearchParameter param) throws Exception {
+	public List<SearchResult> jobSearch(SearchParameter param, String click) throws Exception {
+		if (click != null) start = 0;
 		System.out.println(start);
+			
 		List<SearchResult> searchList = new ArrayList<>();
 		String loc_cd = param.getLoc_cd();
 		String edu_lv = param.getEdu_lv();
