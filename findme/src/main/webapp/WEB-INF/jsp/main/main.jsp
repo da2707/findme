@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
@@ -38,7 +38,7 @@
                     </ul>
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
-							<input type="text" id="search" class="form-control" placeholder="Search" >
+							<input type="text" id="search" class="form-control" placeholder="동영상 강의 검색">
 						</div>
 						<button type="submit" value="Search" class="btn btn-default">Submit</button>
 					</form>

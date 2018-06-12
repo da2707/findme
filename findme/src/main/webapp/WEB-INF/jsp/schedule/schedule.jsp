@@ -28,10 +28,9 @@
                 <div class="navbar-header"><a class="navbar-brand" href="${pageContext.request.contextPath}/main.do">FindMe</a><button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/community/list.jsp">Community</a></li>
-                        <li class="active" role="presentation"><a href="${pageContext.request.contextPath}/view/calendar/calendar.jsp">MyCalendar</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/resume/resumelist.jsp">MyResume</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/mystat/main.jsp">MyStat</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
+                        <li class="active" role="presentation"><a href="${pageContext.request.contextPath}/schedule/schedule.do">MyCalendar</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/main.jsp">MyStat</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/studyroom/video.jsp">StudyRoom</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/recruiting/hireinfo.jsp">Recruiting</a></li>
                     </ul>
@@ -224,6 +223,11 @@
     	
     	// 캘린더 이벤트 클릭 시 상세 데이터 출력
     	function eventDetail(calEvent) {  
+			// 캘린더 일정 클릭 시 자동 버튼 클릭 이벤트 발생
+			$("#schedule").trigger("click", function() {
+				console.log($("#myModal"));
+			});
+			
     		var title = calEvent.title + " : " + calEvent.name;
     		var regDate = moment(calEvent.regDate).format("YYYY-MM-DD");
    		
@@ -284,7 +288,15 @@
 			html += "			</div>";
 			html += "			<div class='col-md-4'>";
 			html += "				<span id='conditionText'>";
-			html += 					calEvent.codeNo;
+			switch (calEvent.codeNo) {
+			case '2000': html += "서류 접수 완료"; break;
+			case '2001': html += "1차 면접"; break;
+			case '2002': html += "2차 면접"; break;
+			case '2003': html += "3차 면접"; break;
+			case '2004': html += "4차 면접"; break;
+			case '2005': html += "5차 면접"; break;
+			}
+// 			html += 					calEvent.codeNo;
 			html += "</span>";
 			html += "			</div>";
 			html += "			<div class='col-md-5'>";
@@ -299,7 +311,14 @@
 			html += "			</div>";
 			html += "			<div class='col-md-4'>";
 			html += "				<span id='finalRoundCode'>";
-			html += 					calEvent.finalRound;
+			switch (calEvent.finalRound) {
+			case '2000': html += "서류 접수"; break;
+			case '2001': html += "1차 면접"; break;
+			case '2002': html += "2차 면접"; break;
+			case '2003': html += "3차 면접"; break;
+			case '2004': html += "4차 면접"; break;
+			case '2005': html += "5차 면접"; break;
+			}
 			html += "</span>";
 			html += "			</div>";
 			html += "			<div class='col-md-5'>";
@@ -373,7 +392,16 @@
 	    			data: { userId: calEvent.userId, finalRound : val, recruitNo: calEvent.recruitNo}
 	    		}).done(function(value) {
 	    			console.log(value.finalRound);
-					$("span#finalRoundCode").text(value.finalRound);
+	    			var msg = '';
+	    			switch(value.finalRound){
+	    			case '2000': msg = "서류 접수"; break;
+	    			case '2001': msg = "1차 면접"; break;
+	    			case '2002': msg = "2차 면접"; break;
+	    			case '2003': msg = "3차 면접"; break;
+	    			case '2004': msg = "4차 면접"; break;
+	    			case '2005': msg = "5차 면접"; break;
+	    			}
+					$("span#finalRoundCode").text(msg);
 	    		});
 	    	});
 	    	
@@ -397,7 +425,16 @@
 	    			data: {userId : calEvent.userId, codeNo : val, recruitNo: calEvent.recruitNo}
 	    		}).done(function(value) {
 // 	    			console.log(value.codeNo);
-					$("span#conditionText").text(value.codeNo);
+					var msg = '';
+	    			switch(value.codeNo){
+	    			case '2000': msg = "서류 접수"; break;
+	    			case '2001': msg = "1차 면접"; break;
+	    			case '2002': msg = "2차 면접"; break;
+	    			case '2003': msg = "3차 면접"; break;
+	    			case '2004': msg = "4차 면접"; break;
+	    			case '2005': msg = "5차 면접"; break;
+	    			}
+					$("span#conditionText").text(msg);
 	    		});
 	    	});
 	    	
@@ -472,10 +509,7 @@
     			eventClick: function(calEvent, jsEvent, view) {
     				eventDetail(calEvent);
     				
-    				// 캘린더 일정 클릭 시 자동 버튼 클릭 이벤트 발생
-    				$("#schedule").trigger("click", function() {
-    					console.log($("#myModal").attr("class"));
-    				});
+
 	   			}
 	            
     		});
