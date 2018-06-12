@@ -55,6 +55,7 @@
                     	<a href="${pageContext.request.contextPath}/user/mypage.do"
                     	   class="navbar-link signup btn btn-default action-button">My Page</a>
                     </p>
+                    
             </div>
     </div>
     </nav>
@@ -216,7 +217,6 @@
 		
 		if(id=='') {
 	 		alert(sessionId);
-	 		
 	 		return false;
 	 	}  	
 	 	if(pw=='') {

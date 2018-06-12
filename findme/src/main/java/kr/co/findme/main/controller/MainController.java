@@ -15,17 +15,33 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.findme.board.service.BoardService;
 import kr.co.findme.repository.domain.BlogSearch;
+import kr.co.findme.repository.domain.Board;
 
 @Controller
 public class MainController {
+	
+	@Autowired
+	private BoardService service;
+	
 	@RequestMapping("/main.do")
 	public String main() {
 		return "main/main";
+	}
+	
+	
+	public String listAllToMain(Board board, Model model) throws Exception {
+		List<Board> listAll = service.retrieveBoard();
+		model.addAttribute("list", listAll);
+		
+		return "/main";
 	}
 	
 	// 실시간 공채 속보 랭킹

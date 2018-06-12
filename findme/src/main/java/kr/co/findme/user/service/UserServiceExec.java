@@ -13,13 +13,13 @@ public class UserServiceExec implements UserService{
 	private UserMapper mapper;
 	
 	@Override
-	public User login(User user) throws Exception {
-		return null;
+	public User login(String id) throws Exception {
+		return mapper.login(id);
 	}
 
 	@Override
-	public User loginSuccess(String id) throws Exception {
-		return mapper.loginSuccess(id);
+	public void insertUser(User user) throws Exception {
+		mapper.insertUser(user);
 	}
 
 }

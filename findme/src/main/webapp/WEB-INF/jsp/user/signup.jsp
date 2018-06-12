@@ -35,10 +35,7 @@
 			margin: 0 auto;
 		}
 	</style>
-	
-	<script>
-		if
-	</script>
+
 </head>
 
 <body>
@@ -67,24 +64,79 @@
     </div>
     
     <!-- 회원가입 파트 시작 -->
-    
+<form name="mForm" class="form-horizontal" method="POST" 
+	  action="${pageContext.request.contextPath}/user/signup.do"
+	  onsubmit="return doAction()">
     <div class="container" id="container" style="width: 70%" >
     <div class="container small">
-    	<br><br><br><br><br><br><br><br>
-	    <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+    	<br><br><br><br><br><br>
+	    <h1 class="modal-title" id="myModalLabel">Sign up</h1><br>
 	    <div class="modal-body">
-		    <input class="form-control" type="text" placeholder="ID" size="50%"><br>
-		    <input class="form-control" type="password" placeholder="Password"><br>
-		    <input class="form-control" type="password" placeholder="Re-type Password"><br>
-		    <input class="form-control" type="email" placeholder="Email"><br>
-		    <div class="form-group">
-		    <input type="checkbox" id="f1" name="terms" value="1" />
-			<a data-toggle="modal" href="#login" class="navbar-link login" data-target="#terms">이용약관</a>에 동의합니다.<br>
-	    </div>
-			<button class="btn btn-primary btn-block" type="submit">Sign up</button>
+		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><br>
+		    <input class="form-control" id="pw" name="pw" type="password" placeholder="Password"><br>
+		    <input class="form-control" id="pw-check" type="password" placeholder="Re-type Password"><br>
+		    <input class="form-control" id="name" name="name" type="text" placeholder="Name"><br>
+		    <input class="form-control" id="email" name="email" type="email" placeholder="Email"><br>
+			    <div class="form-group">
+			    	<input type="checkbox" id="terms" name="terms" value="1" />
+					<a data-toggle="modal" href="#login" class="navbar-link login" data-target="#terms">이용약관</a>에 동의합니다.<br>
+		    	</div>
+			<button id="signupBtn" class="btn btn-primary btn-block" type="button">Sign up</button>
 		</div>
     </div>
 	</div>
+	
+<script>
+	$("#signupBtn").click(function doAction() {
+		if($("#id").val()==''){
+			alert("아이디를 입력하세요.")
+			return false;
+		} else if ($("#pw").val()==''){
+			alert("비밀번호를 입력하세요.")
+			return false;
+		} else if ($("#pw-check").val()==''){
+			alert("비밀번호를 다시 입력하세요.")
+			return false;
+		} else if ($("#email").val()==''){
+			alert("이메일을 입력하세요.")
+			return false;
+		} else if ($("#name").val()==''){
+			alert("이름을 입력하세요.")
+			return false;
+		} else if ($("#pw").val() != $("#pw-check").val()){
+			alert("비밀번호 재입력을 확인해주세요.")
+			return false;
+		} else if (!$("#terms").is(":checked"))
+			alert("약관 동의에 체크해주세요.")
+			return false;
+	});
+
+
+</script>
+	
+	<!-- Login -->
+	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Log in</h4>
+	      </div>
+	      <div class="modal-body">
+		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><br>
+		    <input class="form-control" id="pw" name="pw" type="password" placeholder="Password"><br>
+		    <button class="btn btn-primary btn-block" id="loginBtn" type="button">Log In</button>
+		  </div>
+		  	<div class="naverimg">
+			    <a href="#" class="forgot">Forgot your email or password?</a><br>
+				<a id="naverIdLogin_loginButton" href="#" role="button">
+					<img id="naverimg" src="https://static.nid.naver.com/oauth/big_g.PNG" width=200>
+				</a><br>
+		  	</div>
+	    </div>
+	  </div>
+	</div>
+
 
 	<!-- 이용약관 -->
 	<div class="modal fade" id="terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -207,9 +259,43 @@
 	    </div>
 	  </div>
 	</div>
+</form>    
 	
 	
 </body>
+
+<script>
+
+$("#loginBtn").click(function () {
+	var id = $(this).siblings("input[name='id']").val();
+	var pw = $(this).siblings("input[name='pw']").val();
+	
+	if(id=='') {
+ 		alert(sessionId);
+ 		
+ 		return false;
+ 	}  	
+ 	if(pw=='') {
+ 		alert("비밀번호를 입력하세요");
+ 		return false;
+ 	}
+	
+ 	$.ajax({
+ 		url: `${pageContext.request.contextPath}/user/loginPost.json`,
+ 		data: {id : id, pw: pw},
+ 		type: "POST",
+ 		success: function(result){
+ 			if (result.startsWith("/")){
+ 				location.href = `${pageContext.request.contextPath}` + result;
+ 				return;
+ 			}
+ 			alert(result);
+ 		}
+ 		
+ 	});
+});
+
+</script>
 
 </html>
 
