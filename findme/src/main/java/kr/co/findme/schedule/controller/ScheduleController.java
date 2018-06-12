@@ -3,6 +3,7 @@ package kr.co.findme.schedule.controller;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -141,21 +142,33 @@ public class ScheduleController {
 		System.out.println(schedule.getLink());
 		System.out.println(schedule.getRecruitNo());
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 		Schedule s1 = scheduleService.retrieveOne(schedule);
-
+		List<MyStat> stat = myStatService.retrieveChart(schedule.getUserId());
+		
 		String msg = "";
 		
 		if (s1 == null) {
 			scheduleService.insertSchedule(schedule);
+			msg = "캘린더에 일정이 정상 등록되었습니다.";
 			
-			List<MyStat> stat = myStatService.retrieveChart(schedule.getUserId());
-			System.out.println(stat);
+			// 캘린더에 최초 등록되고 차트에 해당 아이디 정보가 없는 경우 1회에 한해 tb_stat db에 insert
 			if (stat.size() == 0) {
 				myStatService.registChart(schedule.getUserId());
-			}			
-			msg = "채용 일정이 정상 등록되었습니다.";
+			}
 		} else {
-			msg = "이미 등록된 채용 일정입니다.";
+			msg = "중복된 일정으로 등록되지 않습니다.";
+		}
+				
+		// tb_stat에 id는 등록되어 있는 상태에서
+		// 월차가 다른 경우 db에 insert
+		List<Schedule> list = scheduleService.retrieveList(schedule.getUserId());
+		for (int i = 0; i < list.size(); i++) {
+			Schedule s = list.get(i);
+			if (!sdf.format(s.getStart()).equals(sdf.format(schedule.getStart()))) {
+				myStatService.registChart(schedule.getUserId());
+				break;
+			}	
 		}
 		return msg;
 	}
