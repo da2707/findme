@@ -30,9 +30,9 @@
                     <ul class="nav navbar-nav">
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
                         <li class="active" role="presentation"><a href="${pageContext.request.contextPath}/schedule/schedule.do">MyCalendar</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/main.jsp">MyStat</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/studyroom/video.jsp">StudyRoom</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/view/recruiting/hireinfo.jsp">Recruiting</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/mystat/chart.do" >MyStat</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do" >StudyRoom</a></li>
+                        <li class="mynavbar" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/hireInfo.do" >Recruiting</a></li>
                     </ul>
                     <p class="navbar-text navbar-right actions" id="member">
                     ${sessionScope.id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
