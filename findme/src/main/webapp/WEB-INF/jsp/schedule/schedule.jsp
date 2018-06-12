@@ -564,7 +564,7 @@
 			
 	    	// 스크롤 페이징 처리
 			$(window).scroll(function () {
-	    		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+	    		if ($(window).scrollTop() > $(document).height() - $(window).height() - 0.2) {
 					var sKey = $("#spForm").serialize();
 		    		$.ajax({
 		    			url: "jobSearch.json",
