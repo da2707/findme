@@ -61,13 +61,13 @@
 					</div>
 					<div class="col-md-8"></div>
 					<div class="col-md-12">
-						<select
-							style="width: 150px; margin: 20px; margin-right: 0px; margin-left: 25px; margin-top: 20px;">
-							<optgroup label="Category Sort">
-								<option value="12" selected="">Programming</option>
-								<option value="13">Languages</option>
-								<option value="14">etc.</option>
-							</optgroup>
+						<select name="category" id="sort" style="width: 150px; margin: 20px; margin-right: 0px; margin-left: 25px; margin-top: 20px;">
+								<optgroup label="Category Sort">
+									<option value="programming">programming</option>
+									<option value="language">language</option>
+									<option value="music">music</option>
+									<option value="etc">etc</option>
+								</optgroup>
 						</select>
 						<table class="tg">
 						  <thead>	
@@ -110,12 +110,13 @@
 							<br><br> 
 							Link URL(https://포함) : <textarea name='url' rows='5' cols='70'></textarea>
 							<br><br>
-							Category : <select name="category">
-								<option value=""></option>
-								<option value="programming">programming</option>
-								<option value="language">language</option>
-								<option value="music">music</option>
-								<option value="etc">etc</option>
+							Category : <select name="category" style="width: 150px; margin: 20px; margin-right: 0px; margin-left: 25px; margin-top: 20px;">
+								<optgroup label="Category Sort">
+									<option value="programming">programming</option>
+									<option value="language">language</option>
+									<option value="music">music</option>
+									<option value="etc">etc</option>
+								</optgroup>
 							</select>
 							<br><br> 
 							Memo : <br> 
@@ -163,9 +164,28 @@
 	
 	linkList();
 	
+	$("#sort").change(function () {
+			var id = ${sessionScope.id};
+			var category = $("select[name='category']").val();
+			console.log(id);
+			console.log(category);
+		$.ajax({
+			url: `${pageContext.request.contextPath}/studyroom/linkListByCategory.json`,
+			data: {id : id, category : category},
+			dataType: "json",
+			success: function(data) {
+				makeLinkList(data);
+			}
+		});
+	});
+	
 	function makeLinkList(data) {
 		var html = '';
 		for(var i=0; i<data.length; i++) {
+// 			console.log(data[i].category);
+// 			if(data[i].category=="") {
+// 					html += 'Category에 해당하는 검색 결과가 없습니다.';
+// 			}
 			html += '<tr>';
 			html += '	<td>' +data[i].no+ '</td>';
 			html += '	<td>' +data[i].title+ '</td>';

@@ -48,6 +48,7 @@ public class StudyRoomController {
 		System.out.println("no : " + video.getNo());
 		System.out.println("id : " + video.getId());
 		List<Video> vFormList = studyRoomService.updateFormVideo(video);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + vFormList);
 		return vFormList;
 	}
 
@@ -78,6 +79,13 @@ public class StudyRoomController {
 		String loginId = (String) session.getAttribute("id");
 		List<Link> linkList = studyRoomService.retrieveLink(loginId);
 		return linkList;
+	}
+
+	@RequestMapping("/linkListByCategory.json")
+	@ResponseBody
+	public List<Link> retrieveLinkByCategory(Link link){
+		List<Link> sortList = studyRoomService.retrieveLinkByCategory(link);
+		return sortList;
 	}
 	
 	@RequestMapping("/linkInsert.json")

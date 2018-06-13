@@ -8,6 +8,8 @@ public interface LinkMapper {
 	
 	public List<Link> selectAllLink(String id);
 	
+	public List<Link> selectByCategory(Link link);
+	
 	public void insertLink(Link link);
 
 	public void updateLink(Link link);

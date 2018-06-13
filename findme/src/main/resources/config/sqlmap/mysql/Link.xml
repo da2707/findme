@@ -18,6 +18,12 @@
 		order by no asc
 	</select>
 	
+	<select id="selectByCategory" parameterType="link" resultMap="linkMap">
+		select * from tb_link
+			where id = #{id}
+			and category = #{category}
+	</select>
+	
 	<insert id="insertLink" parameterType="link">
 		insert into tb_link (
 			id, title, url, category, memo	

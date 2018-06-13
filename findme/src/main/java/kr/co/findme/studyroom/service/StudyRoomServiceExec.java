@@ -48,6 +48,11 @@ public class StudyRoomServiceExec implements StudyRoomService {
 	}
 
 	@Override
+	public List<Link> retrieveLinkByCategory(Link link) {
+		return lmapper.selectByCategory(link);
+	}
+
+	@Override
 	public void registLink(Link link) {
 		lmapper.insertLink(link);
 		

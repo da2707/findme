@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#aaa;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aaa;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aaa;color:#fff;background-color:#f38630;text-align:center;}
+.tg .tg-3xcw{background-color:#f38630;vertical-align:top}
+.tg .tg-nvd0{background-color:#f8a102;vertical-align:top}
+.tg .tg-yw4l{vertical-align:top}
+
+.btn-primary { background: #f5c9c5; border-color: #f5c9c5; margin:3px; color:purple;}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus { background: #f5c9c5;  border-color: #f5c9c5; margin:3px; color:purple;}

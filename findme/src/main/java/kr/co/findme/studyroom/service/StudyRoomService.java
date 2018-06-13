@@ -8,7 +8,7 @@ import kr.co.findme.repository.domain.Video;
 public interface StudyRoomService {
 	
 	public List<Video> retrieveVideo(String id);
-	
+
 	public void registVideo(Video video);
 	
 	public void updateVideo(Video video);
@@ -19,6 +19,8 @@ public interface StudyRoomService {
 	
 	
 	public List<Link> retrieveLink(String id);
+
+	public List<Link> retrieveLinkByCategory(Link link);
 	
 	public void registLink(Link link);
 
