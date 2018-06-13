@@ -16,6 +16,8 @@
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/resources/js/video/youtubeSearch.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
 </head>
 
 <body>
@@ -37,7 +39,7 @@
 						<li class="" role="presentation"><a
 							href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
 						<li class="" role="presentation"><a
-							href="${pageContext.request.contextPath}/calendar/calendar.do">MyCalendar</a></li>
+							href="${pageContext.request.contextPath}/schedule/schedule.do">MyCalendar</a></li>
 						<li class="" role="presentation"><a
 							href="${pageContext.request.contextPath}/resume/list.do">MyResume</a></li>
 						<li class="" role="presentation"><a
@@ -75,7 +77,6 @@
 		<div class="tab-content">
 			<div class="tab-pane active" role="tabpanel" id="tab-1">
 				<div class="container">
-					<div class="row">
 						<div class="col-md-4"> 
 							<h1 class="text-center" id="playlist">My PlayList</h1>
 							<div id="videoList">
@@ -84,18 +85,49 @@
 								<!-- Button trigger modal -->
 								<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">등록</button>
 							</div>
-
-					</div>
+						</div>
 
 						<div class="col-md-8">
 							<header>
 								<h1 class="w100 text-center">YouTube Search</h1>
 							</header>
-							<div class="row">
-<%-- 								<c:import url = "https://www.youtube.com"/> --%>
+							<form id="youtubeForm" style="text-align:center;">
+								<p>
+									<input type="text" id="search"
+										placeholder="Type something..." autocomplete="off"
+										 style="text-align:center; width:400px;height:30px;"/>
+								</p>
+								<p>
+									<input type="submit" value="Search"
+										class="form-control btn btn-primary w100">
+								</p>
+							</form>
+<!-- 							<div id="results"></div> -->
+							
+							<div class="row" id="mCarousel" style="width:750px;margin:10px;">
+								<div class="carousel slide" data-ride="carousel" id="carousel-1" data-interval="false" style="width:750px; margin:10px;">
+									<div class="carousel-inner" role="listbox" id="results" style="width:730px; margin:auto;">
+									</div>
+									<div>
+										<a class="left carousel-control" href="#carousel-1"
+											role="button" data-slide="prev" style="width: 5px;"><i
+											class="glyphicon glyphicon-chevron-left"></i><span
+											class="sr-only">Previous</span></a><a
+											class="right carousel-control" href="#carousel-1"
+											role="button" data-slide="next" style="width: 5px;"><i
+											class="glyphicon glyphicon-chevron-right"></i><span
+											class="sr-only">Next</span></a>
+									</div>
+<!-- 									<div style="margin:10px;"> -->
+<!-- 									<ol class="carousel-indicators"> -->
+<!-- 										<li data-target="#carousel-1" data-slide-to="0" class="active"></li> -->
+<!-- 										<li data-target="#carousel-1" data-slide-to="1"></li> -->
+<!-- 										<li data-target="#carousel-1" data-slide-to="2"></li> -->
+<!-- 									</ol> -->
+<!-- 									</div> -->
+								</div>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -168,7 +200,6 @@
 		html += '		<th class="tg-qvqz" colspan="2" style="font-size:15px;"><a href="'+result[i].url+'" target="_blank">' +  result[i].title +  '</a></th>';
 		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="update" type="button" data-toggle="modal" data-target="#myModal" onclick="updateForm(' + result[i].id + ',' + result[i].no + ')">수정</button></th>';
 		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="delete" type="button" onclick="deleteVideo(' + result[i].id + ',' + result[i].no + ')">삭제</button></th>';
-// 		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;display:none;"><button id="delete" type="button" data-toggle="modal" data-target="#myModal">'+result[i].no+'</button></th>';
 		html += '	</tr>';
 		}
 		html += '</table>';
@@ -242,15 +273,17 @@
 	
 	function deleteVideo(id, no) {
 		$.ajax({
-			url: `${pageContext.request.contextPath}/studyroom/vDelete.json`,
-			data: {id : id, no : no},
-			dataType: "json",
-			success: function(result) {
+			url : `${pageContext.request.contextPath}/studyroom/vDelete.json`,
+			data : {
+				id : id,
+				no : no
+			},
+			dataType : "json",
+			success : function(result) {
 				makeVideoList(result);
 			}
 		});
 	};
-
 </script>
 </body>
 
