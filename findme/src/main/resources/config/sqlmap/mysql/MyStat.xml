@@ -33,13 +33,13 @@
 		<result column="link" property="link" />
 	</resultMap>
 	
-	<select id="selectDetailList" parameterType="string" resultMap="myStatMap">
-		select c.reg_date, c.recruit_no, c.name, c.code_no, c.result  
+	<select id="selectDetailList" parameterType="string" resultMap="scheduleMap">
+		select distinct c.reg_date, c.recruit_no, c.name, c.code_no, c.result  
 		from tb_stat s
 		join tb_calendar c
 		on s.id=c.id
         where c.id = #{id}
-        and apply = 'Y'
+        and c.apply = 'Y'
 		order by reg_date desc
 	</select>
 	
@@ -48,6 +48,7 @@
 		from tb_stat s
 		join tb_calendar c
 		where s.id = #{id}
+		group by DATE_FORMAT(c.reg_date, '%Y-%m')
 	</select>
 	
 	<!-- 
@@ -84,5 +85,21 @@
 			0
 		)
 	</insert>
+	
+	<update id="updateChart" parameterType="string">
+		update tb_stat
+			set app_cnt = (select count(*) from tb_calendar where id = #{id} and apply = 'Y')
+				, first_cnt = (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2001' and result = 'Y' 
+              				   or id = #{id} and code_no = '2001' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>)
+                , second_cnt = (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2002' and result = 'Y'
+			  				    or id = #{id} and code_no = '2002' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>)
+			    , third_cnt = (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2003' and result = 'Y' 
+			 				    or id = #{id} and code_no = '2003' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>)
+			    , fourth_cnt = (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2004' and result = 'Y'
+			  				    or id = #{id} and code_no = '2004' and cast(code_no as unsigned) < cast(final_round as unsigned)]]>)
+			    , fifth_cnt = (select count(*) from tb_calendar <![CDATA[where id = #{id} and code_no = '2005' and result = 'Y']]>)
+			    , result = (select count(*) from tb_calendar where id = #{id} and result = 'Y')
+			  where id = #{id}
+	</update>
 </mapper>
 

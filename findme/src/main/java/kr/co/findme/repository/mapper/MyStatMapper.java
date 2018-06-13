@@ -11,4 +11,6 @@ public interface MyStatMapper {
 	public List<MyStat> selectChart(String id);
 	
 	public void insertChart(String id);
+
+	public void updateChart(String id);
 }

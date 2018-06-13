@@ -51,22 +51,22 @@
             <div>
         	<select onchange="window.open(value,'_self');">
 	        	<optgroup label="월별 Graph">
-    	    	<option value="${pageContext.request.contextPath}/mystat/graph.do" selected="">2018 상반기</option>
-        		<option value="${pageContext.request.contextPath}/mystat/noneGraph.do">2018 하반기</option>
+    	    	<option value="${pageContext.request.contextPath}/mystat/graph.do">2018 상반기</option>
+        		<option value="${pageContext.request.contextPath}/mystat/noneGraph.do" selected="">2018 하반기</option>
         		<option value="${pageContext.request.contextPath}/mystat/noneGraph.do">2019 상반기</option>
         		</optgroup>
         	</select>
         </div>
-        <div id="chart_div" style="width: 1100px; height: 700px;"></div>
-        <div>
-			<button class="btn btn-default" type="button" id="detail" onclick="location.href='${pageContext.request.contextPath}/mystat/detail.do'">지원 목록 상세보기</button>
-		</div>
-<!--         <div> -->
-<!-- 			<button class="btn btn-default" type="button" id="updateChart">차트 새로고침하기</button> -->
-<!-- 		</div> -->
+        <div id="chart_div" style="width: 1100px; height: 700px;">
+        <br>
+        <br>
+        	<h1>지원 결과가 존재하지 않습니다.</h1>
+        <br>
+        <br>
+        </div>
     </div>
     
- <script>
+     <script>
 	var sessionId = '${id}';
 	console.log(sessionId);
 	
@@ -89,76 +89,8 @@
 			$("#guest").hide();
 		}
 	};
-	
-    google.charts.load('current', {'packages':['corechart']});
-//     google.charts.setOnLoadCallback(drawVisualization);
-    google.charts.setOnLoadCallback(chart11);
 
-    function chart11() {
-    	$.ajax({
-    		url : `${pageContext.request.contextPath}/mystat/chartList.json`,
-    		success: drawVisualization
-    	});
-    }
-    function drawVisualization(chartResult) {
-    	var header = ['Month', '서류 합격 개수', '1차 면접 합격 개수', '2차 면접 합격 개수', '3차 면접 합격 개수', '4차 면접 합격 개수', '5차 면접 합격 개수', '최종 합격 개수'];
-        var chartData = [];
-        for (var i=0; i<chartResult.length; i++) {
-        	var temp = [];
-        	var rawDate = chartResult[0].regDate;
-			var regDate = moment(rawDate).format("YYYY/MM");
-// 			if(regDate.startsWith("1970")) {
-// 			}
-        	temp.push(regDate);
-        	temp.push(chartResult[0].appCnt);
-        	temp.push(chartResult[0].firstCnt);
-        	temp.push(chartResult[0].secondCnt);
-        	temp.push(chartResult[0].thirdCnt);
-        	temp.push(chartResult[0].fourthCnt);
-        	temp.push(chartResult[0].fifthCnt);
-        	temp.push(chartResult[0].result);
-        	chartData.push(temp);
-        	};
-    		var arr=[];
-    		arr.push(header);
-    		 for (var i = 0; i < chartData.length; i++) {
-    		      arr.push(chartData[i]);
-    		  }
-    		var data = new google.visualization.arrayToDataTable(arr);
-    		
-//     	var data = google.visualization.arrayToDataTable([
-//     		header
-//     		,['2018/06', 2, 3, 4, 5, 6, 7, 8]
-//     	]);
-      // Some raw data (not necessarily accurate)
-//       var data = google.visualization.arrayToDataTable([
-//        ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-//        ['2004/05',  165,      938,         522,             998,           450,      614.6],
-//        ['2005/06',  135,      1120,        599,             1268,          288,      682],
-//        ['2006/07',  157,      1167,        587,             807,           397,      623],
-//        ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-//        ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-//     ]);
+	</script>
 
-	  var options = {
-	    title : '월별 상반기 취업 준비 합격률',
-	    vAxis: {title: '개수'},
-	    hAxis: {title: '월'},
-	    seriesType: 'bars',
-	    series: {6: {type: 'line'}}
-	  };
-	
-	  var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-	  chart.draw(data, options);
-	}
-    
-//     $("#updateChart").click(function () {
-    	
-//     });
-    
- </script>
- 
-    
 </body>
-
 </html>

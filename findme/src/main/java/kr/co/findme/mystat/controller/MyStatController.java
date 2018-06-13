@@ -28,6 +28,10 @@ public class MyStatController {
 	public String graph() {
 		return "/mystat/graph";
 	}
+	@RequestMapping("/noneGraph.do")
+	public String noneGraph() {
+		return "/mystat/noneGraph";
+	}
 
 	@RequestMapping("/detail.do")
 	public String detail() {
@@ -46,6 +50,7 @@ public class MyStatController {
 	@ResponseBody
 	public List<MyStat> retrieveChart(HttpSession session, String id) {
 		String loginId = (String) session.getAttribute("id");
+		myStatService.updateChart(loginId);
 		List<MyStat> chartList = myStatService.retrieveChart(loginId);
 		System.out.println(chartList);
 		return chartList;
@@ -59,4 +64,13 @@ public class MyStatController {
 		List<MyStat> chartList = myStatService.retrieveChart(loginId);
 		return chartList;
 	}
+
+//	@RequestMapping("/chartUpdate.json")
+//	@ResponseBody
+//	public List<MyStat> updateChart(HttpSession session, String id) {
+//		String loginId = (String) session.getAttribute("id");
+//		myStatService.updateChart(loginId);
+//		List<MyStat> updateList = myStatService.retrieveChart(loginId);
+//		return updateList;
+//	}
 }

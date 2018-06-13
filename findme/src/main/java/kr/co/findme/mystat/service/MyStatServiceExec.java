@@ -27,4 +27,9 @@ public class MyStatServiceExec implements MyStatService {
 	public void registChart(String id) {
 		statMapper.insertChart(id);
 	}
+
+	@Override
+	public void updateChart(String id) {
+		statMapper.updateChart(id);
+	}
 }

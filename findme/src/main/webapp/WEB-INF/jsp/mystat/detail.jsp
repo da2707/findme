@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/fullcalendar/moment.min.js"></script>
 </head>
 
 <body>
@@ -23,16 +24,23 @@
                     class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/calendar/calendar.do">MyCalendar</a></li>
+                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/schedule/schedule.do">MyCalendar</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/resume/list.do">MyResume</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/chart.do">MyStat</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do">StudyRoom</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/recruit/recuit.do">Recruiting</a></li>
                     </ul>
-                    <p class="navbar-text navbar-right actions">
+                    <p class="navbar-text navbar-right actions" id="guest">
 	                    <a data-toggle="modal" href="#login" class="navbar-link login" data-target="#login">Log In</a>
-	                    <a href="${pageContext.request.contextPath}/view/user/signup.jsp" 
+	                    <a href="${pageContext.request.contextPath}/user/signup.do" 
 	                       class="navbar-link signup btn btn-default action-button">Sign Up</a>
+                    </p>
+                    <p class="navbar-text navbar-right actions" id="member">
+                    	${id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
+                    	<a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
+                    	   class="navbar-link login">Log out</a>
+                    	<a href="${pageContext.request.contextPath}/user/mypage.do"
+                    	   class="navbar-link signup btn btn-default action-button">My Page</a>
                     </p>
             </div>
     </div>
@@ -48,49 +56,102 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>no</th>
-                        <th>Company</th>
                         <th>지원날짜</th>
+                        <th>채용공고번호</th>
+                        <th>Company</th>
                         <th>지원현황</th>
                         <th>최종발표</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-<!--                         <td><input type="text" name="no" value=""/></td> 수정 삭제 시--> 
-                        <td>회사1</td>
-                        <td>2018-05-23</td>
-                        <td>서류제출완료</td>
-                        <td>미발표</td>
-                        <td id="statustd" style="width:150px;">
-                            <div class="btn-group" role="group" id="statusbtn"><button class="btn btn-default" type="button">수정</button><button class="btn btn-default" type="button">삭제</button></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>회사2<br></td>
-                        <td>2018-05-23<br></td>
-                        <td>1차면접완료</td>
-                        <td>미발표</td>
-                        <td id="statustd">
-                            <div class="btn-group" role="group" id="statusbtn"><button class="btn btn-default" type="button">수정</button><button class="btn btn-default" type="button">삭제</button></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>회사3<br></td>
-                        <td>2018-05-23<br></td>
-                        <td>2차면접완료</td>
-                        <td>발표</td>
-                        <td id="statustd">
-                            <div class="btn-group" role="group" id="statusbtn"><button class="btn btn-default" type="button">수정</button><button class="btn btn-default" type="button">삭제</button></div>
-                        </td>
-                    </tr>
+                <tbody id="detailResult">
                 </tbody>
             </table>
+	        <div>
+				<button class="btn btn-default" type="button" id="detail"
+					onclick="location.href='${pageContext.request.contextPath}/mystat/chart.do'">차트로 돌아가기</button>
+			</div>
         </div>
     </div>
+    
+    <script>
+	var sessionId = '${id}';
+	console.log(sessionId);
+	
+	$(document).ready(function() {
+		guestAndMember();
+	});
+	
+	function hideNav() {
+		if(sessionId == ''){
+			$('.mynavbar').hide();
+		} else {
+			$('.mynavbar').show();
+		}
+	};
+	
+	function guestAndMember() {
+		if(sessionId == ''){
+			$("#member").hide();
+		} else {
+			$("#guest").hide();
+		}
+	};
+	
+	function detailList() {
+		$.ajax({
+			url: `${pageContext.request.contextPath}/mystat/detailList.json`,
+			success: makeDetailList
+		});
+	}
+	
+	detailList();
+	
+	function makeDetailList(data) {
+
+	console.dir(data.length);
+		var html = '';
+		for (var i = 0; i < data.length; i++) {
+			html += '<tr>';
+			var rawDate = data[i].regDate;
+			var regDate = moment(rawDate).format("YYYY-MM-DD");
+			if (regDate.startsWith("1970")) {
+				regDate = "미지원";
+			}
+			
+			html += '	<td>' + regDate + '</td>';
+			html += '	<td>' + data[i].recruitNo + '</td>';
+			html += '	<td>' + data[i].name + '</td>';
+			var code = data[i].codeNo;
+			console.log(code);
+			var codeMsg = '';
+			switch (code) {
+			case "2000": codeMsg = "서류 접수 완료"; break;
+			case "2001": codeMsg = "1차 면접"; break;
+			case "2002": codeMsg = "2차 면접"; break;
+			case "2003": codeMsg = "3차 면접"; break;
+			case "2004": codeMsg = "4차 면접"; break;
+			case "2005": codeMsg = "5차 면접"; break;
+			}
+			html += '	<td>' + codeMsg + '</td>';
+			var result = data[i].result;
+			var resultMsg = '';
+			switch (result) {
+			case 'P':
+				resultMsg = "진행 중";
+				break;
+			case 'Y':
+				resultMsg = "최종 합격";
+				break;
+			case 'N':
+				resultMsg = "최종 불합격";
+				break;
+			}
+			html += '	<td>' + resultMsg + '</td>';
+			html += '</tr>';
+		}
+		$("#detailResult").html(html);
+					}
+				</script>
 </body>
 
 </html>

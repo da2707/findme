@@ -11,4 +11,6 @@ public interface MyStatService {
 	public List<MyStat> retrieveChart(String id);
 	
 	public void registChart(String id);
+
+	public void updateChart(String id);
 }
