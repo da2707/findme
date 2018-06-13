@@ -192,8 +192,8 @@
 			html += '	<td><a href="'+ data[i].url +'" target="_blank">' + data[i].url+ '</a></td>';
 			html += '	<td>' +data[i].category+ '</td>';
 			html += '	<td>' +data[i].memo+ '</td>';
-			html += '		<td><button id="update" type="button" data-toggle="modal" data-target="#myModal" onclick="updateLinkForm(' + data[i].id + ',' + data[i].no + ')">수정</button></td>';
-			html += '		<td><button id="delete" type="button" onclick="deleteLink(' + data[i].id + ',' + data[i].no + ')">삭제</button></td>';
+			html += '		<td><button id="update" type="button" data-toggle="modal" data-target="#myModal" onclick="updateLinkForm(' + data[i].no + ')">수정</button></td>';
+			html += '		<td><button id="delete" type="button" onclick="deleteLink(' + data[i].no + ')">삭제</button></td>';
 			html += '</tr>';
 		}
 		$("#resultLink").html(html);
@@ -214,11 +214,11 @@
 			});
 	});
 
-	function updateLinkForm(id, no) {
+	function updateLinkForm(no) {
 		
 		$.ajax({
 			url: `${pageContext.request.contextPath}/studyroom/linkUpdateForm.json`,
-			data: {id : id, no : no},
+			data: {id : sessionId, no : no},
 			dataType: "json",
 			success: function(data) {
 				makeUpdate(data);
@@ -273,10 +273,10 @@
 		});
 	}
 	
-	function deleteLink(id, no) {
+	function deleteLink(no) {
 		$.ajax({
 			url: `${pageContext.request.contextPath}/studyroom/linkDelete.json`,
-			data: {id : id, no : no},
+			data: {id : sessionId, no : no},
 			dataType: "json",
 			success: function(data) {
 				makeLinkList(data);

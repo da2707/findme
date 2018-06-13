@@ -191,6 +191,7 @@
 	videoList();
 	
 	function makeVideoList(result) {
+		console.log(result);
 		var html = '';
 		html += '<br>';
 		html += '<strong>등록된 리스트는 ' + result.length + '개입니다.</strong>';
@@ -198,8 +199,8 @@
 		for (var i = 0; i<result.length; i++) {
 		html += '	<tr>';
 		html += '		<th class="tg-qvqz" colspan="2" style="font-size:15px;"><a href="'+result[i].url+'" target="_blank">' +  result[i].title +  '</a></th>';
-		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="update" type="button" data-toggle="modal" data-target="#myModal" onclick="updateForm(' + result[i].id + ',' + result[i].no + ')">수정</button></th>';
-		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="delete" type="button" onclick="deleteVideo(' + result[i].id + ',' + result[i].no + ')">삭제</button></th>';
+		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="update" type="button" data-toggle="modal" data-target="#myModal" onclick="updateForm(' + result[i].no + ')">수정</button></th>';
+		html += '		<th class="tg-3mv2" style="font-size:10px;color:black;"><button id="delete" type="button" onclick="deleteVideo(' + result[i].no + ')">삭제</button></th>';
 		html += '	</tr>';
 		}
 		html += '</table>';
@@ -222,11 +223,11 @@
 	});
 	
 	
-	function updateForm(id, no) {
+	function updateForm(no) {
 		
 		$.ajax({
 			url: `${pageContext.request.contextPath}/studyroom/vUpdateForm.json`,
-			data: {id : id, no : no},
+			data: {id : sessionId, no : no},
 			dataType: "json",
 			success: function(result) {
 				makeUpdate(result);
@@ -271,11 +272,11 @@
 		});
 	}
 	
-	function deleteVideo(id, no) {
+	function deleteVideo(no) {
 		$.ajax({
 			url : `${pageContext.request.contextPath}/studyroom/vDelete.json`,
 			data : {
-				id : id,
+				id : sessionId,
 				no : no
 			},
 			dataType : "json",

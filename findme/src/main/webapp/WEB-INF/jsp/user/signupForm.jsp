@@ -45,9 +45,10 @@
 <form name="mForm" class="form-horizontal" method="POST" 
 	  action="${pageContext.request.contextPath}/user/signup.do"
 	  onsubmit="return doAction()">
-    <div class="container" id="container" style="width: 70%" >
-    <div class="container small">
-    	<br><br><br><br><br><br>
+    <div class="container" id="container">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+    	<br><br>
 	    <h1>Sign up</h1><br>
 	    <div>
 		    <input class="form-control" id="id" name="id" type="text" placeholder="ID"><span style="color:red" id="result"></span><br><br>

@@ -3,6 +3,10 @@
 	width: 100%;
 }
 
+#naverIdLogin_loginButton{
+	padding-bottom: 10px;
+}
+
 #calendarContent {
 	height: 630px;	
 }

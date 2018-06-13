@@ -101,22 +101,23 @@
     	});
     }
     function drawVisualization(chartResult) {
+    	console.log(chartResult);
     	var header = ['Month', '서류 합격 개수', '1차 면접 합격 개수', '2차 면접 합격 개수', '3차 면접 합격 개수', '4차 면접 합격 개수', '5차 면접 합격 개수', '최종 합격 개수'];
         var chartData = [];
         for (var i=0; i<chartResult.length; i++) {
         	var temp = [];
-        	var rawDate = chartResult[0].regDate;
+        	var rawDate = chartResult[i].regDate;
 			var regDate = moment(rawDate).format("YYYY/MM");
 // 			if(regDate.startsWith("1970")) {
 // 			}
         	temp.push(regDate);
-        	temp.push(chartResult[0].appCnt);
-        	temp.push(chartResult[0].firstCnt);
-        	temp.push(chartResult[0].secondCnt);
-        	temp.push(chartResult[0].thirdCnt);
-        	temp.push(chartResult[0].fourthCnt);
-        	temp.push(chartResult[0].fifthCnt);
-        	temp.push(chartResult[0].result);
+        	temp.push(chartResult[i].appCnt);
+        	temp.push(chartResult[i].firstCnt);
+        	temp.push(chartResult[i].secondCnt);
+        	temp.push(chartResult[i].thirdCnt);
+        	temp.push(chartResult[i].fourthCnt);
+        	temp.push(chartResult[i].fifthCnt);
+        	temp.push(chartResult[i].result);
         	chartData.push(temp);
         	};
     		var arr=[];
