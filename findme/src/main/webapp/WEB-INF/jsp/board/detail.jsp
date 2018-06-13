@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -57,45 +57,55 @@
     </div>
     
 <div class="container" id="container">
-<h1>취업 정보 나눔 게시판</h1>
-<hr />
-	번호 :  ${board.no}<br>
-	글쓴이 : <c:out value="${board.id}" /><br>
-	제목 : <c:out value="${board.title}" /><br>
-	내용 : <c:out value="${board.content}" /><br>
-	등록일 : <fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /><br><br>
-	조회수 : ${board.viewCnt}<br>
-	추천수 : ${board.likeCnt}<br>
-	 <br>
-	 <hr />
-	 <c:if test="${sessionScope.id eq board.id}">
-		 <a href='updateForm.do?no=${board.no}' id="mod">수정</a>
-		 <a href='delete.do?no=${board.no}' id="del">삭제</a>
-	 </c:if>
-	 <a href='list.do'>목록</a>
-		
-	 <%--  댓글 파트입니다.  --%>	
-	 <form action="commentUpdate.do" method="post">
-		<input type="hidden" name="no" value="${board.no}" />
-		<input type="hidden" name="cmtNo" value="${cmtNo}" />
-		
-		<%-- 댓글 목록 --%>
-		<div id="commentList"></div>
-	 </form>
-		
-	 <%-- 댓글 관련 파트 시작 --%>		
-	 <form id="rForm" class="form-inline">
-		<div id="comment">
-		    <div class="form-group">
-			    <input type="text" name="id" readonly value="${sessionScope.id}"class="form-control" width="30%">
-		    </div>
-		    <div class="form-group">
-			    <input type="text" name="content" class="form-control input-wp1" placeholder="내용을 입력하세요">
-		    </div>
-		  	<button class="btn btn-primary">등록</button>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<h1>취업 정보 나눔 게시판</h1>
+			<hr />
+				번호 :  ${board.no}<br>
+				글쓴이 : <c:out value="${board.id}" /><br>
+				제목 : <c:out value="${board.title}" /><br>
+				내용 : <c:out value="${board.content}" /><br>
+				등록일 : <fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd HH:mm:ss" /><br><br>
+				조회수 : ${board.viewCnt}<br>
+				추천수 : ${board.likeCnt}
+				 <hr>
+				 <c:if test="${sessionScope.id eq board.id}">
+					 <a href='updateForm.do?no=${board.no}' id="mod">수정</a>
+					 <a href='delete.do?no=${board.no}' id="del">삭제</a>
+				 </c:if>
+				 <a href='list.do'>목록</a>
+				 <p>
 		</div>
-	 </form>
-</div><br><br><br><br>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			 <%--  댓글 파트입니다.  --%>	
+			 <form action="commentUpdate.do" method="post">
+				<input type="hidden" name="no" value="${board.no}" />
+				<input type="hidden" name="cmtNo" value="${cmtNo}" />
+				
+				<%-- 댓글 목록 --%>
+				<div id="commentList"></div>
+			 </form>
+				
+			 <%-- 댓글 관련 파트 시작 --%>		
+			 <form id="rForm" class="form-inline">
+				<div id="comment">
+				    <div class="form-group">
+					    <input type="text" name="id" readonly value="${sessionScope.id}"class="form-control" width="30%">
+				    </div>
+				    <div class="form-group">
+					    <input type="text" name="content" class="form-control input-wp1" placeholder="내용을 입력하세요">
+				    </div>
+				  	<button class="btn btn-primary">등록</button>
+				</div>
+			 </form>
+		</div>
+	</div>
+</div>
 
 <!-- Login -->
    	<form name="mForm">
@@ -279,10 +289,10 @@ $("#loginBtn").click(function () {
 		var html = "";
 		html += '<table class="table table-bordered">';
 		html += '	<colgroup>'; 
-		html += '		<col width="7%">'; 
-		html += '		<col width="*">'; 
-		html += '		<col width="14%">'; 
 		html += '		<col width="10%">'; 
+		html += '		<col width="*">'; 
+		html += '		<col width="17%">'; 
+		html += '		<col width="13%">'; 
 		html += '	</colgroup>'; 
 		  
 		for (var i = 0; i < result.length; i++) {

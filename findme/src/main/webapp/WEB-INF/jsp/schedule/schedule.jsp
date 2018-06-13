@@ -21,7 +21,7 @@
 </head>
 <body>
 <!-- 최상단 이용을 위한 a 태그 -->
-<a role="button" href="#" class="btn btn-primary top">맨위로 가기</a>
+<a role="button" href="#" class="btn btn-primary top">↑</a>
     <div>
         <nav class="navbar navbar-default navigation-clean-button">
             <div class="container">

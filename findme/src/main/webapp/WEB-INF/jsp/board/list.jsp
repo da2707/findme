@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -51,36 +51,40 @@
     </div>
     
 <div class="container" id="container">
-
-<h1>취업 정보 나눔 게시판</h1><br><br>
-<table class="table table-striped table-hover">
-	<tr>
-		<td>번호</td>
-		<td>제목</td>
-		<td>글쓴이</td>
-		<td>날짜</td>
-		<td>조회수</td>
-		<td>추천수</td>
-	</tr>
-	<c:forEach var="board" items="${list}">		
-		<tr>
-			<td>${board.no}</td>
-			<td><a href="detail.do?no=${board.no}">${board.title}</a></td>
-			<td>${board.id}</td>
-			<td><fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd" /></td>
-			<td>${board.viewCnt}</td>
-			<td>${board.likeCnt}</td>
-		</tr>
-	</c:forEach>
-	<c:if test="${empty list}">
-		<tr>
-	    	<td colspan='5'>입력된 게시물이 없습니다.</td>
-		</tr>
-	</c:if>
-</table>
-
-<a href="${pageContext.request.contextPath}/board/writeForm.do" 
-   class="btn btn-default pull-right">글쓰기</a><br><br><br><br>
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		<h1>취업 정보 나눔 게시판</h1><br><br>
+		<table class="table table-striped table-hover">
+			<tr>
+				<td>번호</td>
+				<td>제목</td>
+				<td>글쓴이</td>
+				<td>날짜</td>
+				<td>조회수</td>
+				<td>추천수</td>
+			</tr>
+			<c:forEach var="board" items="${list}">		
+				<tr>
+					<td>${board.no}</td>
+					<td><a href="detail.do?no=${board.no}">${board.title}</a></td>
+					<td>${board.id}</td>
+					<td><fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd" /></td>
+					<td>${board.viewCnt}</td>
+					<td>${board.likeCnt}</td>
+				</tr>
+			</c:forEach>
+			<c:if test="${empty list}">
+				<tr>
+			    	<td colspan='5'>입력된 게시물이 없습니다.</td>
+				</tr>
+			</c:if>
+		</table>
+		
+		<a href="${pageContext.request.contextPath}/board/writeForm.do" 
+		   class="btn btn-default pull-right">글쓰기</a><br><br><br><br>
+		</div>
+	</div>
 </div>
 
 <!-- Login -->

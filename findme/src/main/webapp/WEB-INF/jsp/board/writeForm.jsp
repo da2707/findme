@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board/board.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -51,15 +51,18 @@
     </div>
     
 <div class="container" id="container">
-
-<h1>취업 정보 나눔 게시판</h1><br><br>
-	 <form method='post' action='${pageContext.request.contextPath}/board/write.do' >
-	    제목 : <input type='text' name='title' size='70' /><br>
-	    글쓴이 : <input type='text' name='id' readonly value='${sessionScope.id}' size='30' /><br>
-	    내용 : <textarea name='content' rows='7' cols='70' placeholder='예쁘고 고운말 쓰기!'></textarea><br>
-	   <button type='submit'>등록</button>
-	 </form>
-
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<h1>취업 정보 나눔 게시판</h1><br><br>
+				 <form method='post' action='${pageContext.request.contextPath}/board/write.do' >
+				    제목 : <input type='text' name='title' size='70' /><br>
+				    글쓴이 : <input type='text' name='id' readonly value='${sessionScope.id}' size='30' /><br>
+				    내용 : <textarea name='content' rows='7' cols='70' placeholder='예쁘고 고운말 쓰기!'></textarea><br>
+				   <button type='submit'>등록</button>
+				 </form>
+		</div>
+	</div>
 </div>
 
 <!-- Login -->

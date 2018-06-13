@@ -1,11 +1,12 @@
 a.top {
   position: fixed;
-  right: 2%;
+  right: 1%;
   bottom: 50px;
   display: none;
-  width: 100px;
+  width: 8px;
+  text-align: center;
+  z-index: 1055
 }
-
 
 #list_realtime_ranking {
 	float: left;
