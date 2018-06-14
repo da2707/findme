@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.findme.mystat.service.MyStatService;
 import kr.co.findme.repository.domain.MyStat;
-import kr.co.findme.repository.domain.Video;
 
 @Controller
 @RequestMapping("/mystat")
@@ -50,7 +49,7 @@ public class MyStatController {
 	@ResponseBody
 	public List<MyStat> retrieveChart(HttpSession session, String id) {
 		String loginId = (String) session.getAttribute("id");
-		myStatService.updateChart(loginId);
+//		myStatService.updateChart(loginId);
 		List<MyStat> chartList = myStatService.retrieveChart(loginId);
 		System.out.println(chartList);
 		return chartList;
@@ -65,12 +64,12 @@ public class MyStatController {
 		return chartList;
 	}
 
-//	@RequestMapping("/chartUpdate.json")
-//	@ResponseBody
-//	public List<MyStat> updateChart(HttpSession session, String id) {
-//		String loginId = (String) session.getAttribute("id");
-//		myStatService.updateChart(loginId);
-//		List<MyStat> updateList = myStatService.retrieveChart(loginId);
-//		return updateList;
-//	}
+	@RequestMapping("/chartUpdate.json")
+	@ResponseBody
+	public List<MyStat> updateChart(HttpSession session, String id) {
+		String loginId = (String) session.getAttribute("id");
+		myStatService.updateChart(loginId);
+		List<MyStat> updateList = myStatService.retrieveChart(loginId);
+		return updateList;
+	}
 }
