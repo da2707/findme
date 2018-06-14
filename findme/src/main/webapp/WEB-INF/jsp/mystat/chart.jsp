@@ -57,13 +57,13 @@
         		</optgroup>
         	</select>
         </div>
-        <div id="chart_div" style="width: 1100px; height: 700px;"></div>
-        <div>
-			<button class="btn btn-default" type="button" id="detail" onclick="location.href='${pageContext.request.contextPath}/mystat/detail.do'">지원목록 상세보기</button>
-		</div>
-        <div>
+        <div style="float:right;">
 			<button class="btn btn-default" type="button" id="updateChart">차트 새로고침하기</button>
 		</div>
+		<div style="float:right;">
+			<button class="btn btn-default" type="button" id="detail" onclick="location.href='${pageContext.request.contextPath}/mystat/detail.do'">지원목록 상세보기</button>
+		</div>
+        <div id="chart_div" style="width: 1100px; height: 700px;"></div>
     </div>
     
  <script>
