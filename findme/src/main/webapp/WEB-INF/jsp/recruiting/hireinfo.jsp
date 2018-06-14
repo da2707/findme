@@ -188,8 +188,8 @@ var sessionId = '${sessionScope.id}';
             html2+= '    <p style="width:345px;">지역 : &nbsp;'+span.eq(3).text()+'</p>';
             html2+= '    <p style="width:345px;">학력 : &nbsp;'+span.eq(6).text()+'</p>';
             html2+= '    <p style="width:345px;">경력 : &nbsp;'+span.eq(5).text()+'</p>';
-            html2+= '    <p style="width:345px;">접수기간 : &nbsp;'+span.eq(0).text()+'부터 '+span.eq(1).text()+'까지</p>';
-            html2+= '    <p style="width:345px;">근무형태 : &nbsp;'+span.eq(4).text()+'</p>';
+            html2+= '    <p style="width:500px;">접수기간 : &nbsp;'+span.eq(0).text()+' ~ '+span.eq(1).text()+'까지</p>';
+            html2+= '    <p style="width:500px;">근무형태 : &nbsp;'+span.eq(4).text()+'</p>';
             html2+= '</div>';
             html2+= '</div>';
             
