@@ -546,7 +546,7 @@
 				var end = result[i].endDate;
 			html += '<tr class="trBody">';
 			html += '<td><span style="display:none">'+ result[i].recruitNo +'</span><span>'+ result[i].company +'</span></td>';
-			html += '<td><a href="'+ result[i].link +'">'+ result[i].title +'</a></td>';
+			html += '<td><a href="'+ result[i].link +'" target="_blank">'+ result[i].title +'</a></td>';
 			html += '<td><span>'+ result[i].expLv + '</span><br><span>' + result[i].eduLv +'</span></td>';
 			html += '<td>'+ result[i].jobType +'</td>';
 			html += '<td><span style="display:none">'+ start + '</span><span style="display:none">' + end + '</span>'; 
