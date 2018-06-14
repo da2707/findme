@@ -1,0 +1,30 @@
+.pwchange-form {
+	margin : 0 auto;
+	width : 40%;
+}
+
+h1 {
+	text-align : center;
+}
+
+.modal-body {
+	text-align:center;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+.small {
+	width:50%;
+}
+#modal-body {
+	overflow:auto;
+	height: 500px;
+	background-color: #E0F8F7;
+	padding:10px;
+	text-align:left;
+}
+#modal-submit {
+	border-collapse: collapse;
+	width:50%;
+	margin: 0 auto;
+}
+
