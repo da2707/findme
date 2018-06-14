@@ -63,9 +63,6 @@
 
  <script>
  
- 	
- 	
- 
  	$("#btnPwchange").click(function(){
  		if($("#pw").val() == ''){
  			alert("현재 비밀번호를 입력하세요");

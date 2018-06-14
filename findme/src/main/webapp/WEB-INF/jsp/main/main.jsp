@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -52,7 +53,7 @@
                     ${sessionScope.id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
                     <a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
                     	   class="navbar-link login">Log out</a>
-                    	<a href="${pageContext.request.contextPath}/user/mypage.do"
+                    	<a href="#"
                     	   class="navbar-link signup btn btn-default action-button">My Page</a>
                     </p>
                     
@@ -98,26 +99,16 @@
                     <div id="leftLink"><span><a role="button" href="${pageContext.request.contextPath}/board/list.do">전체 보기</a></span></div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr></tr>
                         </thead>
                         <tbody>
+                        <c:forEach var="board" items="${list}" begin="1" end="5">
                             <tr>
-                                <td>2018년도 상반기 삼성전자 공채 면접 팁</td>
+                                <td><a href="board/detail.do?no=${board.no}">${board.title}</a></td>
                             </tr>
-                            <tr>
-                                <td>2018년도 상반기 구글 웹 개발자 구직 주요 정보</td>
-                            </tr>
-                            <tr>
-                                <td>2018년도 비트 학원 강사 모집 정보</td>
-                            </tr>
-                            <tr>
-                                <td>2018년도 자바 개발자 면접 팁</td>
-                            </tr>
-                            <tr>
-                                <td>2018년도 프로그래머 면접 질문 족보</td>
-                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -156,10 +147,7 @@
 		    <button class="btn btn-primary btn-block" id="loginBtn" type="button">Log In</button>
 		  </div>
 		  	<div class="naverimg">
-			    <a href="${pageContext.request.contextPath}/user/findPwForm.do" class="forgot">Forgot your email or password?</a><br>
-				<a id="naverIdLogin_loginButton" href="#" role="button">
-					<img id="naverimg" src="https://static.nid.naver.com/oauth/big_g.PNG" width=200>
-				</a><br>
+			    <a href="#" class="forgot">Forgot your email or password?</a><br><br>
 		  	</div>
 	    </div>
 	  </div>

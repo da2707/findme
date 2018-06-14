@@ -32,16 +32,10 @@ public class MainController {
 	private BoardService service;
 	
 	@RequestMapping("/main.do")
-	public String main() {
-		return "main/main";
-	}
-	
-	
-	public String listAllToMain(Board board, Model model) throws Exception {
-		List<Board> listAll = service.retrieveBoard();
+	public String main(Model model) {
+		List<Board> listAll = service.listAllToMain();
 		model.addAttribute("list", listAll);
-		
-		return "redirect:/board/list.do";
+		return "main/main";
 	}
 	
 	// 실시간 공채 속보 랭킹

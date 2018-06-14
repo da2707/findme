@@ -46,7 +46,7 @@ public class UserController {
 		return "/user/signupForm";
 	}
 	
-	@RequestMapping("signup.do")
+	@RequestMapping("/signup.do")
 	public String signup(User user) throws Exception {
 		userService.insertUser(user);
 		return "redirect:/main.do";

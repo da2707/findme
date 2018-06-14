@@ -65,5 +65,10 @@ public class BoardServiceExec implements BoardService{
 		mapper.updateComment(comment);
 	}
 
+	@Override
+	public List<Board> listAllToMain() {
+		return mapper.listAllToMain();
+	}
+
 	
 }

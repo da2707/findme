@@ -17,6 +17,12 @@
 		      from tb_board
 		     order by no desc 
 	    </select>
+	    
+	    <select id="listAllToMain" resultMap="boardMap">
+		    select *
+		      from tb_board
+		     order by no desc 
+	    </select>
 	    	
 	    <select id="selectBoardByNo" parameterType="int" resultMap="boardMap">
 	    	select *

@@ -26,12 +26,4 @@ public class UserServiceExec implements UserService{
 	public int countId(String id) throws Exception {
 		return mapper.countId(id);
 	}
-
-	@Override
-	public User selectAcc(String email) throws Exception {
-		return mapper.selectAcc(email);
-	}
-	
-	
-
 }

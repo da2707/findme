@@ -7,6 +7,7 @@ import kr.co.findme.repository.domain.Comment;
 
 public interface BoardService {
 	public List<Board> retrieveBoard();
+	public List<Board> listAllToMain();
 	public Board retrieveBoardByNo(int no);
 	public void insertBoard(Board board);
 	public void updateBoard(Board board);

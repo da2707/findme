@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/userpage.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -48,7 +49,7 @@
                     	${id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
                     	<a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
                     	   class="navbar-link login">Log out</a>
-                    	<a href="${pageContext.request.contextPath}/user/mypage.do"
+                    	<a href="#"
                     	   class="navbar-link signup btn btn-default action-button">My Page</a>
                     </p>
             	</div>
@@ -122,10 +123,7 @@
 		    <button class="btn btn-primary btn-block" id="loginBtn" type="button">Log In</button>
 		  </div>
 		  	<div class="naverimg">
-			    <a href="#" class="forgot">Forgot your email or password?</a><br>
-				<a id="naverIdLogin_loginButton" href="#" role="button">
-					<img id="naverimg" src="https://static.nid.naver.com/oauth/big_g.PNG" width=200>
-				</a><br>
+			    <a href="#" class="forgot">Forgot your email or password?</a><br><br>
 		  	</div>
 	    </div>
 	  </div>

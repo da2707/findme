@@ -7,6 +7,7 @@ import kr.co.findme.repository.domain.Comment;
 
 public interface BoardMapper {
 	List<Board> selectBoard();
+	List<Board> listAllToMain();
 	Board selectBoardByNo(int no);
 	void insertBoard(Board board);
 	void updateBoard(Board board);

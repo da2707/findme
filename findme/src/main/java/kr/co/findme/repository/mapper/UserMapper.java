@@ -7,5 +7,4 @@ public interface UserMapper {
 	User login(String id);
 	void insertUser(User user);
 	int countId(String id);
-	User selectAcc(String email);
 }
