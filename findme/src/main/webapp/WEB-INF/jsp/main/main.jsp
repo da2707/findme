@@ -247,7 +247,7 @@
 		for (var i = 0; i < result.length; i++ ){
 		html += '	<tr>';
 		html += '		<td>';
-		html += '			<a href="'+ result[i].link +'">' + result[i].title + '</a>';
+		html += '			<a href="'+ result[i].link +'" target="_blank">' + result[i].title + '</a>';
 		html += '		</td>';
 		html += '	</tr>';
 		}
