@@ -47,6 +47,7 @@
 		select s.id, c.reg_date, s.app_cnt, s.first_cnt, s.second_cnt, s.third_cnt, s.fourth_cnt, s.fifth_cnt, s.result 
 		from tb_stat s
 		join tb_calendar c
+		on s.id=c.id
 		where s.id = #{id}
 		group by DATE_FORMAT(c.reg_date, '%Y-%m')
 	</select>

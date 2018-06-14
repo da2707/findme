@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/link/link.css">
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>

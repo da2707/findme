@@ -12,12 +12,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/video/video.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/mainpage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main/styles.min.css">
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/resources/js/video/youtubeSearch.js"></script>
 <script src="https://apis.google.com/js/client.js?onload=init"></script>
+<script src="${pageContext.request.contextPath}/resources/js/video/youtubeSearch.js"></script>
 </head>
 
 <body>
