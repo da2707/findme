@@ -26,7 +26,6 @@
                     <ul class="nav navbar-nav">
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/board/list.do">Community</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/schedule/schedule.do">MyCalendar</a></li>
-                        <li class="" role="presentation"><a href="${pageContext.request.contextPath}/resume/list.do">MyResume</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/mystat/chart.do">MyStat</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/studyroom/video.do">StudyRoom</a></li>
                         <li class="" role="presentation"><a href="${pageContext.request.contextPath}/recruiting/hireInfo.do">Recruiting</a></li>
@@ -61,9 +60,9 @@
         <div>
 			<button class="btn btn-default" type="button" id="detail" onclick="location.href='${pageContext.request.contextPath}/mystat/detail.do'">지원 목록 상세보기</button>
 		</div>
-<!--         <div> -->
-<!-- 			<button class="btn btn-default" type="button" id="updateChart">차트 새로고침하기</button> -->
-<!-- 		</div> -->
+        <div>
+			<button class="btn btn-default" type="button" id="updateChart">차트 새로고침하기</button>
+		</div>
     </div>
     
  <script>
@@ -108,8 +107,9 @@
         	var temp = [];
         	var rawDate = chartResult[i].regDate;
 			var regDate = moment(rawDate).format("YYYY/MM");
-// 			if(regDate.startsWith("1970")) {
-// 			}
+			if(regDate.startsWith("1970")) {
+				break;
+			}
         	temp.push(regDate);
         	temp.push(chartResult[i].appCnt);
         	temp.push(chartResult[i].firstCnt);
@@ -153,9 +153,12 @@
 	  chart.draw(data, options);
 	}
     
-//     $("#updateChart").click(function () {
-    	
-//     });
+    $("#updateChart").click(function () {
+    	$.ajax({
+    		url : `${pageContext.request.contextPath}/mystat/chartUpdate.json`,
+    		success: drawVisualization
+    	});
+    });
     
  </script>
  
