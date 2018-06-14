@@ -30,25 +30,17 @@
 		)
 	</insert>
 	
-	<update id="updateUser" parameterType="user">
-		update tb_user
-		   set pw=#{pw},
-		       name=#{name},
-		       email=#{email}
-		 where id=#{id}
-	</update>
-	
 	<select id="countId" parameterType="String" resultType="int">
 		select count(*)
 		  from tb_user
 		 where id = #{id}
 	</select>
 		
-	<select id = "selectAcc" resultMap="usermap" parameterType="string">
-		select *
-		  from tb_user
-		 where email = #{email}
-	</select>
+	<update id="changePw" parameterType="user">
+		update tb_user
+		   set pw=#{pw}, name=#{name}, email=#{email}
+		 where id=#{id}
+	</update>
 	
 	
 </mapper>

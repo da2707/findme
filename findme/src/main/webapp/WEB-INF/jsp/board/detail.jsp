@@ -49,7 +49,7 @@
                     	${id}<span id="welcome" style="color:red;"> 님 환영합니다</span>&nbsp;&nbsp;&nbsp;
                     	<a href="${pageContext.request.contextPath}/user/logout.do" id="logout"
                     	   class="navbar-link login">Log out</a>
-                    	<a href="#"
+                    	<a href="${pageContext.request.contextPath}/user/changePwForm.do"
                     	   class="navbar-link signup btn btn-default action-button">My Page</a>
                     </p>
             	</div>

@@ -26,4 +26,9 @@ public class UserServiceExec implements UserService{
 	public int countId(String id) throws Exception {
 		return mapper.countId(id);
 	}
+
+	@Override
+	public void changePw(User user) {
+		mapper.changePw(user);
+	}
 }

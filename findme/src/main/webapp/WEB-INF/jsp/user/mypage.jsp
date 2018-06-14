@@ -48,11 +48,11 @@
 <div class="container" id="container">
 	<br><br><h1>비밀번호 변경</h1><br><br><br>
 	<form action="pwchange" class="pwchange-form" id="form" method="post">
-		<div class="form-group">
+		<div class="form-control">
 			<label for="npw">새로운 비밀번호</label>
 			<input autocomplete="new-password" class="form-control" id="npw" name="npw" placeholder="Enter new password">
 		</div>
-		<div class="form-group">
+		<div class="form-control">
 			<label for="npw-check">새로운 비밀번호 재확인</label>
 			<input autocomplete="new-password" class="form-control" id="npw-check" placeholder="Enter new password again">
 		</div>

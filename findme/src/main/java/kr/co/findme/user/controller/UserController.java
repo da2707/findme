@@ -13,7 +13,7 @@ import kr.co.findme.user.service.UserService;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes("id")
+@SessionAttributes({"id", "name", "email"})
 public class UserController {
 
 	@Autowired
@@ -33,8 +33,12 @@ public class UserController {
 			msg = "비밀번호가 잘못되었습니다.";
 		} else {
 			System.out.println(loginUser);
-			model.addAttribute("user", loginUser);
+			System.out.println(loginUser.getId());
+			System.out.println(loginUser.getName());
+			System.out.println(loginUser.getEmail());
 			model.addAttribute("id", loginUser.getId());
+			model.addAttribute("name", loginUser.getName());
+			model.addAttribute("email", loginUser.getEmail());
 			// id 는 위에서 설정했기때문에 session에 올라간다.
 			return "/main.do";
 		}
@@ -70,22 +74,17 @@ public class UserController {
 		return "redirect:/main.do";
 	}
 	
-	@RequestMapping("/findPwForm.do")
-	public String findPwForm() throws Exception {
-		return "/user/findPw";
-	}
-	
-	@RequestMapping("/findPw.do")
-	public String selectAcc(User user, Model model) throws Exception {
-
-		
+	@RequestMapping("/changePw.do")
+	public String changPw(User user) throws Exception {
+		userService.changePw(user);
 		return "redirect:/main.do";
 	}
 	
-	@RequestMapping("/sendEmail.json")
-	public void sendEmail(User user, Model model) throws Exception {
-		
+	@RequestMapping("/changePwForm.do")
+	public String changPwForm() throws Exception {
+		return "/user/changePwForm";
 	}
+
 	
 
 }
