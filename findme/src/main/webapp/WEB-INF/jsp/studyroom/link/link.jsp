@@ -77,8 +77,8 @@
 							    <th class="tg-yw4l" style="width: 350px;">link</th>
 							    <th class="tg-yw4l" style="width: 150px;">category</th>
 							    <th class="tg-yw4l" style="width: 250px;">memo</th>
-							    <th class="tg-yw4l" style="width: 55px;"></th>
-							    <th class="tg-yw4l" style="width: 55px;"></th>
+							    <th class="tg-yw4l" style="width: 55px;">수정</th>
+							    <th class="tg-yw4l" style="width: 55px;">삭제</th>
 						    </tr>
 						  </thead>
 						  <tbody id="resultLink">
