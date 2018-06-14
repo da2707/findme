@@ -40,9 +40,9 @@ public class RecruitingController {
 	public List<HireInfo> makeHireInfo(String id){
 		try {
 			if(id != null) {
-				System.out.println("세션 ID 값 : " + id);
+//				System.out.println("세션 ID 값 : " + id);
 				Recruiting recruitingList = service.retrieveKey(id);
-				System.out.println(recruitingList);
+//				System.out.println(recruitingList);
 				
 				String job1 = recruitingList.getJobType1();
 				String job2 = recruitingList.getJobType2();
@@ -71,7 +71,7 @@ public class RecruitingController {
 				
 //			String postParams = "start=0&count=10";
 				String postParams = "";
-				System.out.println("-------------------------------" + start);
+//				System.out.println("-------------------------------" + start);
 				postParams = "start="+ start +"&count=10";
 				URL apiUrl = new URL("http://api.saramin.co.kr/job-search?" + postParams);
 				
@@ -108,7 +108,7 @@ public class RecruitingController {
 						
 						if(cName.equals("url")) {
 							apiUrl1=cNode.getTextContent();
-							System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+apiUrl1);
+//							System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+apiUrl1);
 						}
 						
 						
@@ -123,11 +123,11 @@ public class RecruitingController {
 //							System.out.println("태그명 : " + cName + ", 값 : " + cTime);
 							if(cName.equals("modification-timestamp")) {
 								modi_time = cTime;
-								System.out.println("수정일 : " + modi_time);
+//								System.out.println("수정일 : " + modi_time);
 							}
 							if(cName.equals("expiration-timestamp")) {
 								expi_time = cTime;
-								System.out.println("마감일 : " + expi_time);
+//								System.out.println("마감일 : " + expi_time);
 							}
 							continue;
 						}
@@ -136,7 +136,7 @@ public class RecruitingController {
 //						System.out.println("태그명 : " + cName + ", 값 : " + cNode.getTextContent());
 						if(cName.equals("company")) {
 							company = cNode.getTextContent();
-							System.out.println("회사 : " + cNode.getTextContent());
+//							System.out.println("회사 : " + cNode.getTextContent());
 							
 							NodeList cpList = cNode.getChildNodes();
 							for(int p = 0; p<cpList.getLength(); p++) {
@@ -148,7 +148,7 @@ public class RecruitingController {
 									Element cpElement = (Element)cpNode;
 									String cpEl = cpElement.getAttribute("href");
 									apiUrl2 = cpEl;
-									System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2"+apiUrl2);
+//									System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2"+apiUrl2);
 								}
 							}
 							
@@ -202,14 +202,14 @@ public class RecruitingController {
 										match1+=15;
 									}
 								}
-								System.out.println("태그명 : " + pName + ", 값 : " + pNode.getTextContent());
+//								System.out.println("태그명 : " + pName + ", 값 : " + pNode.getTextContent());
 							}
 							match = match1;
 							position = cNode.getTextContent();
-							System.out.println("채용정보 : " + cNode.getTextContent());
+//							System.out.println("채용정보 : " + cNode.getTextContent());
 						}
 					}
-					System.out.println("----------match--------------------" + match);
+//					System.out.println("----------match--------------------" + match);
 					info.setMatchs(match);
 					info.setModitimes(modi_time);
 					info.setExpitimes(expi_time);
@@ -288,7 +288,7 @@ public class RecruitingController {
 						
 						if(cName.equals("url")) {
 							apiUrl1=cNode.getTextContent();
-							System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+apiUrl1);
+//							System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+apiUrl1);
 						}
 						
 						
@@ -303,11 +303,11 @@ public class RecruitingController {
 //							System.out.println("태그명 : " + cName + ", 값 : " + cTime);
 							if(cName.equals("modification-timestamp")) {
 								modi_time = cTime;
-								System.out.println("수정일 : " + modi_time);
+//								System.out.println("수정일 : " + modi_time);
 							}
 							if(cName.equals("expiration-timestamp")) {
 								expi_time = cTime;
-								System.out.println("마감일 : " + expi_time);
+//								System.out.println("마감일 : " + expi_time);
 							}
 							continue;
 						}
@@ -316,7 +316,7 @@ public class RecruitingController {
 //						System.out.println("태그명 : " + cName + ", 값 : " + cNode.getTextContent());
 						if(cName.equals("company")) {
 							company = cNode.getTextContent();
-							System.out.println("회사 : " + cNode.getTextContent());
+//							System.out.println("회사 : " + cNode.getTextContent());
 							
 							NodeList cpList = cNode.getChildNodes();
 							for(int p = 0; p<cpList.getLength(); p++) {
@@ -328,7 +328,7 @@ public class RecruitingController {
 									Element cpElement = (Element)cpNode;
 									String cpEl = cpElement.getAttribute("href");
 									apiUrl2 = cpEl;
-									System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2"+apiUrl2);
+//									System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2"+apiUrl2);
 								}
 							}
 							
@@ -363,10 +363,10 @@ public class RecruitingController {
 								if(pName.equals("required-education-level")) {
 									apiEduLev = pNode.getTextContent();
 								}
-								System.out.println("태그명 : " + pName + ", 값 : " + pNode.getTextContent());
+//								System.out.println("태그명 : " + pName + ", 값 : " + pNode.getTextContent());
 							}
 							position = cNode.getTextContent();
-							System.out.println("채용정보 : " + cNode.getTextContent());
+//							System.out.println("채용정보 : " + cNode.getTextContent());
 						}
 					}
 					info.setModitimes(modi_time);
@@ -406,9 +406,9 @@ public class RecruitingController {
 	@RequestMapping("/manageKey.do")
 	public String manageKey(HttpSession session, Model model) throws Exception {
 		String id = (String)session.getAttribute("id");
-		System.out.println("세션 ID 값 : " + id);
+//		System.out.println("세션 ID 값 : " + id);
 		Recruiting recruitingList = service.retrieveKey(id);
-		System.out.println(recruitingList);
+//		System.out.println(recruitingList);
 		model.addAttribute("recruiting",recruitingList);
 		return "/recruiting/managekey";
 	}
@@ -416,7 +416,7 @@ public class RecruitingController {
 	@RequestMapping("/insertKey.json")
 	@ResponseBody
 	public Recruiting insertKey(Recruiting recruiting) throws Exception {
-		System.out.println(recruiting.getId());
+//		System.out.println(recruiting.getId());
 		service.insertKey(recruiting);
 		Recruiting recruitingList = service.retrieveKey(recruiting.getId());
 		return recruitingList;
