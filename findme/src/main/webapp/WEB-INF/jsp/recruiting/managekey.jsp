@@ -235,11 +235,17 @@
                                 									<option>석사졸업이상</option>
                                 								  </select> <br>
                                 경력 :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="career">
-                                								  	<option>1년이하</option>
-                                								  	<option>1~3년</option>
-                                								  	<option>3~6년</option>
-                                								  	<option>6~9년</option>
-                                								  	<option>10년이상</option>
+                                								  	<option>신입</option>
+                                								  	<option>1년</option>
+                                								  	<option>2년</option>
+                                								  	<option>3년</option>
+                                								  	<option>4년</option>
+                                								  	<option>5년</option>
+                                								  	<option>6년</option>
+                                								  	<option>7년</option>
+                                								  	<option>8년</option>
+                                								  	<option>9년</option>
+                                								  	<option>10년</option>
                                 								  </select> <br>
                                 급여 :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="salary">
                                 								   <option>회사내규에 따름</option>
