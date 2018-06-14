@@ -9,7 +9,7 @@ function tplawesome(e, t) {
 }
 
 $(function() {
-    $("form").on("submit", function(e) {
+    $("#youtubeForm").on("submit", function(e) {
        e.preventDefault();
        // prepare the request
        var request = gapi.client.youtube.search.list({
@@ -57,8 +57,7 @@ function resetVideoHeight() {
 }
 
 function init() {
-    gapi.client.setApiKey("API KEY");
+    gapi.client.setApiKey("Key");
     gapi.client.load("youtube", "v3", function() {
-        // yt api is ready
     });
 };

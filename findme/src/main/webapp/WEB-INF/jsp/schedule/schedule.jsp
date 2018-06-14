@@ -46,7 +46,7 @@
     </div>
     <div class="container" id="container">
     	<div class="row">
-	    	<div class="col-md-7">
+	    	<div class="col-md-6">
 		        <div class="panel-group" role="tablist" aria-multiselectable="true" id="calendar">
 		            <div class="panel panel-default">
 		                <div class="panel-heading" role="tab">
@@ -508,10 +508,7 @@
 	            
     			eventClick: function(calEvent, jsEvent, view) {
     				eventDetail(calEvent);
-    				
-
 	   			}
-	            
     		});
     	};
     	
