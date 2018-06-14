@@ -51,7 +51,7 @@
             <div>
         	<select onchange="window.open(value,'_self');">
 	        	<optgroup label="월별 Graph">
-    	    	<option value="${pageContext.request.contextPath}/mystat/graph.do">2018 상반기</option>
+    	    	<option value="${pageContext.request.contextPath}/mystat/chart.do">2018 상반기</option>
         		<option value="${pageContext.request.contextPath}/mystat/noneGraph.do" selected="">2018 하반기</option>
         		<option value="${pageContext.request.contextPath}/mystat/noneGraph.do">2019 상반기</option>
         		</optgroup>
